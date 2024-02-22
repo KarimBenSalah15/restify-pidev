@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 19 fév. 2024 à 22:10
+-- Généré le : jeu. 22 fév. 2024 à 11:36
 -- Version du serveur : 10.4.25-MariaDB
 -- Version de PHP : 8.1.10
 
@@ -127,6 +127,20 @@ CREATE TABLE `reclamation` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `reponse`
+--
+
+CREATE TABLE `reponse` (
+  `id` int(11) NOT NULL,
+  `admin_id` int(11) NOT NULL,
+  `reclamation_id` int(11) NOT NULL,
+  `message` varchar(255) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `reservation`
 --
 
@@ -137,20 +151,6 @@ CREATE TABLE `reservation` (
   `nbrpersonne` int(11) NOT NULL,
   `tab_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `signalement`
---
-
-CREATE TABLE `signalement` (
-  `id` int(11) NOT NULL,
-  `avis_id` int(11) NOT NULL,
-  `client_id` int(11) NOT NULL,
-  `message` varchar(255) NOT NULL,
-  `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -195,6 +195,15 @@ CREATE TABLE `utilisateur` (
   `salaire` int(11) DEFAULT NULL,
   `dateembauche` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `utilisateur`
+--
+
+INSERT INTO `utilisateur` (`id`, `nom`, `prenom`, `email`, `tel`, `login`, `mdp`, `role`, `poste`, `salaire`, `dateembauche`) VALUES
+(2, 'a', 'a', 'a', 1, 'a', 'a', 'employe', 'a', 1, '2024-02-21'),
+(3, 'b', 'b', 'b', 1, 'b', 'b', 'employe', 'b', 1, '2024-02-21'),
+(4, 'karim', 'ka', 'karim', 123, 'mehdi', 'mehdi', 'client', NULL, NULL, NULL);
 
 --
 -- Index pour les tables déchargées
@@ -251,20 +260,20 @@ ALTER TABLE `reclamation`
   ADD KEY `platforeign2` (`plat_id`);
 
 --
+-- Index pour la table `reponse`
+--
+ALTER TABLE `reponse`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `adminforeign` (`admin_id`),
+  ADD KEY `reclamationforeign` (`reclamation_id`);
+
+--
 -- Index pour la table `reservation`
 --
 ALTER TABLE `reservation`
   ADD PRIMARY KEY (`id`),
   ADD KEY `tabforeign` (`tab_id`),
   ADD KEY `userforeign` (`user_id`);
-
---
--- Index pour la table `signalement`
---
-ALTER TABLE `signalement`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `avisforeign` (`avis_id`),
-  ADD KEY `clientforeign2` (`client_id`);
 
 --
 -- Index pour la table `stock`
@@ -331,15 +340,15 @@ ALTER TABLE `reclamation`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `reservation`
+-- AUTO_INCREMENT pour la table `reponse`
 --
-ALTER TABLE `reservation`
+ALTER TABLE `reponse`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `signalement`
+-- AUTO_INCREMENT pour la table `reservation`
 --
-ALTER TABLE `signalement`
+ALTER TABLE `reservation`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -358,7 +367,7 @@ ALTER TABLE `table`
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Contraintes pour les tables déchargées
@@ -398,18 +407,18 @@ ALTER TABLE `reclamation`
   ADD CONSTRAINT `platforeign2` FOREIGN KEY (`plat_id`) REFERENCES `plat` (`id`);
 
 --
+-- Contraintes pour la table `reponse`
+--
+ALTER TABLE `reponse`
+  ADD CONSTRAINT `adminforeign` FOREIGN KEY (`admin_id`) REFERENCES `utilisateur` (`id`),
+  ADD CONSTRAINT `reclamationforeign` FOREIGN KEY (`reclamation_id`) REFERENCES `reclamation` (`id`);
+
+--
 -- Contraintes pour la table `reservation`
 --
 ALTER TABLE `reservation`
   ADD CONSTRAINT `tabforeign` FOREIGN KEY (`tab_id`) REFERENCES `table` (`id`),
   ADD CONSTRAINT `userforeign` FOREIGN KEY (`user_id`) REFERENCES `utilisateur` (`id`);
-
---
--- Contraintes pour la table `signalement`
---
-ALTER TABLE `signalement`
-  ADD CONSTRAINT `avisforeign` FOREIGN KEY (`avis_id`) REFERENCES `avis` (`id`),
-  ADD CONSTRAINT `clientforeign2` FOREIGN KEY (`client_id`) REFERENCES `utilisateur` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
