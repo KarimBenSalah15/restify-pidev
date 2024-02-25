@@ -1,0 +1,10 @@
+.table-view .column-header {
+    -fx-background-color: orange;
+}
+.table-view{
+    -fx-text-alignment: center;
+}
+.button{
+    -fx-background-color: #F44236;
+    -fx-font-size: 9px;
+}
