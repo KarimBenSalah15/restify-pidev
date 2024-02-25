@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane prefHeight="476.0" prefWidth="651.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.Controllers.NavbarController">
+   <children>
+      <VBox alignment="TOP_CENTER" prefHeight="61.0" prefWidth="651.0" style="-fx-background-color: #EF6C00;">
+         <children>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button layoutX="90.0" layoutY="18.0" mnemonicParsing="false" style="-fx-background-color: #EF6C00; -fx-border-color: #EF6C00;" stylesheets="@bar.css" text="reclamtion" />
+                  <ImageView fitHeight="61.0" fitWidth="100.0" layoutX="1.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../image.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
