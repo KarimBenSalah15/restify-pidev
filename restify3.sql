@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 22 fév. 2024 à 11:36
+-- Généré le : lun. 26 fév. 2024 à 15:47
 -- Version du serveur : 10.4.25-MariaDB
 -- Version de PHP : 8.1.10
 
@@ -86,7 +86,6 @@ CREATE TABLE `participant` (
 
 CREATE TABLE `plat` (
   `id` int(11) NOT NULL,
-  `produit_id` int(11) NOT NULL,
   `nom` varchar(255) NOT NULL,
   `prix` int(11) NOT NULL,
   `calorie` int(11) NOT NULL
@@ -102,7 +101,6 @@ CREATE TABLE `produit` (
   `id` int(11) NOT NULL,
   `stock_id` int(11) NOT NULL,
   `nom` varchar(255) NOT NULL,
-  `dispo` tinyint(1) NOT NULL,
   `type` varchar(255) NOT NULL,
   `prix` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -148,7 +146,7 @@ CREATE TABLE `reservation` (
   `id` int(11) NOT NULL,
   `date` date NOT NULL,
   `heure` varchar(255) NOT NULL,
-  `nbrpersonne` int(11) NOT NULL,
+  `nbpersonne` int(11) NOT NULL,
   `tab_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -160,7 +158,9 @@ CREATE TABLE `reservation` (
 --
 
 CREATE TABLE `stock` (
-  `id` int(11) NOT NULL
+  `id` int(11) NOT NULL,
+  `produit_id` int(11) NOT NULL,
+  `quantite` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -170,7 +170,7 @@ CREATE TABLE `stock` (
 --
 
 CREATE TABLE `table` (
-  `id` int(11) NOT NULL,
+  `idtable` int(11) NOT NULL,
   `nbrplace` int(11) NOT NULL,
   `place` varchar(255) NOT NULL,
   `dispo` tinyint(1) NOT NULL
@@ -190,7 +190,7 @@ CREATE TABLE `utilisateur` (
   `tel` int(11) NOT NULL,
   `login` varchar(255) NOT NULL,
   `mdp` varchar(255) NOT NULL,
-  `role` enum('admin','client','employe') NOT NULL,
+  `role` varchar(255) NOT NULL DEFAULT 'Client',
   `poste` varchar(255) DEFAULT NULL,
   `salaire` int(11) DEFAULT NULL,
   `dateembauche` date DEFAULT NULL
@@ -201,9 +201,8 @@ CREATE TABLE `utilisateur` (
 --
 
 INSERT INTO `utilisateur` (`id`, `nom`, `prenom`, `email`, `tel`, `login`, `mdp`, `role`, `poste`, `salaire`, `dateembauche`) VALUES
-(2, 'a', 'a', 'a', 1, 'a', 'a', 'employe', 'a', 1, '2024-02-21'),
-(3, 'b', 'b', 'b', 1, 'b', 'b', 'employe', 'b', 1, '2024-02-21'),
-(4, 'karim', 'ka', 'karim', 123, 'mehdi', 'mehdi', 'client', NULL, NULL, NULL);
+(7, 'Ben Salah', 'Karim', 'karim.bensalah@esprit.tn', 92949100, 'admin', 'admin', 'Admin', 'Gérant', NULL, NULL),
+(10, 'Ben Hadj Yahia', 'Mehdi', 'mehdi.benhadjyahia@esprit.tn', 25242937, 'madoaa', 'mehdi', 'Client', NULL, 0, NULL);
 
 --
 -- Index pour les tables déchargées
@@ -240,8 +239,7 @@ ALTER TABLE `participant`
 -- Index pour la table `plat`
 --
 ALTER TABLE `plat`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `produitforeign` (`produit_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `produit`
@@ -279,13 +277,14 @@ ALTER TABLE `reservation`
 -- Index pour la table `stock`
 --
 ALTER TABLE `stock`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `produitforeign2` (`produit_id`);
 
 --
 -- Index pour la table `table`
 --
 ALTER TABLE `table`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`idtable`);
 
 --
 -- Index pour la table `utilisateur`
@@ -361,13 +360,13 @@ ALTER TABLE `stock`
 -- AUTO_INCREMENT pour la table `table`
 --
 ALTER TABLE `table`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idtable` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Contraintes pour les tables déchargées
@@ -385,12 +384,6 @@ ALTER TABLE `avis`
 --
 ALTER TABLE `commande`
   ADD CONSTRAINT `platforeign3` FOREIGN KEY (`plat_id`) REFERENCES `plat` (`id`);
-
---
--- Contraintes pour la table `plat`
---
-ALTER TABLE `plat`
-  ADD CONSTRAINT `produitforeign` FOREIGN KEY (`produit_id`) REFERENCES `produit` (`id`);
 
 --
 -- Contraintes pour la table `produit`
@@ -417,8 +410,14 @@ ALTER TABLE `reponse`
 -- Contraintes pour la table `reservation`
 --
 ALTER TABLE `reservation`
-  ADD CONSTRAINT `tabforeign` FOREIGN KEY (`tab_id`) REFERENCES `table` (`id`),
+  ADD CONSTRAINT `tabforeign` FOREIGN KEY (`tab_id`) REFERENCES `table` (`idtable`),
   ADD CONSTRAINT `userforeign` FOREIGN KEY (`user_id`) REFERENCES `utilisateur` (`id`);
+
+--
+-- Contraintes pour la table `stock`
+--
+ALTER TABLE `stock`
+  ADD CONSTRAINT `produitforeign2` FOREIGN KEY (`produit_id`) REFERENCES `produit` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
