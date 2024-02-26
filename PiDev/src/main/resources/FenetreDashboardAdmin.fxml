@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="centerpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="890.0" prefWidth="1315.0" styleClass="gradient-background" stylesheets="@resourcesdashboardadmin/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FenetreDashboardAdmin">
+   <top>
+      <HBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" prefHeight="62.0" prefWidth="248.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Admin Dashboard" textFill="WHITE">
+               <font>
+                  <Font name="Bodoni MT" size="30.0" />
+               </font>
+            </Label>
+            <Pane maxHeight="-Infinity" prefHeight="1.0" prefWidth="200.0" styleClass="line-color" stylesheets="@resourcesdashboardadmin/style.css" HBox.hgrow="ALWAYS" />
+            <ImageView fitHeight="56.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resourcesdashboardadmin/img/logout.png" />
+               </image>
+            </ImageView>
+         </children>
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
+      </HBox>
+   </top>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="290.0" spacing="10.0" styleClass="container" stylesheets="@resourcesdashboardadmin/style.css" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="282.0">
+                     <children>
+                        <ImageView fitHeight="100.0" fitWidth="175.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+                           <image>
+                              <Image url="@resourcesdashboardadmin/img/logo.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </ImageView>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <VBox prefHeight="539.0" prefWidth="290.0" spacing="20.0">
+               <children>
+                  <HBox fx:id="btn_user" alignment="CENTER" prefHeight="60.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+                           <image>
+                              <Image url="@resourcesdashboardadmin/img/user.png" />
+                           </image>
+                        </ImageView>
+                        <Label onMouseClicked="#btn_affichuser" prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Utilisateurs" textFill="WHITE">
+                           <font>
+                              <Font name="Bodoni MT Condensed" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="btn_stock" alignment="CENTER" prefHeight="60.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+                           <image>
+                              <Image url="@resourcesdashboardadmin/img/stocks.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Stock" textFill="WHITE">
+                           <font>
+                              <Font name="Bodoni MT Condensed" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="btn_resa" alignment="CENTER" prefHeight="60.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+                           <image>
+                              <Image url="@resourcesdashboardadmin/img/reservation.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Réservations" textFill="WHITE">
+                           <font>
+                              <Font name="Bodoni MT Condensed" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="btn_event" alignment="CENTER" prefHeight="60.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+                           <image>
+                              <Image url="@resourcesdashboardadmin/img/evenement.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Évènements" textFill="WHITE">
+                           <font>
+                              <Font name="Bodoni MT Condensed" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="btn_commande" alignment="CENTER" prefHeight="60.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+                           <image>
+                              <Image url="@resourcesdashboardadmin/img/commandes.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Commandes" textFill="WHITE">
+                           <font>
+                              <Font name="Bodoni MT Condensed" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+                           <image>
+                              <Image url="@resourcesdashboardadmin/img/plat.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="btn_plat" prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Plats" textFill="WHITE">
+                           <font>
+                              <Font name="Bodoni MT Condensed" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="btn_recla" alignment="CENTER" prefHeight="60.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+                           <image>
+                              <Image url="@resourcesdashboardadmin/img/reclamation.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Réclamations" textFill="WHITE">
+                           <font>
+                              <Font name="Bodoni MT Condensed" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <BorderPane fx:id="bp_affich" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="20.0" left="100.0" right="50.0" top="20.0" />
+         </BorderPane.margin>
+      </BorderPane>
+   </center>
+</BorderPane>

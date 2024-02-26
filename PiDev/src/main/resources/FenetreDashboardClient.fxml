@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="890.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <Pane prefHeight="105.0" prefWidth="1315.0" styleClass="gradient-background" stylesheets="@resourcesdashboardclient/style.css" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="117.0" fitWidth="122.0" layoutX="12.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resourcesdashboardclient/img/logo.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="45.0" fitWidth="46.0" layoutX="1087.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resourcesdashboardclient/img/commandes.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="46.0" layoutX="1269.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resourcesdashboardclient/img/logout.png" />
+               </image>
+            </ImageView>
+            <Text fill="WHITE" layoutX="248.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Accueil">
+               <font>
+                  <Font name="Eras Bold ITC" size="22.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="439.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reserver">
+               <font>
+                  <Font name="Eras Bold ITC" size="22.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="647.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reclamation">
+               <font>
+                  <Font name="Eras Bold ITC" size="22.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="896.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Evenements">
+               <font>
+                  <Font name="Eras Bold ITC" size="22.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="37.0" fitWidth="29.0" layoutX="408.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resourcesdashboardclient/img/reservation.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="37.0" fitWidth="29.0" layoutX="612.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resourcesdashboardclient/img/reclamation.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="37.0" fitWidth="29.0" layoutX="863.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resourcesdashboardclient/img/evenement.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="38.0" fitWidth="38.0" layoutX="210.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resourcesdashboardclient/img/home.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="46.0" layoutX="1212.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resourcesdashboardclient/img/user.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="1115.0" layoutY="16.0" prefHeight="21.0" prefWidth="14.0" styleClass="shadow" stylesheets="@resourcesdashboardclient/style.css" text="0" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </top>
+</BorderPane>
