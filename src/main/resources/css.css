@@ -1,0 +1,36 @@
+#pane_top{
+    -fx-background-color:  #f44336;
+}
+#pane2{
+    -fx-background-color:  #9e9e9e;
+}
+
+#label_top{
+    -fx-prompt-text-fill: white;
+}
+#anco, #ancoleft, #ancoright{
+    -fx-border-style: dotted;
+}
+#btnsave{
+    -fx-background-color: #ef6c00;
+}
+#btnprint{
+    -fx-background-color:  #f44336;
+}
+.jfx-button{
+    -fx-opacity: 1;
+    -fx-text-fill: white;
+}
+.jfx-button:hover{
+    -fx-opacity: 2;
+    -fx-background-color: #f44336;
+}
+#btnplus{
+    -fx-text-fill: black;
+}
+#btndelete{
+    -fx-background-color: #f44336;
+}
+#btnedit{
+    -fx-background-color: #ef6c00;
+}

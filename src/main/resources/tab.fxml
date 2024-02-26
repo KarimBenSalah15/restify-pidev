@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="anc" prefHeight="572.0" prefWidth="700.0" stylesheets="@css.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.Tab">
+   <children>
+      <Pane fx:id="pane2" prefHeight="572.0" prefWidth="272.0" />
+      <Pane fx:id="pane_top" layoutX="-1.0" layoutY="-1.0" prefHeight="70.0" prefWidth="708.0">
+         <children>
+            <Label fx:id="label_top" layoutX="49.0" layoutY="24.0" prefHeight="23.0" prefWidth="281.0" text="RESERVEZ UNE TABLE !" textFill="#fb8c00">
+               <font>
+                  <Font name="Arial" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <AnchorPane fx:id="anco" layoutX="5.0" layoutY="81.0" prefHeight="487.0" prefWidth="690.0">
+         <children>
+            <AnchorPane fx:id="ancoleft" layoutX="10.0" layoutY="14.0" prefHeight="467.0" prefWidth="246.0">
+               <children>
+                  <JFXComboBox fx:id="nbplaceid" focusColor="#ef6c00" layoutX="31.0" layoutY="46.0" prefHeight="38.0" prefWidth="184.0" promptText="NBPLACE" unFocusColor="#ef6c00" />
+                  <JFXComboBox fx:id="placeid" focusColor="#ef6c00" layoutX="31.0" layoutY="115.0" prefHeight="38.0" prefWidth="184.0" promptText="PLACE" unFocusColor="#ef6c00" />
+                  <JFXComboBox fx:id="disponibiliteid" focusColor="#ef6c00" layoutX="31.0" layoutY="191.0" prefHeight="38.0" prefWidth="184.0" promptText="DISPONIBILITE" unFocusColor="#ef6c00" />
+                  <JFXButton fx:id="btnplus" layoutX="216.0" layoutY="134.0" prefHeight="38.0" prefWidth="25.0" text="+">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="btnsave" buttonType="RAISED" layoutX="14.0" layoutY="254.0" onAction="#save1" prefHeight="23.0" prefWidth="75.0" text="save" />
+                  <JFXButton fx:id="btndelete" buttonType="RAISED" layoutX="97.0" layoutY="254.0" onAction="#save2" prefHeight="23.0" prefWidth="75.0" text="delete" />
+                  <JFXButton fx:id="btnedit" buttonType="RAISED" layoutX="177.0" layoutY="254.0" onAction="#save3" prefHeight="23.0" prefWidth="75.0" text="edit" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="ancoright" layoutX="277.0" layoutY="14.0" prefHeight="467.0" prefWidth="403.0">
+               <children>
+                  <TableView fx:id="tabview" layoutX="12.0" layoutY="35.0" prefHeight="296.0" prefWidth="380.0">
+                    <columns>
+                      <TableColumn fx:id="id" prefWidth="95.199951171875" text="ID" />
+                      <TableColumn fx:id="nbplaceid1" prefWidth="96.800048828125" text="NPLACE" />
+                        <TableColumn fx:id="placeid1" prefWidth="96.00003051757812" text="PLACE" />
+                        <TableColumn fx:id="disponibiliteid1" prefWidth="89.5999755859375" text="DISPONIBILITE" />
+                    </columns>
+                  </TableView>
+                  <JFXButton fx:id="btnprint" buttonType="RAISED" layoutX="298.0" layoutY="5.0" prefHeight="26.0" prefWidth="97.0" text="Print Preview" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
