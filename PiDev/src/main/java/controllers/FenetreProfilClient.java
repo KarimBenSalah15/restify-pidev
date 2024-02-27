@@ -38,9 +38,6 @@ public class FenetreProfilClient {
     @FXML
     private TextField tf_prenomprof;
 
-    private int idpersonneco;
-
-
     @FXML
     private TextField tf_telprof;
 
@@ -50,13 +47,6 @@ public class FenetreProfilClient {
         cnx2 = MyConnection.getInstance().getCnx();
     }
 
-    public int getId() {
-        return idpersonneco;
-    }
-
-    public void setId(int id) {
-        this.idpersonneco = id;
-    }
 
     @FXML
     void initialize() {
@@ -90,7 +80,7 @@ public class FenetreProfilClient {
             pst.setInt(4, Integer.parseInt(tf_telprof.getText()));
             pst.setString(5, tf_loginprof.getText());
             pst.setString(6, tf_mdpprof.getText());
-            pst.setInt(7,idpersonneco);
+            pst.setInt(7,MyConnection.getInstance().getIdenvoi());
             pst.executeUpdate();
             int rowsUpdated = pst.executeUpdate();
             if (rowsUpdated > 0) {
@@ -109,7 +99,7 @@ public class FenetreProfilClient {
         String req3 = "DELETE from Utilisateur where id=?";
         try {
             PreparedStatement pst = cnx2.prepareStatement(req3);
-            pst.setInt(1,idpersonneco);
+            pst.setInt(1,MyConnection.getInstance().getIdenvoi());
             pst.executeUpdate();
             showAlert("Succès", "Personne supprimée avec succès.");
         }

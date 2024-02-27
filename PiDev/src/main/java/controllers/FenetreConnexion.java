@@ -69,15 +69,14 @@ public class FenetreConnexion {
                         ResultSet rs2 = st2.executeQuery(req2);
                         if (rs2.next()) {
                             int idenvoi = rs2.getInt(1);
+                            MyConnection.getInstance().setIdenvoi(idenvoi);
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FenetreDashboardClient.fxml"));
                             try {
                                 Parent root = loader.load();
                                 Scene scene = new Scene(root, 1315, 890);
                                 Stage stage = (Stage) tf_login_con.getScene().getWindow();
-                                FenetreProfilClient pc = loader.getController();
-                                pc.setId(idenvoi);
                                 stage.setScene(scene);
-                                stage.show();
+                                stage.setFullScreen(true);
                             } catch (IOException e) {
                                 System.err.println(e.getMessage());
                             }
@@ -99,10 +98,9 @@ public class FenetreConnexion {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FenetreDashboardAdmin.fxml"));
                         try {
                             Parent root = loader.load();
-                            Scene scene = new Scene(root, 1315, 890);
+                            Scene scene = new Scene(root, 1920, 1080);
                             Stage stage = (Stage) tf_login_con.getScene().getWindow();
                             stage.setScene(scene);
-                            stage.setFullScreen(true);
                         } catch (IOException e) {
                             System.err.println(e.getMessage());
                         }

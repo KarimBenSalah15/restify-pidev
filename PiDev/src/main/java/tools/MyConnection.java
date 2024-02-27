@@ -9,7 +9,16 @@ public class MyConnection {
     public String login="root";
     public String pwd="";
     Connection cnx;
+    public int idenvoi;
     public static MyConnection instance;
+
+    public int getIdenvoi() {
+        return idenvoi;
+    }
+
+    public void setIdenvoi(int idenvoi) {
+        this.idenvoi = idenvoi;
+    }
 
     private MyConnection() {
         try {

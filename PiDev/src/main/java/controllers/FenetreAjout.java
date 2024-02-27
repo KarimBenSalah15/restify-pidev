@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import tools.MyConnection;
 
 public class FenetreAjout {
@@ -54,10 +55,15 @@ public class FenetreAjout {
     @FXML
     private TextField tf_telemp;
 
+    private FenetreAffichage hp;
     Connection cnx2;
 
     public FenetreAjout() {
         cnx2 = MyConnection.getInstance().getCnx();
+    }
+
+    public void setHp(FenetreAffichage hp) {
+        this.hp = hp;
     }
 
     @FXML
@@ -134,20 +140,14 @@ public class FenetreAjout {
                 pst.setString(9, tf_salaireemp.getText());
                 pst.setDate(10, sqlDate);
                 pst.executeUpdate();
+                hp.afficheru();
                 showAlert("Succès", "Vous avez bien ajouté le nouvel employé.");
             }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
-
-        //Redirection vers le tableau des utilisateurs
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FenetreAffichage.fxml"));
-        try {
-            Parent root = loader.load();
-            tf_nomemp.getScene().setRoot(root);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        Stage ajout = (Stage) tf_nomemp.getScene().getWindow();
+        ajout.close();
     }
 
 

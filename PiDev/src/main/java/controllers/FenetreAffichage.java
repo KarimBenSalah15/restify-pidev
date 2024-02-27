@@ -15,9 +15,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.converter.IntegerStringConverter;
 import tools.MyConnection;
 
@@ -81,7 +84,7 @@ public class FenetreAffichage {
         cnx2 = MyConnection.getInstance().getCnx();
     }
 
-    private ObservableList<Utilisateur> afficher() {
+    public ObservableList<Utilisateur> afficher() {
         ObservableList<Utilisateur> list = FXCollections.observableArrayList();
         String req2 = "SELECT * from Utilisateur";
         try {
@@ -302,11 +305,18 @@ public class FenetreAffichage {
     }
 
     public void redirectionajout(ActionEvent actionEvent) {
-        //Redirection vers le tableau des utilisateurs
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FenetreAjout.fxml"));
         try {
             Parent root = loader.load();
-            btn_ajout2.getScene().setRoot(root);
+            Scene scene = new Scene(root, 500, 350);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+            FenetreAjout aj = loader.getController();
+            aj.setHp(this);
+            stage.setOnHidden((WindowEvent windowevent) ->{
+                afficheru();
+            } );
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
