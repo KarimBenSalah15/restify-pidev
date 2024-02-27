@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox maxHeight="550.0" maxWidth="1000.0" minHeight="550.0" minWidth="1000.0" prefHeight="550.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Evenement.ParticipantController">
+   <children>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="1022.0">
+         <children>
+            <TableView fx:id="tableP" layoutX="354.0" layoutY="108.0" onMouseClicked="#getData" prefHeight="249.0" prefWidth="579.0" styleClass="table-row-cell" stylesheets="@css/style.css">
+               <columns>
+                  <TableColumn fx:id="idP" minWidth="20.0" prefWidth="84.0" text="ID" />
+                  <TableColumn fx:id="nomP" minWidth="20.0" prefWidth="165.0" text="Nom" />
+                  <TableColumn fx:id="prenomP" minWidth="20.0" prefWidth="165.0" text="prenom" />
+                  <TableColumn fx:id="ageP" minWidth="20.0" prefWidth="155.0" text="age" />
+               </columns>
+            </TableView>
+            <TextField fx:id="nomTextField" layoutX="127.0" layoutY="108.0" prefHeight="30.0" prefWidth="164.0" />
+            <TextField fx:id="prenomTextField" layoutX="127.0" layoutY="163.0" prefHeight="30.0" prefWidth="164.0" />
+            <Label layoutX="28.0" layoutY="112.0" prefHeight="17.0" prefWidth="55.0" text="Nom:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="21.0" layoutY="167.0" text="Prenom:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="ageTextField1" layoutX="127.0" layoutY="214.0" prefHeight="30.0" prefWidth="164.0" />
+            <Label layoutX="36.0" layoutY="218.0" prefHeight="25.0" prefWidth="71.0" text="Age:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <VBox layoutX="28.0" layoutY="406.0" prefHeight="84.0" prefWidth="905.0">
+               <children>
+                  <Button fx:id="btnSave" mnemonicParsing="false" onAction="#ajouterParticipant" prefHeight="27.0" prefWidth="908.0" styleClass="button2" stylesheets="@css/style.css" text="Ajouter un participant">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#update" prefHeight="26.0" prefWidth="924.0" styleClass="container" stylesheets="@css/style.css" text="Mise a jour d'un participant">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#supprimerParticipant" prefHeight="26.0" prefWidth="924.0" styleClass="container" stylesheets="@css/style.css" text="supprimer un participant">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+            <Text layoutX="13.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Participants" wrappingWidth="188.13671875">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Text>
+            <Pane layoutY="60.0" prefHeight="5.0" prefWidth="933.0" style="-fx-background-color: black;" />
+         </children>
+      </Pane>
+   </children>
+</HBox>

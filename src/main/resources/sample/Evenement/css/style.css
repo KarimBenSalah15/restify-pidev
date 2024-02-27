@@ -1,9 +1,9 @@
 
-.gradient-background{
-    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%,#D91F4E,#FF854C);
+/*.gradient-background{
+    -fx-background-color: linear-gradient(from 50% 50% to 100% 100%,#D91F4E,#FF854C);
 }
 .line-color{
-    -fx-background-color: #F3ABB5;
+    -fx-background-color: #000000;
 }
 .container{
     -fx-background-color: rgba(255,255,255,0.2);
@@ -11,4 +11,123 @@
 }
 .shadow{
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10.0, 0.0, 0.0, 10.0);
+}
+.button1{
+    -fx-background-color: "ffffff";
+}
+.button2{
+    -fx-background-color: linear-gradient(to bottom left , #708090,#708090);
+}
+.button3 {-fx-background-color: #708090;}*/
+.nav-btn{
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+.nav-btn1{
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-font-family: "Arial";
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-border-color: #c5c2c2;
+    -fx-border-width: 1px;
+}
+.nav-btn2{
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-position: buttom;
+}
+
+
+.background{
+    -fx-background-color: #E6E5E5;
+    -fx-background-radius:8px;
+}
+
+.My-background{
+    -fx-background-color: #eee8e8;
+
+}
+
+/* Default style */
+.my-button {
+    -fx-font-size: 30pt;
+    -fx-font-weight: normal;
+}
+
+/* Hover style */
+.my-button:hover {
+    -fx-font-size: 20pt;
+    -fx-font-weight: bold;
+}
+/* Default style */
+.my-button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-font-family: "Arial";
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000; /* Text color */
+    /*-fx-padding: 10px 20px;*/
+    /*-fx-border-radius: 5px; !* Rounded corners *!*/
+    /*-fx-background-radius: 5px; !* Rounded corners *!*/
+    -fx-transition: all 0.3s ease; /* Smooth transition */
+}
+
+/* Hover style */
+.my-button:hover {
+    -fx-font-size: 13pt;
+    -fx-font-family: "Arial";
+    /*-fx-font-weight: regular;*/
+    -fx-background-color: rgba(227, 234, 255, 0.5);
+    -fx-effect: dropshadow(gaussian, rgba(87, 84, 84, 0.5), 10, 0, 0, 2); /* Shadow effect */
+    /*button content */
+
+
+
+}
+
+
+/* Style for the buttons */
+.button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #8b8585;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+}
+
+.button:hover {
+    -fx-background-color: #5C7080;
+    -fx-text-fill: #ffffff;
+}
+
+.button:pressed {
+    -fx-background-color: linear-gradient(#7E8BBA, white);
+}
+
+/* Style for the triangle */
+.triangle {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent transparent #5C7080;
+    -fx-border-width: 10px;
+    -fx-border-style: solid;
+    -fx-shape: "M0 0 L10 10 L0 20 Z";
+}
+.shadow{
+    -fx-effect:dropshadow(three-pass-box, rgba(0,0,0,0.5), 6,0,0,0);
+}
+
+.white-bg{
+    -fx-background-color:#E6E5E5;
+    -fx-background-radius:8px;
 }
