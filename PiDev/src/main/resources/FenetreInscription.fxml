@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
+<?import javafx.scene.control.PasswordField?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FenetreInscription">
    <children>
       <Label layoutX="51.0" layoutY="115.0" text="Nom" />
@@ -18,7 +19,7 @@
       <TextField fx:id="tf_email" layoutX="98.0" layoutY="245.0" />
       <TextField fx:id="tf_tel" layoutX="355.0" layoutY="111.0" />
       <TextField fx:id="tf_login" layoutX="355.0" layoutY="178.0" />
-      <TextField fx:id="tf_mdp" layoutX="355.0" layoutY="245.0" />
+      <PasswordField fx:id="tf_mdp" layoutX="355.0" layoutY="245.0" />
       <Button fx:id="btn_insc" layoutX="184.0" layoutY="333.0" mnemonicParsing="false" onAction="#inscription" text="S'inscrire" />
       <Button fx:id="btn_insc1" layoutX="344.0" layoutY="333.0" mnemonicParsing="false" onAction="#emmeneconnexion" text="Se connecter" />
    </children>

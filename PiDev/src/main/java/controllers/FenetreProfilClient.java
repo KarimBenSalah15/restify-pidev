@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import tools.MyConnection;
 
 public class FenetreProfilClient {
@@ -48,6 +49,53 @@ public class FenetreProfilClient {
         cnx2 = MyConnection.getInstance().getCnx();
     }
 
+    public TextField getTf_emailprof() {
+        return tf_emailprof;
+    }
+
+    public TextField getTf_loginprof() {
+        return tf_loginprof;
+    }
+
+    public TextField getTf_mdpprof() {
+        return tf_mdpprof;
+    }
+
+    public TextField getTf_nomprof() {
+        return tf_nomprof;
+    }
+
+    public TextField getTf_prenomprof() {
+        return tf_prenomprof;
+    }
+
+    public TextField getTf_telprof() {
+        return tf_telprof;
+    }
+
+    public void setTf_emailprof(TextField tf_emailprof) {
+        this.tf_emailprof = tf_emailprof;
+    }
+
+    public void setTf_loginprof(TextField tf_loginprof) {
+        this.tf_loginprof = tf_loginprof;
+    }
+
+    public void setTf_mdpprof(TextField tf_mdpprof) {
+        this.tf_mdpprof = tf_mdpprof;
+    }
+
+    public void setTf_nomprof(TextField tf_nomprof) {
+        this.tf_nomprof = tf_nomprof;
+    }
+
+    public void setTf_prenomprof(TextField tf_prenomprof) {
+        this.tf_prenomprof = tf_prenomprof;
+    }
+
+    public void setTf_telprof(TextField tf_telprof) {
+        this.tf_telprof = tf_telprof;
+    }
 
     @FXML
     void initialize() {
@@ -98,6 +146,8 @@ public class FenetreProfilClient {
             int rowsUpdated = pst.executeUpdate();
             if (rowsUpdated > 0) {
                 showAlert("Succès", "Personne mise à jour avec succès.");
+                FenetreDashboardClient refresh = new FenetreDashboardClient();
+                refresh.affichagemodif();
             } else {
                 showAlert("Erreur", "Échec de la mise à jour de la personne.");
             }
@@ -119,6 +169,8 @@ public class FenetreProfilClient {
         catch(SQLException e) {
             System.err.println(e.getMessage());
         }
+        Stage suppr = (Stage) tf_nomprof.getScene().getWindow();
+        suppr.close();
     }
 
     private boolean utilisateurExistelogin(String login, int id) {

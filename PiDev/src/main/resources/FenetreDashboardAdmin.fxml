@@ -20,7 +20,7 @@
                </font>
             </Label>
             <Pane maxHeight="-Infinity" prefHeight="1.0" prefWidth="200.0" styleClass="line-color" stylesheets="@resourcesdashboardadmin/style.css" HBox.hgrow="ALWAYS" />
-            <ImageView fitHeight="56.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="56.0" fitWidth="35.0" onMouseClicked="#decocadmin" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@resourcesdashboardadmin/img/logout.png" />
                </image>

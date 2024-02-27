@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 public class FenetreDashboardAdmin {
 
@@ -66,5 +67,10 @@ public class FenetreDashboardAdmin {
         }catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+    @FXML
+    void decocadmin(MouseEvent event) {
+        Stage deco = (Stage) btn_user.getScene().getWindow();
+        deco.close();
     }
 }

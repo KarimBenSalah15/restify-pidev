@@ -136,6 +136,7 @@ public class FenetreAffichage {
             String email = employe.getEmail();
             if (!isValidEmail(email)) {
                 showAlert("Erreur", "Veuillez entrer une adresse email valide.");
+                afficheru();
                 return;
             }
             pst.setString(3, employe.getEmail());

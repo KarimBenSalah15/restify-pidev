@@ -23,7 +23,7 @@
                   <Image url="@resourcesdashboardclient/img/commandes.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="30.0" fitWidth="46.0" layoutX="1269.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="46.0" layoutX="1269.0" layoutY="35.0" onMouseClicked="#decoclient" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@resourcesdashboardclient/img/logout.png" />
                </image>

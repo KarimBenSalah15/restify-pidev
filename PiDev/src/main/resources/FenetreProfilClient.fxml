@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
+<?import javafx.scene.control.PasswordField?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FenetreProfilClient">
     <children>
         <Label layoutX="51.0" layoutY="115.0" text="Nom" />
@@ -18,7 +19,7 @@
         <TextField fx:id="tf_emailprof" layoutX="98.0" layoutY="245.0" />
         <TextField fx:id="tf_telprof" layoutX="355.0" layoutY="111.0" />
         <TextField fx:id="tf_loginprof" layoutX="355.0" layoutY="178.0" />
-        <TextField fx:id="tf_mdpprof" layoutX="355.0" layoutY="245.0" />
+        <PasswordField fx:id="tf_mdpprof" layoutX="355.0" layoutY="245.0" />
       <Button fx:id="btn_modifprof" layoutX="99.0" layoutY="332.0" mnemonicParsing="false" onAction="#modifierprofil" text="Modifier les informations" />
       <Button fx:id="btn_suppprof" layoutX="355.0" layoutY="332.0" mnemonicParsing="false" onAction="#supprimerprofil" text="Supprimer le compte" />
       <Label layoutX="227.0" layoutY="45.0" text="MODIFICATION DU PROFIL" />
