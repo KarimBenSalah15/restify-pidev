@@ -1,23 +1,47 @@
-    package projectfinder;
+    package sample.projectfinder;
 
+    import javafx.scene.chart.*;
     import com.twilio.Twilio;
     import com.twilio.rest.api.v2010.account.Message;
     import com.twilio.type.PhoneNumber;
+
+
+    import javafx.scene.chart.BarChart;
+    import java.io.IOException;
+    import java.net.URL;
+    import java.util.ResourceBundle;
+    import javafx.event.ActionEvent;
+    import javafx.fxml.FXML;
+    import javafx.fxml.FXMLLoader;
+    import javafx.fxml.Initializable;
+    import javafx.scene.Parent;
+    import javafx.scene.control.Button;
+    import javafx.scene.control.TableColumn;
+    import javafx.scene.control.TableView;
+    import javafx.scene.control.TextField;
+    import javafx.scene.input.MouseEvent;
+
     import javafx.collections.FXCollections;
     import javafx.collections.ObservableList;
     import javafx.event.ActionEvent;
     import javafx.fxml.FXML;
-    import javafx.fxml.Initializable;
-    import javafx.scene.chart.*;
     import javafx.scene.control.*;
     import javafx.scene.control.cell.PropertyValueFactory;
-    import javafx.scene.input.MouseEvent;
 
     import java.net.URL;
     import java.sql.*;
     import java.util.ResourceBundle;
     import java.util.logging.Level;
     import java.util.logging.Logger;
+
+    import javafx.scene.input.MouseEvent;
+    import javafx.scene.control.Alert;
+    import javafx.scene.chart.BarChart;
+    import javafx.scene.chart.CategoryAxis;
+    import javafx.scene.chart.NumberAxis;
+    import javafx.scene.chart.XYChart;
+
+    import javafx.scene.control.TextField;
 
         public class StocksSearchController implements Initializable {
             private final String ACCOUNT_SID = "AC3bf5360731b75413420aba6003748918";
@@ -39,11 +63,16 @@
 
             @FXML
             private URL location;
+
+
             @FXML
             private BarChart<String, Number> barChart;
 
             @FXML
             private CategoryAxis xAxis;
+
+            @FXML
+            private TextField keywordTextField;
 
             @FXML
             private NumberAxis yAxis;
@@ -75,7 +104,7 @@
             MyConnection cnx2 =null;
             PreparedStatement pst=null;
 
-            public void sendSMS(String to,String body){
+           /* public void sendSMS(String to,String body){
                 Twilio.init(ACCOUNT_SID,AUTH_TOKEN);
                 Message message =Message.creator(
                         new PhoneNumber("+21656607836"),
@@ -84,6 +113,8 @@
                 body)
                         .create();
             }
+            */
+
 
             @FXML
             void creatStocks(ActionEvent event) {
@@ -133,6 +164,8 @@
                 setupBarChart();
 
                 }
+
+
             private void showAlert(Alert.AlertType type, String title, String content) {
                 Alert alert = new Alert(type);
                 alert.setTitle(title);
@@ -153,6 +186,40 @@
             }
 
 
+            @FXML
+            void searchstocks() {
+                String keyword = keywordTextField.getText().trim();
+                if (!keyword.isEmpty()) {
+                    // Effacer la liste existante pour afficher les nouveaux résultats
+                    StocksSearchModelObservableList.clear();
+                    MyConnection connectNow = new MyConnection();
+                    Connection connectDB = connectNow.getCnx();
+
+                    try {
+                        // Utiliser une requête paramétrée pour éviter les injections SQL
+                        String productSearchQuery = "SELECT * FROM stock WHERE Nom LIKE ?";
+                        PreparedStatement searchStatement = connectDB.prepareStatement(productSearchQuery);
+                        // Modifier la requête pour rechercher les stock dont le nom commence par la lettre entrée
+                        searchStatement.setString(1, keyword + "%");
+                        ResultSet queryOutput = searchStatement.executeQuery();
+                        while (queryOutput.next()) {
+                            Integer queryid = queryOutput.getInt("ID");
+                            String querynom = queryOutput.getString("Nom");
+
+                            Integer queryquantite = queryOutput.getInt("quantite");
+                            StocksSearchModelObservableList.add(new StocksSearchModel(queryid, querynom, queryquantite));
+                        }
+                        // Mettre à jour la TableView avec les résultats de la recherche
+                        StocksTableView.setItems(StocksSearchModelObservableList);
+                    } catch (SQLException e) {
+                        Logger.getLogger(ProdcutSearchController.class.getName()).log(Level.SEVERE, null, e);
+                        e.printStackTrace();
+                    }
+                } else {
+                    // Si le champ de recherche est vide, afficher tous les stocks
+                    afficher();
+                }
+            }
             @FXML
             void deleteSocks(ActionEvent event) {
 
@@ -189,7 +256,7 @@
             }
 
 
-            private void nbStock(){
+            /*private void nbStock(){
                 int nb=0;
                 for(StocksSearchModel stock: StocksSearchModelObservableList){
                     if(stock.getQuantite()<5){
@@ -199,7 +266,8 @@
                 if(nb!=0){
                     sendSMS("+21656607836","reapprovisionner le Stock");
                 }
-            }
+            }*/
+
 
             @FXML
             void getData(MouseEvent event) {
@@ -313,7 +381,12 @@
                 setupBarChart();
 
                 afficher();
-                nbStock();
+                //nbStock();
+                // Ajouter un écouteur de changement de texte au champ de recherche
+                keywordTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+                    // Appeler la méthode searchProduct à chaque fois que le texte du champ de recherche change
+                    searchstocks();
+                });
 
             }
 

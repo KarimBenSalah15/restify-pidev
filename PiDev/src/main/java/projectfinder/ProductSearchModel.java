@@ -1,4 +1,4 @@
-package projectfinder;
+package sample.projectfinder;
 
 public class ProductSearchModel {
   private Integer id;

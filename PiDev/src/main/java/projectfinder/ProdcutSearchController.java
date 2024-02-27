@@ -1,20 +1,58 @@
-            package projectfinder;
+            package sample.projectfinder;
 
+            import javafx.fxml.FXML;
+            import javafx.fxml.Initializable;
+            import javafx.scene.control.Button;
+            import javafx.scene.control.Pagination;
+            import javafx.scene.control.TableView;
+            import javafx.scene.control.TableColumn;
+            import javafx.collections.FXCollections;
+            import javafx.collections.ObservableList;
+
+
+            import java.io.File;
+            import java.io.FileOutputStream;
+            import java.io.IOException;
+            import java.net.URL;
+            import java.util.ResourceBundle;
             import javafx.collections.FXCollections;
             import javafx.collections.ObservableList;
             import javafx.event.ActionEvent;
             import javafx.fxml.FXML;
             import javafx.fxml.Initializable;
-            import javafx.scene.chart.*;
+            import javafx.scene.chart.BarChart;
+            import javafx.scene.chart.CategoryAxis;
+            import javafx.scene.chart.NumberAxis;
+            import javafx.scene.chart.PieChart;
             import javafx.scene.control.*;
             import javafx.scene.control.cell.PropertyValueFactory;
-            import javafx.scene.input.MouseEvent;
-
+            import javafx.scene.chart.BarChart;
+            import javafx.scene.chart.CategoryAxis;
+            import javafx.scene.chart.NumberAxis;
+            import javafx.scene.chart.XYChart;
             import java.net.URL;
             import java.sql.*;
             import java.util.ResourceBundle;
             import java.util.logging.Level;
             import java.util.logging.Logger;
+
+            import javafx.scene.input.MouseEvent;
+            import javafx.scene.control.Alert;
+            import javafx.scene.control.ButtonType;
+
+
+            import org.apache.poi.ss.usermodel.Row;
+            import org.apache.poi.ss.usermodel.Sheet;
+            import org.apache.poi.ss.usermodel.Workbook;
+            import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+            import javafx.application.Application;
+            import javafx.fxml.FXMLLoader;
+            import javafx.scene.Parent;
+            import javafx.scene.Scene;
+            import javafx.stage.Stage;
+            import java.awt.* ;
+            import javafx.scene.control.TextField;
             public class ProdcutSearchController implements Initializable {
             @FXML
                 private TableView<ProductSearchModel> ProductTableView;
@@ -31,6 +69,8 @@
 
                 @FXML
                 private Button btnSave;
+                @FXML
+                private Button btnExport;
 
                 @FXML
                 private Button btnUpdate;
@@ -152,6 +192,63 @@
                 }
 
 
+                @FXML
+                void exportProduct(ActionEvent event) {
+                    try (Workbook workbook = new XSSFWorkbook()) {
+                        Sheet sheet = workbook.createSheet("Produits");
+
+                        // Créer l'en-tête
+                        Row headerRow = sheet.createRow(0);
+                        headerRow.createCell(0).setCellValue("ID");
+                        headerRow.createCell(1).setCellValue("Nom");
+                        headerRow.createCell(2).setCellValue("Type");
+                        headerRow.createCell(3).setCellValue("Prix");
+
+                        // Remplir les données
+                        int rowNum = 1;
+                        for (ProductSearchModel produit : productSearchModelObservableList) {
+                            Row row = sheet.createRow(rowNum++);
+                            row.createCell(0).setCellValue(produit.getId());
+                            row.createCell(1).setCellValue(produit.getNom());
+                            row.createCell(2).setCellValue(produit.getType());
+                            row.createCell(3).setCellValue(produit.getPrix());
+                        }
+
+                        String fileName = "export.xlsx"; // nom du fichier
+                        try (FileOutputStream fileOut = new FileOutputStream(fileName)) {
+                            workbook.write(fileOut);
+                            showAlert(Alert.AlertType.INFORMATION, "Succès", "Export Excel réussi !");
+                            openFile(fileName); // passer le nom du fichier à la méthode openFile
+                        } catch (IOException e) {
+                            showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur s'est produite lors de l'export Excel : " + e.getMessage());
+                        } finally {
+                            try {
+                                workbook.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+
+
+                private static void openFile(String fileName) {
+                    try {
+                        File file = new File(fileName);
+
+                        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.OPEN)) {
+                            Desktop.getDesktop().open(file);
+                        } else {
+                            System.out.println("Impossible d'ouvrir le fichier. Veuillez le faire manuellement.");
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        System.err.println("Erreur lors de l'ouverture du fichier Excel.");
+                    }
+                }
 
                 @FXML
                 void getData(MouseEvent event) {

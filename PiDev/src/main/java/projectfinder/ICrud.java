@@ -1,4 +1,4 @@
-package projectfinder;
+package sample.projectfinder;
 
 import java.util.List;
 
