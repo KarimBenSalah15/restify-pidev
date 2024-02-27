@@ -144,12 +144,29 @@ public class FenetreAffichage {
             pst.setString(6, employe.getPoste());
             pst.setInt(7, employe.getSalaire());
             pst.setInt(8, employe.getId());
+            if (utilisateurExistelogin(employe.getLogin(), employe.getId())) {
+                showAlert("Erreur", "Un utilisateur avec le même login existe déjà.");
+                afficheru();
+                return;
+            }
+            else if (utilisateurExisteemail(employe.getId(),employe.getEmail())) {
+                showAlert("Erreur", "Un utilisateur avec le même email existe déjà.");
+                afficheru();
+                return;
+            }
+            else if (utilisateurExistetel(employe.getTel(), employe.getId())) {
+                showAlert("Erreur", "Un utilisateur avec le même téléphone existe déjà.");
+                afficheru();
+                return;
+            }
             pst.executeUpdate();
             int rowsUpdated = pst.executeUpdate();
             if (rowsUpdated > 0) {
                 showAlert("Succès", "Personne mise à jour avec succès.");
+                afficheru();
             } else {
                 showAlert("Erreur", "Échec de la mise à jour de la personne.");
+                afficheru();
             }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -235,7 +252,6 @@ public class FenetreAffichage {
     }
 
     private void activerEdition() {
-        // Activer l'édition pour la colonne Nom
         col_login.setCellFactory(TextFieldTableCell.forTableColumn());
         col_login.setOnEditCommit(event -> modificationlogin(event));
         col_nom.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -290,6 +306,47 @@ public class FenetreAffichage {
         }
     }
 
+    private boolean utilisateurExistelogin(String login, int id) {
+        String req = "SELECT * FROM Utilisateur WHERE login = ? AND id <> ?";
+        try {
+            PreparedStatement pst = cnx2.prepareStatement(req);
+            pst.setString(1, login);
+            pst.setInt(2, id);
+            ResultSet rs = pst.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+
+    private boolean utilisateurExisteemail(int id, String email) {
+        String req = "SELECT * FROM Utilisateur WHERE email = ? AND id <> ?";
+        try {
+            PreparedStatement pst = cnx2.prepareStatement(req);
+            pst.setString(1, email);
+            pst.setInt(2, id);
+            ResultSet rs = pst.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+
+    private boolean utilisateurExistetel(int tel, int id) {
+        String req = "SELECT * FROM Utilisateur WHERE tel = ? AND id <> ?";
+        try {
+            PreparedStatement pst = cnx2.prepareStatement(req);
+            pst.setInt(1, tel);
+            pst.setInt(2, id);
+            ResultSet rs = pst.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

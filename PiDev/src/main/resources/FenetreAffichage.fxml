@@ -10,15 +10,15 @@
       <TableView fx:id="tabview_aff" editable="true" layoutX="88.0" layoutY="14.0" prefHeight="430.0" prefWidth="904.0">
         <columns>
           <TableColumn fx:id="col_id" editable="false" prefWidth="20.00006103515625" text="ID" />
-          <TableColumn fx:id="col_nom" prefWidth="41.599945068359375" text="Nom" />
-            <TableColumn fx:id="col_prenom" prefWidth="52.0" text="Prénom" />
-            <TableColumn fx:id="col_email" prefWidth="109.60000610351562" text="Email" />
-            <TableColumn fx:id="col_tel" prefWidth="96.0" text="Tel" />
-            <TableColumn fx:id="col_login" minWidth="0.0" prefWidth="102.4000244140625" text="Login" />
-            <TableColumn fx:id="col_role" editable="false" prefWidth="110.39999389648438" text="Role" />
-            <TableColumn fx:id="col_poste" prefWidth="98.39996337890625" text="Poste" />
-            <TableColumn fx:id="col_salaire" prefWidth="116.0" text="Salaire" />
-            <TableColumn fx:id="col_date" editable="false" prefWidth="149.60003662109375" text="Date d'embauche" />
+          <TableColumn fx:id="col_nom" prefWidth="86.39999389648438" text="Nom" />
+            <TableColumn fx:id="col_prenom" prefWidth="85.60000610351562" text="Prénom" />
+            <TableColumn fx:id="col_email" prefWidth="191.20001220703125" text="Email" />
+            <TableColumn fx:id="col_tel" prefWidth="79.19998168945312" text="Teléphone" />
+            <TableColumn fx:id="col_login" minWidth="0.0" prefWidth="117.5999755859375" text="Login" />
+            <TableColumn fx:id="col_role" editable="false" prefWidth="79.20001220703125" text="Role" />
+            <TableColumn fx:id="col_poste" prefWidth="69.5999755859375" text="Poste" />
+            <TableColumn fx:id="col_salaire" prefWidth="62.39996337890625" text="Salaire" />
+            <TableColumn fx:id="col_date" editable="false" prefWidth="109.5999755859375" text="Date d'embauche" />
         </columns>
       </TableView>
       <Button fx:id="btn_supp" layoutX="605.0" layoutY="526.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="38.0" prefWidth="111.0" text="Supprimer" />

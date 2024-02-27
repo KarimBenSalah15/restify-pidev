@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -109,6 +110,18 @@ public class FenetreAjout {
             showAlert("Erreur", "Veuillez sélectionner un rôle.");
             return;
         }
+        if (utilisateurExistelogin(login)) {
+            showAlert("Erreur", "Un utilisateur avec le même login existe déjà.");
+            return;
+        }
+        else if (utilisateurExisteemail(emailcheck)) {
+            showAlert("Erreur", "Un utilisateur avec le même email existe déjà.");
+            return;
+        }
+        else if (utilisateurExistetel(Integer.parseInt(tf_telemp.getText()))) {
+            showAlert("Erreur", "Un utilisateur avec le même téléphone existe déjà.");
+            return;
+        }
 
         String req = "INSERT INTO Utilisateur (nom, prenom, email, tel, login, mdp, role, poste, salaire, dateembauche) " +
                 "VALUES (?,?,?,?,?,?,?,?,?,?)";
@@ -150,6 +163,44 @@ public class FenetreAjout {
         ajout.close();
     }
 
+    private boolean utilisateurExistelogin(String login) {
+        String req = "SELECT * FROM Utilisateur WHERE login = ?";
+        try {
+            PreparedStatement pst = cnx2.prepareStatement(req);
+            pst.setString(1, login);
+            ResultSet rs = pst.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+
+    private boolean utilisateurExisteemail(String email) {
+        String req = "SELECT * FROM Utilisateur WHERE email = ?";
+        try {
+            PreparedStatement pst = cnx2.prepareStatement(req);
+            pst.setString(1, email);
+            ResultSet rs = pst.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+
+    private boolean utilisateurExistetel(int tel) {
+        String req = "SELECT * FROM Utilisateur WHERE tel = ?";
+        try {
+            PreparedStatement pst = cnx2.prepareStatement(req);
+            pst.setInt(1, tel);
+            ResultSet rs = pst.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
 
     private boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";

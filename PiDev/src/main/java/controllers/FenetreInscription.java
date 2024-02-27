@@ -69,6 +69,7 @@ public class FenetreInscription {
         }
         String emailExiste = "SELECT COUNT(*) FROM Utilisateur WHERE email = ?";
         String loginExiste = "SELECT COUNT(*) FROM Utilisateur WHERE login = ?";
+        String telExiste = "SELECT COUNT(*) FROM Utilisateur WHERE tel = ?";
 
         try {
             PreparedStatement emailPst = cnx2.prepareStatement(emailExiste);
@@ -83,11 +84,22 @@ public class FenetreInscription {
             loginRs.next();
             int nbLogins = loginRs.getInt(1);
 
+            PreparedStatement telPst = cnx2.prepareStatement(telExiste);
+            telPst.setInt(1, Integer.parseInt(tf_tel.getText()));
+            ResultSet telRs = telPst.executeQuery();
+            telRs.next();
+            int nbTels = telRs.getInt(1);
+
             if (nbEmails > 0) {
                 showAlert("Erreur", "Cet email est déjà utilisé.");
             } else if (nbLogins > 0) {
                 showAlert("Erreur", "Ce login est déjà utilisé.");
-            } else {
+
+            }
+            else if (nbTels > 0) {
+                showAlert("Erreur", "Ce téléphone est déjà utilisé.");
+
+            }else {
                 String req1 = "INSERT INTO Utilisateur (nom, prenom, email, tel, login, mdp) " +
                         "VALUES (?,?,?,?,?,?)";
                 try {
@@ -137,6 +149,18 @@ public class FenetreInscription {
         return email.matches(emailRegex);
     }
 
+    @FXML
+    void emmeneconnexion(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FenetreConnexion.fxml"));
+        try {
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) tf_login.getScene().getWindow();
+            stage.setScene(scene);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
     @FXML
     void initialize() {
     }

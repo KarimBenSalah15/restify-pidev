@@ -3,6 +3,7 @@ package controllers;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -81,6 +82,18 @@ public class FenetreProfilClient {
             pst.setString(5, tf_loginprof.getText());
             pst.setString(6, tf_mdpprof.getText());
             pst.setInt(7,MyConnection.getInstance().getIdenvoi());
+            if (utilisateurExistelogin(login, MyConnection.getInstance().getIdenvoi())) {
+                showAlert("Erreur", "Un utilisateur avec le même login existe déjà.");
+                return;
+            }
+            else if (utilisateurExisteemail(MyConnection.getInstance().getIdenvoi(),email)) {
+                showAlert("Erreur", "Un utilisateur avec le même email existe déjà.");
+                return;
+            }
+            else if (utilisateurExistetel(Integer.parseInt(tf_telprof.getText()), MyConnection.getInstance().getIdenvoi())) {
+                showAlert("Erreur", "Un utilisateur avec le même téléphone existe déjà.");
+                return;
+            }
             pst.executeUpdate();
             int rowsUpdated = pst.executeUpdate();
             if (rowsUpdated > 0) {
@@ -105,6 +118,48 @@ public class FenetreProfilClient {
         }
         catch(SQLException e) {
             System.err.println(e.getMessage());
+        }
+    }
+
+    private boolean utilisateurExistelogin(String login, int id) {
+        String req = "SELECT * FROM Utilisateur WHERE login = ? AND id <> ?";
+        try {
+            PreparedStatement pst = cnx2.prepareStatement(req);
+            pst.setString(1, login);
+            pst.setInt(2, id);
+            ResultSet rs = pst.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+
+    private boolean utilisateurExisteemail(int id, String email) {
+        String req = "SELECT * FROM Utilisateur WHERE email = ? AND id <> ?";
+        try {
+            PreparedStatement pst = cnx2.prepareStatement(req);
+            pst.setString(1, email);
+            pst.setInt(2, id);
+            ResultSet rs = pst.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
+        }
+    }
+
+    private boolean utilisateurExistetel(int tel, int id) {
+        String req = "SELECT * FROM Utilisateur WHERE tel = ? AND id <> ?";
+        try {
+            PreparedStatement pst = cnx2.prepareStatement(req);
+            pst.setInt(1, tel);
+            pst.setInt(2, id);
+            ResultSet rs = pst.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return false;
         }
     }
 

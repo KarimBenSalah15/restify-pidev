@@ -19,6 +19,7 @@
       <TextField fx:id="tf_tel" layoutX="355.0" layoutY="111.0" />
       <TextField fx:id="tf_login" layoutX="355.0" layoutY="178.0" />
       <TextField fx:id="tf_mdp" layoutX="355.0" layoutY="245.0" />
-      <Button fx:id="btn_insc" layoutX="262.0" layoutY="333.0" mnemonicParsing="false" onAction="#inscription" text="S'inscrire" />
+      <Button fx:id="btn_insc" layoutX="184.0" layoutY="333.0" mnemonicParsing="false" onAction="#inscription" text="S'inscrire" />
+      <Button fx:id="btn_insc1" layoutX="344.0" layoutY="333.0" mnemonicParsing="false" onAction="#emmeneconnexion" text="Se connecter" />
    </children>
 </AnchorPane>
