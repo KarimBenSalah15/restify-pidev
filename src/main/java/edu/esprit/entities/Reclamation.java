@@ -9,12 +9,22 @@ public class Reclamation {
     private Boolean etat;
     private String type;
     private String message;
+    private int 	idRO;
 
+
+    public Reclamation(Date date, Boolean etat, String type,String message,int isp) {
+        this.date = date;
+        this.etat = etat;
+        this.type = type;
+        this.message =message;
+        this.idRO=isp;
+    }
     public Reclamation(Date date, Boolean etat, String type,String message) {
         this.date = date;
         this.etat = etat;
         this.type = type;
         this.message =message;
+
     }
 
     public Reclamation() {
@@ -26,6 +36,14 @@ public class Reclamation {
         this.etat = etat;
         this.type = type;
         this.message = message;
+    }
+
+    public int getIdRO() {
+        return idRO;
+    }
+
+    public void setIdRO(int idRO) {
+        this.idRO = idRO;
     }
 
     public int getId() {

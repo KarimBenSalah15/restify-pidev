@@ -71,13 +71,14 @@ public class ReclamtionCrud implements ICrud<Reclamation> {
     }
     @Override
     public void ajouterEntite(Reclamation p) {
-        String requet="INSERT INTO reclamation (date,etat,type,message) VALUES(?,?,?,?)";
+        String requet="INSERT INTO reclamation (date,etat,type,message,idRO) VALUES(?,?,?,?,?)";
         try {
             PreparedStatement pst =cnx2.prepareStatement(requet);
             pst.setDate(1,p.getDate());
             pst.setBoolean(2,p.getEtat());
             pst.setString(3,p.getType());
             pst.setString(4,p.getMessage());
+            pst.setInt(5,p.getIdRO());
             pst.executeUpdate();
             System.out.println("Ajoute");
         }
@@ -87,4 +88,18 @@ public class ReclamtionCrud implements ICrud<Reclamation> {
         }
     }
 
+    public int selectEntiite(String ids) throws SQLException {
+
+        int id;
+        String req3="SELECT id FROM plat where nom="+ids;
+
+        Statement stm = null;
+
+            stm = cnx2.createStatement();
+            int rs= stm.executeUpdate(req3);
+
+
+
+        return rs;
+    }
 }

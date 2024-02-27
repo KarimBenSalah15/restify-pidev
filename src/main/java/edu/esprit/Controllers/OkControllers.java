@@ -2,14 +2,15 @@ package edu.esprit.Controllers;
 
 import java.net.URL;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.util.*;
+import java.util.stream.Collectors;
 
-import edu.esprit.entities.Personne;
+import edu.esprit.entities.Plat;
 import edu.esprit.entities.Reclamation;
-import edu.esprit.services.PersonneCrud;
+import edu.esprit.entities.User;
+import edu.esprit.services.PlatCrud;
 import edu.esprit.services.ReclamtionCrud;
-import edu.esprit.tools.MyConnection;
+import edu.esprit.services.UserCrud;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,6 +31,10 @@ public class OkControllers {
 
     @FXML
     private URL location;
+    @FXML
+    public int choise;
+    @FXML
+    public int choise2;
 
     @FXML
     private Button add;
@@ -57,12 +62,16 @@ public class OkControllers {
     @FXML
     private ComboBox<String> type1;
     @FXML
+    private ComboBox<String> type11;
+    @FXML
     private GridPane penSHOW;
     @FXML
     private Button ADDBtn;
     @FXML
     private GridPane penUPDATE;
 
+    @FXML
+    private ComboBox<String> type2;
     @FXML
     public void afficher() {
         ReclamtionCrud rc=new ReclamtionCrud();
@@ -79,7 +88,7 @@ public class OkControllers {
                 if (empty || etat == null) {
                     setText("");
                 } else {
-                    setText(etat ? "réclamation traitée" : "réclamation no traitée");
+                    setText(etat ? "réclamation traitée" : "réclamation non traitée");
                 }
             }
         });
@@ -98,18 +107,72 @@ public class OkControllers {
         //////////////////////////////////////////////////////////////////
       
         ///////////////////////////////////////////////////////////////
+        PlatCrud pc =new PlatCrud();
+        List<Plat> plats=pc.afficherEntiite();
 
+        Map<Integer, String> platNames = plats.stream()
+                .collect(Collectors.toMap(Plat::getId, Plat::getNom));
+        UserCrud  uc=new UserCrud();
+        List<User> users=uc.afficherEntiite();
+
+
+        Map<Integer, String> userIdToNameMap = users.stream()
+                .collect(Collectors.toMap(User::getId, User::getNom));
+        System.out.println(userIdToNameMap);
         List<String> choices = Arrays.asList("plats", "employe");
         type.setItems(FXCollections.observableArrayList(choices));
         type1.setItems(FXCollections.observableArrayList(choices));
         type1.setOnAction(event -> {
-            String selectedChoice = type.getValue();
+            String selectedChoice = type1.getValue();
             // Perform actions based on the selected choice
             if ("plats".equals(selectedChoice)) {
-                type.setValue( "plats");
+                type1.setValue( "plats");
+                type11.setItems(FXCollections.observableArrayList(platNames.values()));
             } else if ("employe".equals(selectedChoice)) {
                 // Handle 2nd choice
-                type.setValue( "employe");
+                type1.setValue( "employe");
+                type11.setItems(FXCollections.observableArrayList(userIdToNameMap.values()));
+            }
+        });
+        type2.setOnAction(event -> {
+            String selectedUserName = type2.getValue();
+
+            if ((type.getValue().equals("employe"))) {
+
+                Optional<Map.Entry<Integer, String>> entryOptional = userIdToNameMap.entrySet().stream()
+                        .filter(entry -> entry.getValue().equals(selectedUserName))
+                        .findFirst();
+
+
+            // Check if a matching entry is found
+            if (entryOptional.isPresent()) {
+                int selectedUserId = entryOptional.get().getKey();
+
+                // Now you have the selected userId, and you can use it as needed
+                System.out.println("Selected User ID: " + selectedUserId);
+                this.choise=selectedUserId;
+            } else {
+                // Handle the case where no matching entry is found
+                System.out.println("No matching user ID found for the selected user name.");
+            }
+        } else if ((type.getValue()).equals("plats")) {
+
+                Optional<Map.Entry<Integer, String>> entryOptional = platNames.entrySet().stream()
+                        .filter(entry -> entry.getValue().equals(selectedUserName))
+                        .findFirst();
+
+
+                // Check if a matching entry is found
+                if (entryOptional.isPresent()) {
+                    int selectedUserId = entryOptional.get().getKey();
+
+                    // Now you have the selected userId, and you can use it as needed
+                    System.out.println("Selected User ID: " + selectedUserId);
+                    this.choise=selectedUserId;
+                } else {
+                    // Handle the case where no matching entry is found
+                    System.out.println("No matching user ID found for the selected user name.");
+                }
             }
         });
         type.setOnAction(event -> {
@@ -117,12 +180,56 @@ public class OkControllers {
             // Perform actions based on the selected choice
             if ("plats".equals(selectedChoice)) {
                type.setValue( "plats");
+                type2.setItems(FXCollections.observableArrayList(platNames.values()));
+
             } else if ("employe".equals(selectedChoice)) {
                 // Handle 2nd choice
                 type.setValue( "employe");
+                type2.setItems(FXCollections.observableArrayList(userIdToNameMap.values()));
+
             }
         });
+        type11.setOnAction(event -> {
+            String selectedUserName = type11.getValue();
 
+            if ((type1.getValue().equals("employe"))) {
+
+                Optional<Map.Entry<Integer, String>> entryOptional = userIdToNameMap.entrySet().stream()
+                        .filter(entry -> entry.getValue().equals(selectedUserName))
+                        .findFirst();
+
+
+                // Check if a matching entry is found
+                if (entryOptional.isPresent()) {
+                    int selectedUserId = entryOptional.get().getKey();
+
+                    // Now you have the selected userId, and you can use it as needed
+                    System.out.println("Selected User ID: " + selectedUserId);
+                    this.choise2=selectedUserId;
+                } else {
+                    // Handle the case where no matching entry is found
+                    System.out.println("No matching user ID found for the selected user name.");
+                }
+            } else if ((type1.getValue()).equals("plats")) {
+
+                Optional<Map.Entry<Integer, String>> entryOptional = platNames.entrySet().stream()
+                        .filter(entry -> entry.getValue().equals(selectedUserName))
+                        .findFirst();
+
+
+                // Check if a matching entry is found
+                if (entryOptional.isPresent()) {
+                    int selectedUserId = entryOptional.get().getKey();
+
+                    // Now you have the selected userId, and you can use it as needed
+                    System.out.println("Selected User ID: " + selectedUserId);
+                    this.choise2=selectedUserId;
+                } else {
+                    // Handle the case where no matching entry is found
+                    System.out.println("No matching user ID found for the selected user name.");
+                }
+            }
+        });
         actionid.setCellFactory(new Callback<TableColumn<Reclamation, Integer>, TableCell<Reclamation, Integer>>() {
             @Override
             public TableCell<Reclamation, Integer> call(TableColumn<Reclamation, Integer> param) {
@@ -153,13 +260,13 @@ public class OkControllers {
                         } else {
                             // Set graphic with both buttons
                             setGraphic(new HBox( updateButton));
+                            updateButton.setStyle("   -fx-background-color: #ef6c00;" +
+                                    "-fx-text-fill: white;");
+
                         }
                     }
                 };
             }
-
-
-
     });
     }
     @FXML
@@ -196,15 +303,11 @@ public class OkControllers {
             libS.setText(" Supprime reclamation");
             penDEL.toFront();
         }
-
-
     }
     @FXML
     void showR(ActionEvent event) {
         ReclamtionCrud rc=new ReclamtionCrud();
         List<Reclamation> reclamations=rc.afficherEntiite();
-
-
     }
     @FXML
     void saveR(ActionEvent event) {
@@ -217,6 +320,11 @@ public class OkControllers {
             alert.showAndWait();
             return; // Stop the method if the type is null or empty
         }
+        if (type2.getValue() == null || type2.getValue().trim().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Veuillez sélectionner un choic.", ButtonType.OK);
+            alert.showAndWait();
+            return; // Stop the method if the type is null or empty
+        }
 
         // Check if message is null or empty
         if (message.getText() == null || message.getText().trim().isEmpty()) {
@@ -224,10 +332,10 @@ public class OkControllers {
             alert.showAndWait();
             return; // Stop the method if the message is null or empty
         }
-
         // Save the reclamation to the database
         ReclamtionCrud rc = new ReclamtionCrud();
-        Reclamation r = new Reclamation(currentDate, false, type.getValue(), message.getText());
+
+        Reclamation r = new Reclamation(currentDate, false, type.getValue(), message.getText(), choise);
         rc.ajouterEntite(r);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Réclamation ajoutée avec succès", ButtonType.OK);
@@ -274,10 +382,8 @@ public class OkControllers {
                     int selectedId = selectedReclamation.getId();
                     rc.supprimerEntite(selectedId);
                 }
-
                 // Clear the selection after deletion
                 tableR.getSelectionModel().clearSelection();
-
                 // Refresh the TableView after deletion
                 refreshTableView();
             }
@@ -310,13 +416,18 @@ public class OkControllers {
     @FXML
 
     void updateR(ActionEvent event) {
-        if (message.getText() == null || message.getText().trim().isEmpty()) {
+        if (message1.getText() == null || message1.getText().trim().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Le champ de message ne peut pas être vide.", ButtonType.OK);
             alert.showAndWait();
             return; // Stop the method if the message is null or empty
         }
-        if (type1.getValue() == null || type.getValue().trim().isEmpty()) {
+        if (type1.getValue() == null || type1.getValue().trim().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Veuillez sélectionner un type de réclamation.", ButtonType.OK);
+            alert.showAndWait();
+            return; // Stop the method if the type is null or empty
+        }
+        if (type11.getValue() == null || type11.getValue().trim().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Veuillez sélectionner Choix.", ButtonType.OK);
             alert.showAndWait();
             return; // Stop the method if the type is null or empty
         }
@@ -327,8 +438,8 @@ public class OkControllers {
         Optional<ButtonType> result = confirmAlert.showAndWait();
         ReclamtionCrud rc = new ReclamtionCrud();
         Reclamation selectedReclamation = getSelectedReclamation();
-        Reclamation r =new Reclamation(this.selectedReclamation.getDate(),this.selectedReclamation.getEtat(),type1.getValue(),message1.getText());
-        if (message.getText() == null || message.getText().trim().isEmpty()) {
+        Reclamation r =new Reclamation(this.selectedReclamation.getDate(),this.selectedReclamation.getEtat(),type1.getValue(),message1.getText(),choise2);
+        if (message1.getText() == null || message1.getText().trim().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Le champ de message ne peut pas être vide.", ButtonType.OK);
             alert.showAndWait();
             return; // Stop the method if the message is null or empty
@@ -344,11 +455,7 @@ public class OkControllers {
             // Clear the selection to avoid issues with refreshing
             tableR.getSelectionModel().clearSelection();
 
-
             panADD.toFront();
-
-
-            // Refresh the TableView after deletion
 
         }
 

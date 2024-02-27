@@ -55,6 +55,44 @@
       </VBox>
       <StackPane layoutX="202.0" layoutY="201.0">
          <children>
+            <GridPane fx:id="penSHOW" layoutX="10.0" layoutY="10.0" prefHeight="377.0" prefWidth="773.0" style="-fx-background-color: #fff;" StackPane.alignment="TOP_LEFT">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="232.66668701171875" minHeight="10.0" prefHeight="33.99997456868489" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="360.0000305175781" minHeight="10.0" prefHeight="343.33335876464844" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <AnchorPane prefHeight="344.0" prefWidth="685.0" GridPane.rowIndex="1">
+                     <children>
+                        <Label layoutX="55.0" layoutY="41.0" text="type:">
+                           <font>
+                              <Font name="Comic Sans MS" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="messageL" layoutX="13.0" layoutY="199.0" text="Message:">
+                           <font>
+                              <Font name="Comic Sans MS" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="message" layoutX="82.0" layoutY="145.0" prefHeight="129.0" prefWidth="395.0" style="-fx-background-color: #ffaa00;" />
+                        <Button fx:id="ADDBtn" ellipsisString="" layoutX="251.0" layoutY="286.0" mnemonicParsing="false" onAction="#saveR" stylesheets="@style.css" text="Ajouter" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Narrow Bold Italic" size="19.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="ADDBtn2" ellipsisString="" layoutX="513.0" layoutY="26.0" mnemonicParsing="false" onAction="#gobackR" style="-fx-background-color: #ffaa00;" text="Retour" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Narrow Bold Italic" size="19.0" />
+                           </font>
+                        </Button>
+                        <ComboBox fx:id="type" layoutX="112.0" layoutY="41.0" prefWidth="150.0" promptText="type" style="-fx-background-color: #ffaa00;" />
+                        <ComboBox fx:id="type2" layoutX="115.0" layoutY="98.0" prefWidth="150.0" style="-fx-background-color: #ffaa00;" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </GridPane>
             <GridPane fx:id="penUPDATE" layoutX="10.0" layoutY="10.0" prefHeight="243.0" prefWidth="427.0" style="-fx-background-color: #fff;">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -70,29 +108,30 @@
                   </Label>
                </children>
             </GridPane>
-            <GridPane fx:id="penDEL" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="243.0" prefWidth="427.0" style="-fx-background-color: #fff;">
+            <GridPane fx:id="penDEL" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="268.0" prefWidth="773.0" style="-fx-background-color: #fff;">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints maxHeight="232.66668701171875" minHeight="10.0" prefHeight="212.99998982747397" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="232.66668701171875" minHeight="10.0" prefHeight="25.000035603841155" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="351.66663106282556" minHeight="10.0" prefHeight="351.66663106282556" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <AnchorPane prefHeight="259.0" prefWidth="534.0">
+                  <AnchorPane prefHeight="341.0" prefWidth="773.0" GridPane.rowIndex="1">
                      <children>
-                        <Label layoutX="24.0" layoutY="18.0" text="type:">
+                        <Label layoutX="104.0" layoutY="45.0" text="type:">
                            <font>
                               <Font name="Comic Sans MS" size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="messageL1" layoutX="14.0" layoutY="95.0" text="Message:">
+                        <Label fx:id="messageL1" layoutX="13.0" layoutY="176.0" text="Message:">
                            <font>
                               <Font name="Comic Sans MS" size="14.0" />
                            </font>
                         </Label>
-                        <TextArea fx:id="message1" layoutX="82.0" layoutY="59.0" prefHeight="122.0" prefWidth="395.0" promptText="type" style="-fx-background-color: #ffaa00;" />
-                        <ComboBox fx:id="type1" layoutX="82.0" layoutY="16.0" prefWidth="150.0" promptText="type" style="-fx-background-color: #ffaa00;" />
-                        <Button fx:id="ADDBtn1" ellipsisString="" layoutX="251.0" layoutY="195.0" mnemonicParsing="false" onAction="#updateR" style="-fx-background-color: #000000;" text="Modifier" textFill="WHITE">
+                        <TextArea fx:id="message1" layoutX="82.0" layoutY="140.0" prefHeight="122.0" prefWidth="395.0" style="-fx-background-color: #ffaa00;" />
+                        <ComboBox fx:id="type1" layoutX="155.0" layoutY="43.0" prefWidth="150.0" promptText="type" style="-fx-background-color: #ffaa00;" />
+                        <Button fx:id="ADDBtn1" ellipsisString="" layoutX="248.0" layoutY="280.0" mnemonicParsing="false" onAction="#updateR" style="-fx-background-color: #000000;" text="Modifier" textFill="WHITE">
                            <font>
                               <Font name="Arial Narrow Bold Italic" size="19.0" />
                            </font>
@@ -102,42 +141,7 @@
                               <Font name="Arial Narrow Bold Italic" size="19.0" />
                            </font>
                         </Button>
-                     </children>
-                  </AnchorPane>
-               </children>
-            </GridPane>
-            <GridPane fx:id="penSHOW" layoutX="10.0" layoutY="10.0" prefHeight="327.0" prefWidth="537.0" style="-fx-background-color: #fff;">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints maxHeight="232.66668701171875" minHeight="10.0" prefHeight="212.99998982747397" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <AnchorPane prefHeight="263.0" prefWidth="537.0">
-                     <children>
-                        <Label layoutX="24.0" layoutY="18.0" text="type:">
-                           <font>
-                              <Font name="Comic Sans MS" size="16.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="messageL" layoutX="14.0" layoutY="95.0" text="Message:">
-                           <font>
-                              <Font name="Comic Sans MS" size="14.0" />
-                           </font>
-                        </Label>
-                        <TextArea fx:id="message" layoutX="82.0" layoutY="52.0" prefHeight="129.0" prefWidth="395.0" style="-fx-background-color: #ffaa00;" />
-                        <ComboBox fx:id="type" layoutX="82.0" layoutY="16.0" prefWidth="150.0" promptText="type" style="-fx-background-color: #ffaa00;" />
-                        <Button fx:id="ADDBtn" ellipsisString="" layoutX="251.0" layoutY="195.0" mnemonicParsing="false" onAction="#saveR" style="-fx-background-color: #000000;" text="Ajouter" textFill="WHITE">
-                           <font>
-                              <Font name="Arial Narrow Bold Italic" size="19.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="ADDBtn2" ellipsisString="" layoutX="405.0" layoutY="10.0" mnemonicParsing="false" onAction="#gobackR" style="-fx-background-color: #ffaa00;" text="Retour" textFill="WHITE">
-                           <font>
-                              <Font name="Arial Narrow Bold Italic" size="19.0" />
-                           </font>
-                        </Button>
+                        <ComboBox fx:id="type11" layoutX="155.0" layoutY="90.0" prefWidth="150.0" promptText="Choix" style="-fx-background-color: #ffaa00;" />
                      </children>
                   </AnchorPane>
                </children>
@@ -182,7 +186,7 @@
             </GridPane>
          </children>
       </StackPane>
-      <Pane fx:id="pn" layoutX="202.0" layoutY="-1.0" prefHeight="122.0" prefWidth="534.0" style="-fx-background-color: #ffaa00;">
+      <Pane fx:id="pn" layoutX="202.0" layoutY="-1.0" prefHeight="122.0" prefWidth="773.0" style="-fx-background-color: #ffaa00;">
          <children>
             <Label fx:id="libS" layoutX="121.0" layoutY="33.0" text="Afficher reclamation">
                <font>
