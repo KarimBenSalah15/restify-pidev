@@ -1,5 +1,6 @@
 package edu.esprit.Controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.*;
@@ -15,6 +16,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
@@ -364,6 +367,20 @@ public class OkControllers {
         }
     }
     @FXML
+    private Button backbtn;
+    @FXML
+    void goback(ActionEvent event) {
+
+        FXMLLoader loader=new FXMLLoader((getClass().getResource("/Intro.fxml")));
+        try {
+            Parent root= loader.load();
+            introController pc=loader.getController();
+            libS.getScene().setRoot(root);
+
+        }catch (IOException e)
+        {System.out.println(e.getMessage());}
+    }
+    @FXML
     void deleteR(ActionEvent event) {
         ReclamtionCrud rc = new ReclamtionCrud();
         ObservableList<Reclamation> selectedReclamations = tableR.getSelectionModel().getSelectedItems();
@@ -467,4 +484,20 @@ public class OkControllers {
     }
     @FXML
     private Button ADDBtn11;
+
+
+    @FXML
+    private Button reponse;
+    @FXML
+    void  reponseGo(ActionEvent event)
+    {
+        FXMLLoader loader=new FXMLLoader((getClass().getResource("/reponse.fxml")));
+        try {
+            Parent root= loader.load();
+            ReponseControllers pc=loader.getController();
+           type.getScene().setRoot(root);
+
+        }catch (IOException e)
+        {System.out.println(e.getMessage());}
+    }
 }

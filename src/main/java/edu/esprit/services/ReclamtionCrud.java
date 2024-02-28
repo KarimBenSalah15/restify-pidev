@@ -88,18 +88,30 @@ public class ReclamtionCrud implements ICrud<Reclamation> {
         }
     }
 
-    public int selectEntiite(String ids) throws SQLException {
+    public void updateEtat(int ids) {
+        String req3 = "UPDATE reclamation\n" +
+                "SET etat = TRUE\n" +
+                "WHERE id = ?";
 
-        int id;
-        String req3="SELECT id FROM plat where nom="+ids;
-
-        Statement stm = null;
-
-            stm = cnx2.createStatement();
-            int rs= stm.executeUpdate(req3);
+        try (PreparedStatement pst = cnx2.prepareStatement(req3)) {
+            // Assuming ids is a string that represents an integer value
 
 
+            pst.setInt(1,ids);
 
-        return rs;
+            int rowsAffected = pst.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Reclamation modifiée avec succès");
+            } else {
+                System.out.println("Aucune réclamation modifiée. L'ID n'existe peut-être pas.");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Erreur de conversion d'ID en entier : " + e.getMessage());
+        }
     }
+
+
 }
