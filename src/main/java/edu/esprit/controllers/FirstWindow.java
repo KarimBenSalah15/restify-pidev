@@ -48,9 +48,25 @@ public class FirstWindow {
     void savePlat(ActionEvent event) throws SQLException {
         //sauvegarde de Plat dans la bd
         Blob imageData = getImageDataFromImageView(imageView);
+        if (tfnom.getText().isEmpty() || tfprix.getText().isEmpty() || tfingre.getText().isEmpty() || tfcal.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Veuillez remplir tous les champs", ButtonType.OK);
+            alert.showAndWait();
+            return; // Sort de la méthode si un champ est vide
+        }
 
+        // Vérifie si les valeurs saisies sont valides (prix et calories)
+        float prix;
+        int calories;
+        try {
+            prix = Float.parseFloat(tfprix.getText());
+            calories = Integer.parseInt(tfcal.getText());
+        } catch (NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Veuillez saisir un prix valide (nombre décimal) et des calories valides (nombre entier)", ButtonType.OK);
+            alert.showAndWait();
+            return; // Sort de la méthode si les valeurs saisies ne sont pas valides
+        }
         // Save Plat with image data to the database
-        Plat p = new Plat(tfnom.getText(), Float.parseFloat(tfprix.getText()), tfingre.getText(), Integer.parseInt(tfcal.getText()), imageData);
+        Plat p = new Plat(tfnom.getText(), prix, tfingre.getText(), calories, imageData);
         PlatCrud ps = new PlatCrud();
         ps.ajouterEntite(p);
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Success,Plat ajouté", new ButtonType("ok"));

@@ -9,7 +9,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HomePage extends Application {
-
+    private double xOffset = 0;
+    private double yOffset = 0;
+    private static Stage window;
     public static void main(String[] args) {
         launch(args);
     }
@@ -17,7 +19,7 @@ public class HomePage extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/PlatAd.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/commande.fxml"));
            // root.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
 
             primaryStage.setTitle("Ajouter Plat");
@@ -29,4 +31,20 @@ public class HomePage extends Application {
         }
 
     }
+    public static Stage getWindow() {
+        return window;
+    }
+
+    private void makeDraggable(Parent root){
+        root.setOnMousePressed( e -> {
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+
+        root.setOnMouseDragged( e -> {
+            window.setX( e.getScreenX() - xOffset);
+            window.setY( e.getScreenY() - yOffset);
+        });
+    }
+
 }

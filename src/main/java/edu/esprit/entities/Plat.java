@@ -6,8 +6,28 @@ public class Plat {
     private int id;
     private String nom;
     private float prix;
+
+    public Plat(int id, String nom, float prix) {
+        this.id = id;
+        this.nom = nom;
+        this.prix = prix;
+    }
+
+    public Plat(int id, String nom) {
+        this.id = id;
+        this.nom = nom;
+    }
+
     private String ingredients;
     private int calories;
+
+    public Plat(String upperCase) {
+    }
+
+    public static Plat valueOf(String platname) {
+        return new Plat(platname.toUpperCase()); // Create a new instance with the provided platname
+    }
+
 
     public Blob getImage() {
         return image;
@@ -26,6 +46,14 @@ public class Plat {
         this.ingredients = ingredients;
         this.calories = calories;
 this.image=image;
+    }
+
+    public Plat(int id, String nom, float prix, String ingredients, int calories) {
+        this.id = id;
+        this.nom = nom;
+        this.prix = prix;
+        this.ingredients = ingredients;
+        this.calories = calories;
     }
 
     public Plat() {

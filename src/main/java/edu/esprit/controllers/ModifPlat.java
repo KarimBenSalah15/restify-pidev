@@ -78,30 +78,51 @@ public class ModifPlat {
 
     @FXML
     public void modifierButtonClicked() {
-        // Get the modified details from the input fields
-        String nom = tfnom.getText();
-        float prix = Float.parseFloat(tfprix.getText());
-        String ingredients = tfingr.getText();
-        int calories = Integer.parseInt(tfcal.getText());
+        // Vérifier si les champs de saisie sont vides
+        if (tfnom.getText().isEmpty() || tfprix.getText().isEmpty() || tfingr.getText().isEmpty() || tfcal.getText().isEmpty()) {
+            // Afficher une alerte pour informer l'utilisateur que tous les champs doivent être remplis
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Champs vides");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez remplir tous les champs.");
+            alert.showAndWait();
+            return; // Sortir de la méthode si les champs sont vides
+        }
 
-        // Update the selected Plat object with the modified details
-        selectedPlat.setNom(nom);
-        selectedPlat.setPrix(prix);
-        selectedPlat.setIngredients(ingredients);
-        selectedPlat.setCalories(calories);
+        try {
+            // Vérifier si les valeurs saisies pour les calories et le prix sont valides
+            int calories = Integer.parseInt(tfcal.getText());
+            float prix = Float.parseFloat(tfprix.getText());
 
-        // Call the method to update the Plat object in the database
-        PlatCrud platCrud = new PlatCrud();
-        platCrud.modifierEntite(selectedPlat, selectedPlat.getId());
-        Alert alert = new Alert(Alert.AlertType.INFORMATION,"Success,Plat modifié", new ButtonType("ok"));
-        alert.show();
+            // Get the modified details from the input fields
+            String nom = tfnom.getText();
+            String ingredients = tfingr.getText();
 
-        // Close the ModifPlat page (optional)
-        // You may want to close the ModifPlat page after modifying the Plat object
-        // You can access the stage and close it if needed
+            // Update the selected Plat object with the modified details
+            selectedPlat.setNom(nom);
+            selectedPlat.setPrix(prix);
+            selectedPlat.setIngredients(ingredients);
+            selectedPlat.setCalories(calories);
 
-        // stage.close();
+            // Call the method to update the Plat object in the database
+            PlatCrud platCrud = new PlatCrud();
+            platCrud.modifierEntite(selectedPlat, selectedPlat.getId());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Success,Plat modifié", new ButtonType("ok"));
+            alert.show();
+
+            // Close the ModifPlat page (optional)
+            // You may want to close the ModifPlat page after modifying the Plat object
+            // You can access the stage and close it if needed
+        } catch (NumberFormatException e) {
+            // Afficher une alerte si les valeurs saisies pour les calories ou le prix ne sont pas valides
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de saisie");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez saisir un nombre valide pour les calories et le prix.");
+            alert.showAndWait();
+        }
     }
+
     @FXML
     private void retur(ActionEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/PlatAd.fxml"));

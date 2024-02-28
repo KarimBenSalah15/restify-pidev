@@ -7,10 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -152,13 +149,24 @@ public class PlatAd {
                     {
                         deleteButton.setOnAction(event -> {
                             Plat plat = getTableView().getItems().get(getIndex());
-
                             int platId = plat.getId(); // Retrieve the unique identifier of the Plat object
-                            // Implement deletion logic here
-                            tab.getItems().remove(plat); // Remove the Plat object from the TableView
-                            rc.supprimerEntite(platId);
-                        });
 
+                            // Afficher une boîte de dialogue de confirmation
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.setTitle("Confirmation de suppression");
+                            alert.setHeaderText(null);
+                            alert.setContentText("Êtes-vous sûr de vouloir supprimer ce plat ?");
+
+                            // Récupérer la réponse de l'utilisateur
+                            alert.showAndWait().ifPresent(response -> {
+                                if (response == ButtonType.OK) {
+                                    // L'utilisateur a confirmé la suppression
+                                    // Implémenter la logique de suppression ici
+                                    tab.getItems().remove(plat); // Remove the Plat object from the TableView
+                                    rc.supprimerEntite(platId);
+                                }
+                            });
+                        });
                         updateButton.setOnAction(event -> {
                             Plat plat = getTableView().getItems().get(getIndex());
                             // Implement update logic here

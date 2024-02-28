@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.CommandeController">
+
+    <children>
+        <TableView fx:id="commandeTable" layoutX="23.0" layoutY="26.0" prefHeight="348.0" prefWidth="553.0" stylesheets="@style.css">
+            <columns>
+                <TableColumn fx:id="idColumn" prefWidth="1.0" text="ID">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="id" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="platsColumn" prefWidth="1.0" text="Plats">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="plats" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="totalColumn" prefWidth="1.0" text="Total">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="total" />
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+    </children>
+
+</AnchorPane>
