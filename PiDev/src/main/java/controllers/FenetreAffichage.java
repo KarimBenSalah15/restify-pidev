@@ -76,7 +76,6 @@ public class FenetreAffichage {
     @FXML
     public void initialize() {
         afficheru();
-        // Initialisation de vos colonnes
         activerEdition();
     }
 

@@ -2,25 +2,25 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.PasswordField?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FenetreInscription">
    <children>
-      <Label layoutX="51.0" layoutY="115.0" text="Nom" />
-      <Label layoutX="51.0" layoutY="182.0" text="Prénom" />
-      <Label layoutX="51.0" layoutY="249.0" text="Email" />
-      <Label layoutX="272.0" layoutY="115.0" prefHeight="18.0" prefWidth="58.0" text="Téléphone" />
-      <Label layoutX="272.0" layoutY="182.0" prefHeight="18.0" prefWidth="35.0" text="Login" />
-      <Label layoutX="270.0" layoutY="248.0" prefHeight="18.0" prefWidth="74.0" text="Mot de passe" />
-      <TextField fx:id="tf_nom" layoutX="98.0" layoutY="111.0" />
-      <TextField fx:id="tf_prenom" layoutX="98.0" layoutY="178.0" />
-      <TextField fx:id="tf_email" layoutX="98.0" layoutY="245.0" />
-      <TextField fx:id="tf_tel" layoutX="355.0" layoutY="111.0" />
-      <TextField fx:id="tf_login" layoutX="355.0" layoutY="178.0" />
-      <PasswordField fx:id="tf_mdp" layoutX="355.0" layoutY="245.0" />
-      <Button fx:id="btn_insc" layoutX="184.0" layoutY="333.0" mnemonicParsing="false" onAction="#inscription" text="S'inscrire" />
-      <Button fx:id="btn_insc1" layoutX="344.0" layoutY="333.0" mnemonicParsing="false" onAction="#emmeneconnexion" text="Se connecter" />
+      <Label layoutX="246.0" layoutY="47.0" text="Inscription" textFill="#ef6c00">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tf_nom" layoutX="98.0" layoutY="111.0" promptText="Nom" style="-fx-background-color: transparent; -fx-border-color: #EF6C00; -fx-border-width: 0px 0px 2px 0px;" />
+      <TextField fx:id="tf_prenom" layoutX="98.0" layoutY="178.0" promptText="Prenom" style="-fx-background-color: transparent; -fx-border-color: #EF6C00; -fx-border-width: 0px 0px 2px 0px;" />
+      <TextField fx:id="tf_email" layoutX="98.0" layoutY="245.0" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #EF6C00; -fx-border-width: 0px 0px 2px 0px;" />
+      <TextField fx:id="tf_tel" layoutX="355.0" layoutY="111.0" promptText="Téléphone" style="-fx-background-color: transparent; -fx-border-color: #EF6C00; -fx-border-width: 0px 0px 2px 0px;" />
+      <TextField fx:id="tf_login" layoutX="355.0" layoutY="178.0" promptText="Login" style="-fx-background-color: transparent; -fx-border-color: #EF6C00; -fx-border-width: 0px 0px 2px 0px;" />
+      <PasswordField fx:id="tf_mdp" layoutX="355.0" layoutY="245.0" promptText="Mot de passe" style="-fx-background-color: transparent; -fx-border-color: #EF6C00; -fx-border-width: 0px 0px 2px 0px;" />
+      <Button fx:id="btn_insc" layoutX="121.0" layoutY="312.0" mnemonicParsing="false" onAction="#inscription" prefHeight="42.0" prefWidth="126.0" style="-fx-background-color: #ef6c00;" text="S'inscrire" textFill="WHITE" />
+      <Button fx:id="btn_insc1" layoutX="355.0" layoutY="312.0" mnemonicParsing="false" onAction="#emmeneconnexion" prefHeight="42.0" prefWidth="126.0" style="-fx-background-color: #ef6c00;" text="Se connecter" textFill="WHITE" />
    </children>
 </AnchorPane>
