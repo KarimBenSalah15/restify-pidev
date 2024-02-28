@@ -2,10 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -117,20 +114,29 @@ public class FenetreInscription {
                     pst.setString(6, tf_mdp.getText());
                     pst.executeUpdate();
                     showAlert("Succès", "Vous vous êtes bien inscrit.");
-
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/FenetreDashboardClient.fxml"));
-                    try {
-                        Parent root = loader.load();
-                        Scene scene = new Scene(root, 1315, 890);
-                        Stage stage = (Stage) tf_nom.getScene().getWindow();
-                        stage.setScene(scene);
-                        stage.setFullScreen(true);
-                    } catch (IOException e) {
+                    String req2 = "SELECT id from Utilisateur where login = '"+ tf_login.getText() +"' and mdp = '"+ tf_mdp.getText() +"'";
+                    Statement st2 = cnx2.createStatement();
+                    ResultSet rs2 = st2.executeQuery(req2);
+                    if (rs2.next()) {
+                        int idenvoi = rs2.getInt(1);
+                        MyConnection.getInstance().setIdenvoi(idenvoi);
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FenetreDashboardClient.fxml"));
+                        try {
+                            Parent root = loader.load();
+                            Scene scene = new Scene(root, 1315, 890);
+                            Stage stage = (Stage) tf_nom.getScene().getWindow();
+                            stage.setScene(scene);
+                            stage.setFullScreen(true);
+                        } catch (IOException e) {
+                            System.err.println(e.getMessage());
+                        }
+                    }
+                    else {
+                            System.err.println("ERREUR.");
+                    }
+                    } catch (SQLException e) {
                         System.err.println(e.getMessage());
                     }
-                } catch (SQLException e) {
-                    System.err.println(e.getMessage());
-                }
             }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
