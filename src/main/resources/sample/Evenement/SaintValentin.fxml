@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Evenement.SaintValentinControlleur">
+   <children>
+      <ImageView fitHeight="414.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/Valentine's_Day_Heart_Pink_color_513591_1280x853.jpg" />
+         </image>
+      </ImageView>
+      <Text layoutX="14.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Etat" wrappingWidth="116.53668212890625">
+         <font>
+            <Font size="43.0" />
+         </font></Text>
+      <Label fx:id="etatLabel" layoutX="14.0" layoutY="88.0" prefHeight="116.0" prefWidth="187.0" text="Label">
+         <font>
+            <Font size="22.0" />
+         </font></Label>
+      <Text layoutX="176.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duree" wrappingWidth="116.53668212890625">
+         <font>
+            <Font size="43.0" />
+         </font></Text>
+      <Label fx:id="dureeLabel" layoutX="234.0" layoutY="88.0" prefHeight="126.0" prefWidth="150.0" text="Label">
+         <font>
+            <Font size="22.0" />
+         </font></Label>
+      <Text layoutX="368.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="116.53668212890625">
+         <font>
+            <Font size="43.0" />
+         </font></Text>
+      <Label fx:id="dateLabel" layoutX="386.0" layoutY="88.0" prefHeight="140.0" prefWidth="174.0" text="Label">
+         <font>
+            <Font size="22.0" />
+         </font></Label>
+   </children>
+</AnchorPane>

@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.sql.*;
@@ -62,7 +63,7 @@ public class EvenementController implements Initializable {
     private TableColumn<Evenement, String> typeA;
 
     @FXML
-    private TextField typeFid;
+    private ComboBox<String> typeFid;
 
     private PreparedStatement pst = null;
     private MyConnection cnx = null;
@@ -73,7 +74,7 @@ public class EvenementController implements Initializable {
         LocalDate localDate = dateFid.getValue();
         String duree = dureFid.getText();
         String etat = etatFid.getValue();
-        String type = typeFid.getText();
+        String type = typeFid.getValue();
 
         // Vérifier que les champs ne sont pas vides
         if (!nom.isEmpty() && localDate != null && !duree.isEmpty() && !etat.isEmpty() && !type.isEmpty()) {
@@ -124,7 +125,7 @@ public class EvenementController implements Initializable {
             dateFid.setValue(evenement.getDate().toLocalDate());
             dureFid.setText(evenement.getDuree());
             etatFid.setValue(evenement.getEtat());
-            typeFid.setText(evenement.getType());
+            typeFid.setValue(evenement.getType());
         }
     }
 
@@ -133,7 +134,51 @@ public class EvenementController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        // Initialisation des éléments du tableau
         table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                // Une ligne est sélectionnée, désactiver btnSave
+                btnSave.setDisable(true);
+            } else {
+                // Aucune ligne n'est sélectionnée, activer btnSave
+                btnSave.setDisable(false);
+            }
+        });
+
+        // Afficher les événements existants
+        afficher();
+
+        // Choix pour le ComboBox etatFid
+        List<String> choices = Arrays.asList("Full", "Empty");
+        etatFid.setItems(FXCollections.observableArrayList(choices));
+        etatFid.setOnAction(event -> {
+            String selectedChoice = etatFid.getValue();
+            // Effectuer des actions en fonction du choix sélectionné
+            if ("Full".equals(selectedChoice)) {
+                etatFid.setValue("Full");
+            } else if ("Empty".equals(selectedChoice)) {
+                etatFid.setValue("Empty");
+            }
+        });
+
+        // Choix pour le ComboBox typeFid
+        List<String> choix = Arrays.asList("SaintValentin", "Reveillon", "Halloween");
+        typeFid.setItems(FXCollections.observableArrayList(choix));
+        typeFid.setOnAction(event -> {
+            String selectedChoice = typeFid.getValue();
+            // Effectuer des actions en fonction du choix sélectionné
+            /*if ("Halloween".equals(selectedChoice)) {
+                etatFid.setItems(FXCollections.observableArrayList(Arrays.asList("Full", "Empty", "Special")));
+                etatFid.setValue("Special");
+            } else {
+                etatFid.setItems(FXCollections.observableArrayList(Arrays.asList("Full", "Empty")));
+                etatFid.setValue("Full");
+            }*/
+        });
+
+    }
+
+        /*table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 // A row is selected, disable btnSave
                 btnSave.setDisable(true);
@@ -156,7 +201,23 @@ public class EvenementController implements Initializable {
                 etatFid.setValue( "Empty");
             }
         });
-    }
+        List<String> choix = Arrays.asList("SaintValentin", "Reveillon","hallowein");
+        typeFid.setItems(FXCollections.observableArrayList(choix));
+        typeFid.setOnAction(event -> {
+            String selectedChoice = typeFid.getValue();
+            // Perform actions based on the selected choice
+            if ("SaintValentin".equals(selectedChoice)) {
+                etatFid.setValue( "SaintValentin");
+            } else if ("Reveillon".equals(selectedChoice)) {
+                // Handle 2nd choice
+                etatFid.setValue( "Reveillon");
+            }
+            else if ("hallowein".equals(selectedChoice)) {
+                // Handle 2nd choice
+                etatFid.setValue( "hallowein");
+            }
+        });
+    }*/
 
     private void afficher() {
         EvenementObservableList.clear();
@@ -249,7 +310,7 @@ public class EvenementController implements Initializable {
                         pst.setDate(2, Date.valueOf(dateFid.getValue()));
                         pst.setString(3, dureFid.getText());
                         pst.setString(4, etatFid.getValue());
-                        pst.setString(5, typeFid.getText());
+                        pst.setString(5, typeFid.getValue());
 
 
 
@@ -273,6 +334,7 @@ public class EvenementController implements Initializable {
 
 
     }
+
 
 
 }

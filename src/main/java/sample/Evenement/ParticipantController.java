@@ -7,10 +7,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.sql.*;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,7 +33,7 @@ public class ParticipantController implements Initializable {
     private Button btnUpdate;
 
     @FXML
-    private TableColumn<Participant, Integer> idP;
+    private TableColumn<Participant, String> idP;
 
     @FXML
     private TableColumn<Participant, String> nomP;
@@ -53,7 +53,7 @@ public class ParticipantController implements Initializable {
     PreparedStatement pst =null;
     ObservableList<Participant> participantsObservableList = FXCollections.observableArrayList();
 
-    private void afficher   () {
+    public List<Participant> afficher   () {
         participantsObservableList.clear();
         MyConnection connectNow = new MyConnection();
         Connection connectDB = connectNow.getCnx();
@@ -81,6 +81,7 @@ public class ParticipantController implements Initializable {
             Logger.getLogger(ParticipantController.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
+        return participantsObservableList;
     }
 
     public void initialize(URL url, ResourceBundle resourceBundle) {

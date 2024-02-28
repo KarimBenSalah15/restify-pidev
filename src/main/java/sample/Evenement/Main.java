@@ -12,11 +12,11 @@ import javafx.scene.Parent;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/sample/Evenement/Evenement.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/sample/Evenement/participantClient.fxml"));
         Scene scene = new Scene(root);
         stage.setHeight(800);
         stage.setWidth(1500);
-        stage.setTitle("Product - Search!");
+        stage.setTitle("Event!");
         stage.setScene(scene);
         stage.show();
     }

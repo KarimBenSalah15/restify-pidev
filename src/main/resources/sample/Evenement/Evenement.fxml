@@ -63,7 +63,6 @@
                   <String fx:value="title" />
                   <String fx:value="my-button" />
                </styleClass></Label>
-            <TextField fx:id="typeFid" layoutX="75.0" layoutY="306.0" prefHeight="25.0" prefWidth="163.0" />
             <Label layoutX="10.0" layoutY="263.0" prefHeight="23.0" prefWidth="51.0" styleClass="my-button" stylesheets="@css/style.css" text="etat" textFill="#fff8f8" />
             <Label layoutX="8.0" layoutY="307.0" styleClass="my-button" stylesheets="@css/style.css" text="Type" textFill="#fcfafa" />
             <DatePicker fx:id="dateFid" layoutX="75.0" layoutY="169.0" prefHeight="17.0" prefWidth="163.0" />
@@ -93,6 +92,7 @@
                </children>
             </VBox>
             <BorderPane layoutX="-36.0" layoutY="54.0" prefHeight="6.0" prefWidth="1000.0" style="-fx-background-color: black;" />
+            <ComboBox fx:id="typeFid" layoutX="75.0" layoutY="306.0" prefHeight="25.0" prefWidth="163.0" promptText="type" />
          </children>
       </Pane>
    </children>

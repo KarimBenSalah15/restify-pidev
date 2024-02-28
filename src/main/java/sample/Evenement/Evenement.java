@@ -20,6 +20,9 @@ public class Evenement {
         this.type = type;
     }
 
+    public Evenement(String etat, String duree, Date date) {
+    }
+
     public int getId() {
         return id;
     }
