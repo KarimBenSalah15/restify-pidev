@@ -10,47 +10,43 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="572.0" prefWidth="700.0" style="-fx-background-color: #9e9e9e;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ResClient">
    <children>
-      <AnchorPane layoutX="231.0" prefHeight="572.0" prefWidth="285.0" style="-fx-background-color: #bdbdbd;">
+      <AnchorPane prefHeight="572.0" prefWidth="285.0" style="-fx-background-color: #bdbdbd;">
          <children>
-            <Pane prefHeight="80.0" prefWidth="286.0" style="-fx-background-color: #f44336;">
-               <children>
-                  <Text fill="#9e9e9e" layoutX="98.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RESTIFY" wrappingWidth="119.2437744140625">
-                     <font>
-                        <Font name="Baskerville Old Face" size="24.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
             <Label layoutX="23.0" layoutY="129.0" text="DATE" textFill="#ef6c00">
                <font>
                   <Font name="Arial" size="18.0" />
                </font>
             </Label>
             <DatePicker fx:id="dateid" layoutX="168.0" layoutY="126.0" prefHeight="26.0" prefWidth="83.0" />
-            <Label layoutX="23.0" layoutY="206.0" text="HEURE" textFill="#ef6c00">
+            <Label layoutX="20.0" layoutY="192.0" text="HEURE" textFill="#ef6c00">
                <font>
                   <Font name="Arial" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="heureid" layoutX="182.0" layoutY="203.0" prefHeight="26.0" prefWidth="83.0" />
-            <Label layoutX="16.0" layoutY="262.0" text="NBPERSONNE" textFill="#ef6c00">
+            <TextField fx:id="heureid" layoutX="168.0" layoutY="189.0" prefHeight="26.0" prefWidth="83.0" />
+            <Label layoutX="20.0" layoutY="249.0" text="NBPERSONNE" textFill="#ef6c00">
                <font>
                   <Font name="Arial" size="18.0" />
                </font>
             </Label>
-            <ComboBox fx:id="nbpersonneid" layoutX="182.0" layoutY="260.0" prefHeight="26.0" prefWidth="83.0" />
-            <Button fx:id="btn" layoutX="52.0" layoutY="319.0" mnemonicParsing="false" onAction="#saveRes" prefHeight="36.0" prefWidth="100.0" style="-fx-background-radius: 20;" stylesheets="@style.css" text="Réservez !">
+            <ComboBox fx:id="nbpersonneid" layoutX="168.0" layoutY="246.0" prefHeight="26.0" prefWidth="83.0" />
+            <Button fx:id="btn" layoutX="160.0" layoutY="344.0" mnemonicParsing="false" onAction="#saveRes" prefHeight="33.0" prefWidth="100.0" style="-fx-background-radius: 10;" stylesheets="@style.css" text="RESERVEZ">
                <font>
                   <Font name="Arial Rounded MT Bold" size="12.0" />
                </font>
             </Button>
+            <ComboBox fx:id="tab" layoutX="168.0" layoutY="286.0" prefHeight="26.0" prefWidth="83.0" />
+            <Label layoutX="23.0" layoutY="289.0" text="Table" textFill="#ef6c00">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
-      <TableView fx:id="viewid1" layoutX="522.0" layoutY="114.0" opacity="0.66" prefHeight="195.0" prefWidth="222.0" style="-fx-background-color: #f44336;" stylesheets="@style.css">
+      <TableView fx:id="viewid1" layoutX="318.0" layoutY="104.0" opacity="0.9" prefHeight="234.0" prefWidth="406.0" style="-fx-background-color: #ffffff;" stylesheets="@style.css">
          <columns>
             <TableColumn fx:id="id" prefWidth="69.5999755859375" text="ID" />
             <TableColumn fx:id="dateid1" prefWidth="92.80007934570312" text="DATE" />
@@ -61,16 +57,25 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="btn1" layoutX="522.0" layoutY="321.0" mnemonicParsing="false" onAction="#updateR" prefHeight="36.0" prefWidth="100.0" style="-fx-background-radius: 20;" stylesheets="@style.css" text="UPDATE">
+      <Button fx:id="btn1" layoutX="421.0" layoutY="357.0" mnemonicParsing="false" onAction="#updateR" prefHeight="34.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #f44336;" stylesheets="@style.css" text="UPDATE">
          <font>
             <Font name="Arial Rounded MT Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="btn2" layoutX="633.0" layoutY="321.0" mnemonicParsing="false" onAction="#deleteR" prefHeight="36.0" prefWidth="100.0" style="-fx-background-radius: 20;" stylesheets="@style.css" text="DELETE">
+      <Button fx:id="btn2" layoutX="555.0" layoutY="357.0" mnemonicParsing="false" onAction="#deleteR" prefHeight="34.0" prefWidth="100.0" style="-fx-background-radius: 10;" stylesheets="@style.css" text="DELETE">
          <font>
             <Font name="Arial Rounded MT Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="returnid" layoutX="605.0" layoutY="442.0" mnemonicParsing="false" onAction="#returnR" style="-fx-background-radius: 20;" stylesheets="@style.css" text="return" />
+      <Button fx:id="returnid" layoutX="675.0" layoutY="517.0" mnemonicParsing="false" onAction="#returnR" style="-fx-background-radius: 10;" stylesheets="@style.css" text="return" />
+      <Pane fx:id="pane_top" layoutX="-5.0" layoutY="-5.0" prefHeight="77.0" prefWidth="754.0" style="-fx-background-color: #f44336;" stylesheets="@../../../target/classes/css.css">
+         <children>
+            <Label fx:id="label_top" layoutX="14.0" layoutY="27.0" prefHeight="23.0" prefWidth="281.0" text="RESERVEZ CHEZ RESTIFY !" textFill="#fb8c00">
+               <font>
+                  <Font name="Arial" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

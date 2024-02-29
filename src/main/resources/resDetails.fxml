@@ -10,43 +10,48 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="572.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ResDetails">
+<AnchorPane prefHeight="572.0" prefWidth="700.0" style="-fx-background-color: #9e9e9e;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.ResDetails">
    <children>
-      <AnchorPane prefHeight="572.0" prefWidth="700.0" style="-fx-background-color: #bdbdbd;">
+      <AnchorPane layoutX="200.0" prefHeight="572.0" prefWidth="298.0" style="-fx-background-color: #bdbdbd;">
          <children>
-            <Pane layoutX="15.0" layoutY="14.0" prefHeight="80.0" prefWidth="248.0" style="-fx-background-color: #f44336; -fx-background-radius: 15;">
-               <children>
-                  <Text fill="#9e9e9e" layoutX="75.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RESTIFY">
-                     <font>
-                        <Font name="Baskerville Old Face" size="24.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
-            <DatePicker fx:id="dateid2" layoutX="172.0" layoutY="133.0" prefHeight="26.0" prefWidth="83.0" />
-            <TextField fx:id="heureid2" layoutX="172.0" layoutY="194.0" prefHeight="26.0" prefWidth="83.0" />
-            <Label layoutX="23.0" layoutY="197.0" text="HEURE" textFill="#ef6c00">
-               <font>
-                  <Font name="Arial" size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="23.0" layoutY="136.0" text="DATE" textFill="#ef6c00">
-               <font>
-                  <Font name="Arial" size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="23.0" layoutY="253.0" text="NBPERSONNE" textFill="#ef6c00">
-               <font>
-                  <Font name="Arial" size="18.0" />
-               </font>
-            </Label>
-            <Button fx:id="btn3" layoutX="172.0" layoutY="301.0" mnemonicParsing="false" onAction="#updateR" prefHeight="36.0" prefWidth="100.0" style="-fx-background-radius: 20;" stylesheets="@style.css" text="UPDATE !">
+            <Button fx:id="btn3" layoutX="173.0" layoutY="358.0" mnemonicParsing="false" onAction="#updateR" prefHeight="36.0" prefWidth="100.0" style="-fx-background-radius: 10;" stylesheets="@style.css" text="UPDATE !">
                <font>
                   <Font name="Arial Rounded MT Bold" size="12.0" />
                </font>
             </Button>
-            <ComboBox fx:id="nbpersonneid2" layoutX="172.0" layoutY="251.0" prefHeight="26.0" prefWidth="83.0" />
+            <ComboBox fx:id="tab" layoutX="173.0" layoutY="297.0" prefHeight="26.0" prefWidth="83.0" />
+            <Label layoutX="26.0" layoutY="301.0" text="Table" textFill="#ef6c00">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+      <DatePicker fx:id="dateid2" layoutX="372.0" layoutY="133.0" prefHeight="26.0" prefWidth="83.0" />
+      <TextField fx:id="heureid2" layoutX="372.0" layoutY="194.0" prefHeight="26.0" prefWidth="83.0" />
+      <Label layoutX="223.0" layoutY="197.0" text="HEURE" textFill="#ef6c00">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="223.0" layoutY="136.0" text="DATE" textFill="#ef6c00">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="223.0" layoutY="253.0" text="NBPERSONNE" textFill="#ef6c00">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="nbpersonneid2" layoutX="372.0" layoutY="251.0" prefHeight="26.0" prefWidth="83.0" />
+      <Pane prefHeight="80.0" prefWidth="700.0" style="-fx-background-color: #f44336;">
+         <children>
+            <Text fill="#ef6c00" layoutX="222.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MODIFIEZ CHEZ RESTIFY !">
+               <font>
+                  <Font name="Arial" size="20.0" />
+               </font>
+            </Text>
          </children>
-      </AnchorPane>
+      </Pane>
    </children>
 </AnchorPane>

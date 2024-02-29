@@ -65,5 +65,25 @@ public class Table {
                 ", dispo=" + dispo +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Table table = (Table) o;
+
+        return idtable == table.idtable;
+    }
+
+    @Override
+    public int hashCode() {
+        return idtable;
+    }
+
+
+    public int getTabId() {
+        return idtable;
+    };
 }
 

@@ -2,6 +2,8 @@ package edu.esprit.controllers;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -15,10 +17,14 @@ import edu.esprit.services.TableCrud;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+
+
 
 public class Tab {
 
@@ -90,13 +96,10 @@ public class Tab {
 
     public Table SelectedTable;
 
+
+
     @FXML
     void save1(ActionEvent event) {
-        Table p = new Table(nbplaceid.getValue(),placeid.getValue(),disponibiliteid.getValue());
-        TableCrud pc = new TableCrud();
-        pc.ajouterEntite(p);
-        Alert alert = new Alert(Alert.AlertType.INFORMATION,"Table ajoutée avec succès", ButtonType.OK);
-        alert.show();
 
         TableCrud rc=new TableCrud();
         List<Table> reservations=rc.afficherEntiite();
@@ -107,24 +110,57 @@ public class Tab {
         tabview.getItems().addAll(reservations);
         refreshTableView();
 
+        if (validateInput()) {
+            Table p = new Table(nbplaceid.getValue(),placeid.getValue(),disponibiliteid.getValue());
+            TableCrud pc = new TableCrud();
+            pc.ajouterEntite(p);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION,"Table ajoutée avec succès", ButtonType.OK);
+            alert.show();
+            refreshTableView();
+        } else {
+            Alert alerts = new Alert(Alert.AlertType.ERROR, "Veuillez sélectionner vos saisies", ButtonType.OK);
+            alerts.show();
+        }
+    }
+    private boolean validateInput() {
+        // Ajouter vos contrôles de saisie ici
+        Integer nbplace = nbplaceid.getValue();
+        String place = placeid.getValue();
+        Boolean dispo = disponibiliteid.getValue();
+        if (nbplace == null) {
+            showAlert("Veuillez saisir un nombre de places");
+            return false;
+        }
+        if (place == null) {
+            showAlert("Veuillez sélectionner une place");
+            return false;
+        }
+        if (dispo == null) {
+            showAlert("Veuillez sélectionner la disponibilité");
+            return false;
+        }
+        return true;
+    }
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
+        alert.show();
     }
 
     private Table getSelectedTable() {
-        return tabview.getSelectionModel().getSelectedItem();
+        Table selectedTable = tabview.getSelectionModel().getSelectedItem();
+        System.out.println("Selected Table: " + selectedTable);
+        return selectedTable;
     }
+
     @FXML
     void save2(ActionEvent event) {
         TableCrud rc = new TableCrud();
         this.SelectedTable = getSelectedTable();
-
         if (SelectedTable != null) {
             int selectedId = SelectedTable.getIdtable();
             rc.supprimerEntite(selectedId);
-
-            // Refresh the TableView after deletion
             tabview.getItems().remove(SelectedTable);
         } else {
-            // Show an alert or handle the case when no item is selected
             Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a row to delete.", ButtonType.OK);
             alert.showAndWait();
         }
@@ -132,58 +168,47 @@ public class Tab {
 
     @FXML
     void save3(ActionEvent event) {
-         boolean isModificationPending = false;
+        Table selectedTable = getSelectedTable();
 
-        if (!isModificationPending) {
-            // First click - Update ComboBox values
-            updateComboBoxesFromSelectedRow();
-            isModificationPending = true;
+        if (selectedTable != null) {
+           TableCrud tc =new TableCrud();
+           Table t=new Table(nbplaceid.getValue(),placeid.getValue(),disponibiliteid.getValue());
+           tc.modifierEntite(t,selectedTable.getIdtable());
+            refreshTableView();
         } else {
-            // Second click - Modify the database
-            Table selectedTable = getSelectedTable();
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a row to update.", ButtonType.OK);
+            alert.showAndWait();
+        }
 
-            if (selectedTable != null) {
-                // Update the selected table with values from ComboBoxes
-                selectedTable.setNbrplace(nbplaceid.getValue());
-                selectedTable.setPlace(placeid.getValue());
-                selectedTable.setDispo(disponibiliteid.getValue());
+        if (selectedTable != null) {
+            // Comparer les valeurs actuelles avec les nouvelles valeurs
+            int selectedNbPlaces = selectedTable.getNbrplace();
+            String selectedPlace = selectedTable.getPlace();
+            Boolean selectedDispo = selectedTable.isDispo();
 
-                // Update the database with the modified table
-                TableCrud tableCrud = new TableCrud();
-                tableCrud.modifierEntite(selectedTable, selectedTable.getIdtable());
+            int newNbPlaces = nbplaceid.getValue();
+            String newPlace = placeid.getValue();
+            Boolean newDispo = disponibiliteid.getValue();
 
-                // Refresh the TableView after modification
-                refreshTableView();
-//ooooooo
-                // Reset the flag for the next round
-                isModificationPending = false;
-            } else {
-                // Show an alert or handle the case when no item is selected
-                Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a row to update.", ButtonType.OK);
-                alert.showAndWait();
+            if (selectedNbPlaces == newNbPlaces && selectedPlace.equals(newPlace) && selectedDispo.equals(newDispo)) {
+                showAlert("Veuillez modifier vos données");
             }
         }
     }
 
-
-
-    // Method to update ComboBox values based on the selected row in TableView
+    @FXML
     private void updateComboBoxesFromSelectedRow() {
-        Table selectedTable = getSelectedTable();
 
+        Table selectedTable = getSelectedTable();
         if (selectedTable != null) {
-            // Update ComboBox values based on the selected row
             nbplaceid.setValue(selectedTable.getNbrplace());
             placeid.setValue(selectedTable.getPlace());
             disponibiliteid.setValue(selectedTable.isDispo());
         } else {
-            // Show an alert or handle the case when no item is selected
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a row to update ComboBoxes.", ButtonType.OK);
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Veuillez sélectionner une ligne pour mettre à jour", ButtonType.OK);
             alert.showAndWait();
         }
     }
-
-
 
     @FXML
     void initialize() {
@@ -248,11 +273,14 @@ public class Tab {
             }
         });
     }
+    @FXML
     private void refreshTableView() {
         TableCrud rc = new TableCrud();
-        List<Table> updatedReclamations = rc.afficherEntiite();
-        tabview.getItems().clear();
-        tabview.getItems().addAll(updatedReclamations);
+        List<Table> updatedTable = rc.afficherEntiite();
+        tabview.getItems().clear(); // Clear existing items
+        tabview.getItems().addAll(updatedTable); // Add updated items
+        tabview.getSelectionModel().clearSelection();
     }
+
 }
 

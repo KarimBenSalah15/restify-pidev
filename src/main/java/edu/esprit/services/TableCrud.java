@@ -30,6 +30,21 @@ public class TableCrud implements ICrud <Table>{
         {System.out.println(e.getMessage());}
 
     }
+    public List<Integer> getAllTableIds() {
+        List<Integer> tableIds = new ArrayList<>();
+        String req = "SELECT id FROM `table`";
+
+        try (Statement stm = cnx2.createStatement()) {
+            try (ResultSet rs = stm.executeQuery(req)) {
+                while (rs.next()) {
+                    tableIds.add(rs.getInt("id"));
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return tableIds;
+    }
 
     @Override
     public List<Table> afficherEntiite() {
