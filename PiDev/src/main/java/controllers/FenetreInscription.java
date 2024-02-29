@@ -66,6 +66,10 @@ public class FenetreInscription {
             showAlert("Erreur", "Veuillez remplir tous les champs.");
             return;
         }
+        if (!complexitemdp(mdp)) {
+            showAlert("Erreur", "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.");
+            return;
+        }
         String emailExiste = "SELECT COUNT(*) FROM Utilisateur WHERE email = ?";
         String loginExiste = "SELECT COUNT(*) FROM Utilisateur WHERE login = ?";
         String telExiste = "SELECT COUNT(*) FROM Utilisateur WHERE tel = ?";
@@ -171,6 +175,26 @@ public class FenetreInscription {
             System.err.println(e.getMessage());
         }
     }
+
+    private boolean complexitemdp(String motDePasse) {
+        if (motDePasse.length() < 8) {
+            return false;
+        }
+        if (!motDePasse.matches(".*[A-Z].*")) {
+            return false;
+        }
+        if (!motDePasse.matches(".*[a-z].*")) {
+            return false;
+        }
+        if (!motDePasse.matches(".*\\d.*")) {
+            return false;
+        }
+        if (!motDePasse.matches(".*[^a-zA-Z0-9].*")) {
+            return false;
+        }
+        return true;
+    }
+
     @FXML
     void initialize() {
     }

@@ -116,6 +116,10 @@ public class FenetreProfilClient {
             showAlert("Erreur", "Veuillez remplir tous les champs.");
             return;
         }
+        if (!complexitemdp(mdp)) {
+            showAlert("Erreur", "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.");
+            return;
+        }
         try {
             String query = "UPDATE Utilisateur set nom=?, prenom=?, email=?, tel=?, login=?, mdp=?" +
                     " where id = ?";
@@ -217,6 +221,25 @@ public class FenetreProfilClient {
             System.err.println(e.getMessage());
             return false;
         }
+    }
+
+    private boolean complexitemdp(String motDePasse) {
+        if (motDePasse.length() < 8) {
+            return false;
+        }
+        if (!motDePasse.matches(".*[A-Z].*")) {
+            return false;
+        }
+        if (!motDePasse.matches(".*[a-z].*")) {
+            return false;
+        }
+        if (!motDePasse.matches(".*\\d.*")) {
+            return false;
+        }
+        if (!motDePasse.matches(".*[^a-zA-Z0-9].*")) {
+            return false;
+        }
+        return true;
     }
 
     private void showAlert(String title, String message) {

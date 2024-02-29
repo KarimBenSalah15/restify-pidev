@@ -34,7 +34,6 @@
             <artifactId>fontawesomefx</artifactId>
             <version>8.2</version>
         </dependency>
-
     </dependencies>
     <build>
         <plugins>

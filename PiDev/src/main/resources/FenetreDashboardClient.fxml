@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -18,7 +18,7 @@
                   <Image url="@resourcesdashboardclient/img/logo.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="45.0" fitWidth="46.0" layoutX="1087.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="34.0" fitWidth="41.0" layoutX="1112.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@resourcesdashboardclient/img/commandes.png" />
                </image>
@@ -73,11 +73,17 @@
                   <Image url="@resourcesdashboardclient/img/user.png" />
                </image>
             </ImageView>
-            <Label layoutX="1115.0" layoutY="16.0" prefHeight="21.0" prefWidth="14.0" styleClass="shadow" stylesheets="@resourcesdashboardclient/style.css" text="0" textFill="WHITE">
+            <FontAwesomeIcon fill="WHITE" glyphName="BELL" layoutX="1168.0" layoutY="58.0" size="25" />
+            <Text fill="WHITE" layoutX="1181.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="7.5352783203125">
                <font>
-                  <Font size="20.0" />
+                  <Font size="26.0" />
                </font>
-            </Label>
+            </Text>
+            <Text fill="WHITE" layoutX="1138.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="7.5352783203125">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
    </top>
