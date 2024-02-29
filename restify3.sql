@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 26 fév. 2024 à 15:39
+-- Généré le : jeu. 29 fév. 2024 à 16:38
 -- Version du serveur : 10.4.25-MariaDB
 -- Version de PHP : 8.1.10
 
@@ -24,27 +24,12 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `avis`
---
-
-CREATE TABLE `avis` (
-  `id` int(11) NOT NULL,
-  `nbretoile` int(11) NOT NULL,
-  `date` date NOT NULL,
-  `client_id` int(11) NOT NULL,
-  `plat_id` int(11) NOT NULL,
-  `message` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `commande`
 --
 
 CREATE TABLE `commande` (
   `id` int(11) NOT NULL,
-  `plat_id` int(11) NOT NULL
+  `prix` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -88,7 +73,21 @@ CREATE TABLE `plat` (
   `id` int(11) NOT NULL,
   `nom` varchar(255) NOT NULL,
   `prix` int(11) NOT NULL,
-  `calorie` int(11) NOT NULL
+  `calorie` int(11) NOT NULL,
+  `ingredients` varchar(255) NOT NULL,
+  `image` mediumblob DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `platcommande`
+--
+
+CREATE TABLE `platcommande` (
+  `plat_id` int(11) NOT NULL,
+  `commande_id` int(11) NOT NULL,
+  `quantite` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -201,27 +200,20 @@ CREATE TABLE `utilisateur` (
 --
 
 INSERT INTO `utilisateur` (`id`, `nom`, `prenom`, `email`, `tel`, `login`, `mdp`, `role`, `poste`, `salaire`, `dateembauche`) VALUES
-(7, 'Ben Salah', 'Karim', 'karim.bensalah@esprit.tn', 92949100, 'admin', 'admin', 'Admin', 'Gérant', NULL, NULL),
-(10, 'Ben Hadj Yahia', 'Mehdi', 'mehdi.benhadjyahia@esprit.tn', 25242937, 'madoaa', 'mehdi', 'Client', NULL, 0, NULL);
+(7, 'Ben Salah', 'Karim', 'karim.bensalah@esprit.tn', 92949100, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Admin', 'Gérant', NULL, NULL),
+(30, 'Benzema', 'Karim', 'karim@esprit.tn', 52419674, 'karim', '720158ab6b1cdc780ca62ad29bc1de00', 'Client', NULL, NULL, NULL),
+(32, 'Hamed', 'Aziz', 'aziz@esprit.tn', 23154879, 'aziz', '30a1da7e0b8ce8861d2042c7e0f8d39a', 'Client', NULL, NULL, NULL);
 
 --
 -- Index pour les tables déchargées
 --
 
 --
--- Index pour la table `avis`
---
-ALTER TABLE `avis`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `platforeign` (`plat_id`),
-  ADD KEY `clientforeign3` (`client_id`);
-
---
 -- Index pour la table `commande`
 --
 ALTER TABLE `commande`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `platforeign3` (`plat_id`);
+  ADD KEY `platforeign3` (`prix`);
 
 --
 -- Index pour la table `evenement`
@@ -240,6 +232,13 @@ ALTER TABLE `participant`
 --
 ALTER TABLE `plat`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `platcommande`
+--
+ALTER TABLE `platcommande`
+  ADD PRIMARY KEY (`plat_id`,`commande_id`),
+  ADD KEY `foreign_commande` (`commande_id`);
 
 --
 -- Index pour la table `produit`
@@ -295,12 +294,6 @@ ALTER TABLE `utilisateur`
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
-
---
--- AUTO_INCREMENT pour la table `avis`
---
-ALTER TABLE `avis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `commande`
@@ -366,24 +359,18 @@ ALTER TABLE `table`
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- Contraintes pour les tables déchargées
 --
 
 --
--- Contraintes pour la table `avis`
+-- Contraintes pour la table `platcommande`
 --
-ALTER TABLE `avis`
-  ADD CONSTRAINT `clientforeign3` FOREIGN KEY (`client_id`) REFERENCES `utilisateur` (`id`),
-  ADD CONSTRAINT `platforeign` FOREIGN KEY (`plat_id`) REFERENCES `plat` (`id`);
-
---
--- Contraintes pour la table `commande`
---
-ALTER TABLE `commande`
-  ADD CONSTRAINT `platforeign3` FOREIGN KEY (`plat_id`) REFERENCES `plat` (`id`);
+ALTER TABLE `platcommande`
+  ADD CONSTRAINT `foreign_commande` FOREIGN KEY (`commande_id`) REFERENCES `commande` (`id`),
+  ADD CONSTRAINT `foreign_plat` FOREIGN KEY (`plat_id`) REFERENCES `plat` (`id`);
 
 --
 -- Contraintes pour la table `produit`
