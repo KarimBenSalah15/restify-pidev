@@ -12,7 +12,7 @@ import javafx.scene.Parent;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/sample/Evenement/participantClient.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/sample/Evenement/EvenementClient.fxml"));
         Scene scene = new Scene(root);
         stage.setHeight(800);
         stage.setWidth(1500);

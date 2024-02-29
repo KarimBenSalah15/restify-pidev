@@ -3,10 +3,13 @@ package sample.Evenement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
@@ -23,7 +26,19 @@ public class HalloweinController implements Initializable {
 
     @FXML
     private Label dateLabel;
+    @FXML
+    private Button back;
+    @FXML
+    void  backGo(){
+        FXMLLoader loader=new FXMLLoader((getClass().getResource("/sample/Evenement/EvenementClient.fxml")));
+        try {
+            Parent root= loader.load();
+            EvenementClientController pc=loader.getController();
+            dateLabel.getScene().setRoot(root);
 
+        }catch (IOException e)
+        {System.out.println(e.getMessage());}
+    }
     ObservableList<Evenement> EvenementObservableList = FXCollections.observableArrayList();
     private MyConnection cnx = null;
     Date date = Date.valueOf("2024-02-06");

@@ -33,7 +33,7 @@ public class ParticipantController implements Initializable {
     private Button btnUpdate;
 
     @FXML
-    private TableColumn<Participant, String> idP;
+    private TableColumn<Participant, Integer> idP;
 
     @FXML
     private TableColumn<Participant, String> nomP;
