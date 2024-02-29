@@ -50,7 +50,7 @@ public class FenetreDashboardClient {
     }
 
     public void affichagemodif() {
-        String req2 = "SELECT nom, prenom, email, tel, login, mdp from Utilisateur where id=?";
+        String req2 = "SELECT nom, prenom, email, tel, login from Utilisateur where id=?";
         try {
             PreparedStatement st1 = cnx2.prepareStatement(req2);
             st1.setInt(1, MyConnection.getInstance().getIdenvoi());
@@ -62,7 +62,6 @@ public class FenetreDashboardClient {
                 p.setEmail(rs.getString("email"));
                 p.setTel(rs.getInt("tel"));
                 p.setLogin(rs.getString("login"));
-                p.setMdp(rs.getString("mdp"));
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/FenetreProfilClient.fxml"));
                 try {
@@ -74,7 +73,6 @@ public class FenetreDashboardClient {
                         pc.getTf_emailprof().setText(p.getEmail());
                         pc.getTf_telprof().setText(String.valueOf(p.getTel()));
                         pc.getTf_loginprof().setText(p.getLogin());
-                        pc.getTf_mdpprof().setText(p.getMdp());
                         bp_modif.setCenter(root);
                     } else {
                         System.out.println("centerPane is null");

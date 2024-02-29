@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -58,6 +59,7 @@ public class FenetreAjout {
 
     private FenetreAffichage hp;
     Connection cnx2;
+    Encryptor encryptor = new Encryptor();
 
     public FenetreAjout() {
         cnx2 = MyConnection.getInstance().getCnx();
@@ -140,7 +142,7 @@ public class FenetreAjout {
             pst.setString(3, tf_emailemp.getText());
             pst.setInt(4, Integer.parseInt(tf_telemp.getText()));
             pst.setString(5, tf_loginemp.getText());
-            pst.setString(6, tf_mdpemp.getText());
+            pst.setString(6, encryptor.encryptString(tf_mdpemp.getText()));
             pst.setString(7, combobox_role.getValue());
             if ("Client".equals(role)){
                 pst.setNull(8, java.sql.Types.VARCHAR);
@@ -158,6 +160,8 @@ public class FenetreAjout {
             }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
         }
         Stage ajout = (Stage) tf_nomemp.getScene().getWindow();
         ajout.close();

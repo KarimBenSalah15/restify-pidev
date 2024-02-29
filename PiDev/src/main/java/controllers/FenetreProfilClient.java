@@ -1,6 +1,7 @@
 package controllers;
 
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -44,6 +45,7 @@ public class FenetreProfilClient {
     private TextField tf_telprof;
 
     Connection cnx2;
+    Encryptor encryptor = new Encryptor();
 
     public FenetreProfilClient() {
         cnx2 = MyConnection.getInstance().getCnx();
@@ -128,7 +130,7 @@ public class FenetreProfilClient {
             pst.setString(3, tf_emailprof.getText());
             pst.setInt(4, Integer.parseInt(tf_telprof.getText()));
             pst.setString(5, tf_loginprof.getText());
-            pst.setString(6, tf_mdpprof.getText());
+            pst.setString(6, encryptor.encryptString(tf_mdpprof.getText()));
             pst.setInt(7,MyConnection.getInstance().getIdenvoi());
             if (utilisateurExistelogin(login, MyConnection.getInstance().getIdenvoi())) {
                 showAlert("Erreur", "Un utilisateur avec le même login existe déjà.");
@@ -154,6 +156,8 @@ public class FenetreProfilClient {
         }
         catch (SQLException e) {
             System.err.println(e.getMessage());
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
         }
     }
 

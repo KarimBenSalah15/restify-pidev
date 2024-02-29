@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,6 +41,7 @@ public class FenetreConnexion {
     @FXML
     private TextField tf_mdp_con;
     Connection cnx2;
+    Encryptor encryptor = new Encryptor();
 
 
     public FenetreConnexion() {
@@ -56,7 +58,12 @@ public class FenetreConnexion {
             showAlert("Erreur", "Veuillez remplir tous les champs.");
             return;
         }
-        String req = "SELECT * from Utilisateur where login = '"+ tf_login_con.getText() +"' and mdp = '"+ tf_mdp_con.getText() +"'";
+        String req = null;
+        try {
+            req = "SELECT * from Utilisateur where login = '"+ tf_login_con.getText() +"' and mdp = '"+ encryptor.encryptString(tf_mdp_con.getText()) +"'";
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
         try {
             Statement st1 = cnx2.createStatement();
             ResultSet rs = st1.executeQuery(req);
@@ -64,7 +71,7 @@ public class FenetreConnexion {
                 if (rs.next()) {
                     String role = rs.getString("role").toUpperCase();
                     if ("CLIENT".equals(role)){
-                        String req2 = "SELECT id from Utilisateur where login = '"+ tf_login_con.getText() +"' and mdp = '"+ tf_mdp_con.getText() +"'";
+                        String req2 = "SELECT id from Utilisateur where login = '"+ tf_login_con.getText() +"' and mdp = '"+ encryptor.encryptString(tf_mdp_con.getText()) +"'";
                         Statement st2 = cnx2.createStatement();
                         ResultSet rs2 = st2.executeQuery(req2);
                         if (rs2.next()) {
@@ -108,6 +115,8 @@ public class FenetreConnexion {
                 }
             } catch (SQLException ex) {
                 System.err.println(ex.getMessage());
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
             }
         }
         catch (SQLException e) {

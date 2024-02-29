@@ -9,16 +9,16 @@
    <children>
       <TableView fx:id="tabview_aff" editable="true" layoutX="88.0" layoutY="14.0" prefHeight="430.0" prefWidth="904.0" stylesheets="@tabview_aff.css">
         <columns>
-          <TableColumn fx:id="col_id" editable="false" prefWidth="20.00006103515625" text="ID" />
-          <TableColumn fx:id="col_nom" prefWidth="86.39999389648438" text="Nom" />
+          <TableColumn fx:id="col_id" editable="false" prefWidth="30.39996337890625" text="ID" />
+          <TableColumn fx:id="col_nom" prefWidth="76.80001831054688" text="Nom" />
             <TableColumn fx:id="col_prenom" prefWidth="85.60000610351562" text="Prénom" />
             <TableColumn fx:id="col_email" prefWidth="191.20001220703125" text="Email" />
             <TableColumn fx:id="col_tel" prefWidth="79.19998168945312" text="Teléphone" />
             <TableColumn fx:id="col_login" minWidth="0.0" prefWidth="101.60003662109375" text="Login" />
             <TableColumn fx:id="col_role" editable="false" prefWidth="96.0" text="Role" />
             <TableColumn fx:id="col_poste" prefWidth="56.800048828125" text="Poste" />
-            <TableColumn fx:id="col_salaire" prefWidth="62.39990234375" text="Salaire" />
-            <TableColumn fx:id="col_date" editable="false" prefWidth="110.4000244140625" text="Date d'embauche" />
+            <TableColumn fx:id="col_salaire" prefWidth="54.4000244140625" text="Salaire" />
+            <TableColumn fx:id="col_date" editable="false" prefWidth="119.199951171875" text="Date d'embauche" />
         </columns>
       </TableView>
       <Button fx:id="btn_supp" layoutX="605.0" layoutY="526.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="42.0" prefWidth="126.0" style="-fx-background-color: #ef6c00;" text="Supprimer" textFill="WHITE" />

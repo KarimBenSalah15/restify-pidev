@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ResourceBundle;
 
@@ -46,6 +47,7 @@ public class FenetreInscription {
     private TextField tf_tel;
 
     Connection cnx2;
+    Encryptor encryptor = new Encryptor();
 
     public FenetreInscription() {
         cnx2 = MyConnection.getInstance().getCnx();
@@ -111,10 +113,10 @@ public class FenetreInscription {
                     pst.setString(3, tf_email.getText());
                     pst.setInt(4, Integer.parseInt(tf_tel.getText()));
                     pst.setString(5, tf_login.getText());
-                    pst.setString(6, tf_mdp.getText());
+                    pst.setString(6, encryptor.encryptString(tf_mdp.getText()));
                     pst.executeUpdate();
                     showAlert("Succès", "Vous vous êtes bien inscrit.");
-                    String req2 = "SELECT id from Utilisateur where login = '"+ tf_login.getText() +"' and mdp = '"+ tf_mdp.getText() +"'";
+                    String req2 = "SELECT id from Utilisateur where login = '"+ tf_login.getText() +"' and mdp = '"+ encryptor.encryptString(tf_mdp.getText()) +"'";
                     Statement st2 = cnx2.createStatement();
                     ResultSet rs2 = st2.executeQuery(req2);
                     if (rs2.next()) {
@@ -136,7 +138,9 @@ public class FenetreInscription {
                     }
                     } catch (SQLException e) {
                         System.err.println(e.getMessage());
-                    }
+                    } catch (NoSuchAlgorithmException e) {
+                    throw new RuntimeException(e);
+                }
             }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
