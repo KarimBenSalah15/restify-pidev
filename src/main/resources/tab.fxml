@@ -49,6 +49,7 @@
                     </columns>
                   </TableView>
                   <JFXButton fx:id="btnprint" buttonType="RAISED" layoutX="298.0" layoutY="5.0" prefHeight="26.0" prefWidth="97.0" text="Print Preview" />
+                  <JFXButton fx:id="btndetails" buttonType="RAISED" layoutX="298.0" layoutY="414.0" onAction="#det" prefHeight="26.0" prefWidth="97.0" text="Details" />
                </children>
             </AnchorPane>
          </children>

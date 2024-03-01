@@ -97,6 +97,10 @@ public class Tab {
     public Table SelectedTable;
 
 
+    @FXML
+    private JFXButton btndetails;
+
+
 
     @FXML
     void save1(ActionEvent event) {
@@ -280,6 +284,19 @@ public class Tab {
         tabview.getItems().clear(); // Clear existing items
         tabview.getItems().addAll(updatedTable); // Add updated items
         tabview.getSelectionModel().clearSelection();
+    }
+
+
+    @FXML
+    void det(ActionEvent event) {
+
+        FXMLLoader loader=new FXMLLoader((getClass().getResource("/adminDetails.fxml")));
+        try {
+            Parent root= loader.load();
+            btndetails.getScene().setRoot(root);
+
+        }catch (IOException e)
+        {System.out.println(e.getMessage());}
     }
 
 }

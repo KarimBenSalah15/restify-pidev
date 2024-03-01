@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anc" prefHeight="572.0" prefWidth="700.0" stylesheets="@css.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.AdminDetails">
+   <children>
+      <Pane fx:id="pane2" prefHeight="572.0" prefWidth="358.0" />
+      <Pane fx:id="pane_top" layoutX="-1.0" layoutY="-1.0" prefHeight="70.0" prefWidth="708.0">
+         <children>
+            <Label fx:id="label_top" layoutX="14.0" layoutY="24.0" prefHeight="23.0" prefWidth="281.0" text="NOS RESERVATION" textFill="#fb8c00">
+               <font>
+                  <Font name="Arial" size="20.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="btnplus" layoutX="646.0" layoutY="-21.0" onAction="#returnD" prefHeight="70.0" prefWidth="96.0" rotate="40.2" text="+">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </Pane>
+      <AnchorPane fx:id="anco" layoutX="5.0" layoutY="81.0" prefHeight="487.0" prefWidth="690.0">
+         <children>
+            <AnchorPane fx:id="ancoright" layoutX="6.0" layoutY="14.0" prefHeight="467.0" prefWidth="674.0">
+               <children>
+                  <TableView fx:id="viewid1" layoutX="12.0" layoutY="35.0" prefHeight="422.0" prefWidth="650.0">
+                     <columns>
+                        <TableColumn fx:id="id" prefWidth="128.800048828125" text="ID" />
+                        <TableColumn fx:id="dateid1" prefWidth="134.39996337890625" text="DATE" />
+                        <TableColumn fx:id="heureid1" prefWidth="133.5999755859375" text="HEURE" />
+                        <TableColumn fx:id="nbpersonneid1" prefWidth="134.4000244140625" text="NPERSONNE" />
+                        <TableColumn fx:id="tabId" prefWidth="123.99993896484375" text="Table ID" />
+                     </columns>
+                  </TableView>
+                  <JFXButton fx:id="btnprint" buttonType="RAISED" layoutX="298.0" layoutY="5.0" prefHeight="26.0" prefWidth="97.0" text="Print Preview" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

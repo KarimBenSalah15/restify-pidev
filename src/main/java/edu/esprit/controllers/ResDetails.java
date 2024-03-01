@@ -62,9 +62,9 @@ public class ResDetails {
 
         List<Table> tabls=tableCrud.afficherEntiite();
         List<Integer> tableId = tabls.stream()
+                .filter(Table::isDispo)
                 .map(Table::getTabId)
                 .toList();
-
 // Set items to the ComboBox
         tab.setItems(FXCollections.observableArrayList(tableId));
     }
