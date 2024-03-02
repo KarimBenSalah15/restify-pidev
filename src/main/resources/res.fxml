@@ -88,6 +88,5 @@
             <Font name="Arial Rounded MT Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="returnid" layoutX="633.0" layoutY="500.0" mnemonicParsing="false" onAction="#returnR" style="-fx-background-radius: 20;" stylesheets="@style.css" text="return" />
    </children>
 </AnchorPane>

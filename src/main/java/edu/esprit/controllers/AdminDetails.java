@@ -22,6 +22,19 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+
+import java.io.File;
+
+import java.awt.Desktop;
+
+
+
 public class AdminDetails {
 
     @FXML
@@ -96,5 +109,70 @@ public class AdminDetails {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+    @FXML
+    void exportToPDF(ActionEvent event) {
+        try {
+            PDDocument document = new PDDocument();
+            PDPage page = new PDPage(PDRectangle.A4);
+            document.addPage(page);
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 14);
+
+            float margin = 50;
+            float yStart = page.getMediaBox().getHeight() - margin;
+            float tableWidth = page.getMediaBox().getWidth() - 2 * margin;
+            float yPosition = yStart;
+            float rowHeight = 20f;
+            float cellMargin = 30f;
+            // Set border color
+            contentStream.setStrokingColor(255, 0, 0); // Red color
+            // Draw border
+            float margins = 40;
+            contentStream.addRect(margins, margins, tableWidth, yStart - margins);
+            contentStream.stroke();
+            // Title
+            contentStream.beginText();
+            contentStream.newLineAtOffset(margin, yPosition);
+            contentStream.showText("RÉSERVATION");
+            contentStream.endText();
+            yPosition -= 10;
+            // Content
+            yPosition -= rowHeight; // Move down for the content
+            // Draw table content
+            for (Reservation reservation : viewid1.getItems()) {
+                yPosition -= rowHeight;
+
+                drawRow(contentStream, margin, yPosition, "DATE", reservation.getDate().toString());
+                yPosition -= cellMargin;
+
+                drawRow(contentStream, margin, yPosition, "HEURE", reservation.getHeure());
+                yPosition -= cellMargin;
+
+                drawRow(contentStream, margin, yPosition, "NBPERSONNE", String.valueOf(reservation.getNbrpersonne()));
+                yPosition -= cellMargin;
+
+                drawRow(contentStream, margin, yPosition, "TABLE_ID", String.valueOf(reservation.getTabId()));
+                yPosition -= cellMargin * 2; // Additional space between rows
+            }
+            contentStream.close();
+            // Save the document
+            File file = new File("Reservations.pdf");
+            document.save(file);
+            document.close();
+            // Open the PDF file
+            Desktop.getDesktop().open(file);
+
+            System.out.println("PDF exporté avec succès et ouvert.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void drawRow(PDPageContentStream contentStream, float x, float y, String label, String value) throws IOException {
+        contentStream.beginText();
+        contentStream.newLineAtOffset(x, y);
+        contentStream.showText(label + ": " + value);
+        contentStream.endText();
     }
 }

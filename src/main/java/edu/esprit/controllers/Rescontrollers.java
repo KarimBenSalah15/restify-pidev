@@ -192,18 +192,7 @@ public class Rescontrollers {
         });
     }
 
-    @FXML
-    void returnR(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("/intro.fxml")));
-        try {
-            Parent root = loader.load();
-            Intro pc = loader.getController();
-            returnid.getScene().setRoot(root);
 
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
     @FXML
     void refreshTableView() {

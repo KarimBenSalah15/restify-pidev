@@ -7,4 +7,6 @@ module PIDEV {
     opens edu.esprit.controllers;
     opens edu.esprit.entities;
     requires com.jfoenix;
+    requires org.apache.pdfbox;
+    requires java.desktop;
 }
