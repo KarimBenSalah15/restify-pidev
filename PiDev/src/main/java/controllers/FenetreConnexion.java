@@ -3,10 +3,9 @@ package controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.Properties;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 import entities.Utilisateur;
@@ -17,9 +16,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import tools.MyConnection;
+
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class FenetreConnexion {
 
@@ -34,6 +38,9 @@ public class FenetreConnexion {
 
     @FXML
     private Button btn_insc2;
+
+    @FXML
+    private Hyperlink mdpoublie;
 
     @FXML
     private TextField tf_login_con;
@@ -135,6 +142,95 @@ public class FenetreConnexion {
             stage.setScene(scene);
         } catch (IOException e) {
             System.err.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    void mdpenvoi(ActionEvent event) {
+        String login = tf_login_con.getText().trim();
+        if (login.isEmpty()) {
+            showAlert("Erreur", "Veuillez entrer votre login.");
+            return;
+        }
+        String email = getEmail(login);
+        if (email == null || email.isEmpty()) {
+            showAlert("Erreur", "Aucun utilisateur avec ce login trouvé.");
+            return;
+        }
+        String nouveauMdp = generermdp();
+        if (miseajourmdp(email, nouveauMdp)) {
+            envoyerNouveauMdpParEmail(email, nouveauMdp);
+            showAlert("Succès", "Un nouveau mot de passe a été envoyé à votre adresse e-mail.");
+        } else {
+            showAlert("Erreur", "Erreur lors de la réinitialisation du mot de passe.");
+        }
+    }
+
+    private String getEmail(String login) {
+        String req = "SELECT email FROM Utilisateur WHERE login = ?";
+        try {
+            PreparedStatement pst = cnx2.prepareStatement(req);
+            pst.setString(1, login);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                return rs.getString("email");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private String generermdp() {
+        Random random = new Random();
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[{]}|;:',<.>/?";
+        StringBuilder newPassword = new StringBuilder();
+        int length = 10;
+        for (int i = 0; i < length; i++) {
+            newPassword.append(characters.charAt(random.nextInt(characters.length())));
+        }
+        return newPassword.toString();
+    }
+
+    private boolean miseajourmdp(String email, String nouveauMdp) {
+        String reqUpdate = "UPDATE Utilisateur SET mdp = ? WHERE email = ?";
+        try {
+            PreparedStatement pst = cnx2.prepareStatement(reqUpdate);
+            pst.setString(1, encryptor.encryptString(nouveauMdp));
+            pst.setString(2, email);
+            int rowsAffected = pst.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private void envoyerNouveauMdpParEmail(String email, String nouveauMdp) {
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "465");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+
+        try {
+            Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication("restify.help@gmail.com", "fcihveizkyzscxbg");
+                }
+            });
+
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("restify.help@gmail.com"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+            message.setSubject("Réinitialisation de votre mot de passe");
+            message.setText("Votre nouveau mot de passe est : " + nouveauMdp);
+
+            Transport.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
         }
     }
 

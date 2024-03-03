@@ -19,7 +19,7 @@
       <FontAwesomeIcon fill="#ef6c00" glyphName="KEY" layoutX="194.0" layoutY="259.0" size="20" />
       <Button fx:id="btn_con" layoutX="138.0" layoutY="305.0" mnemonicParsing="false" onAction="#connexion" prefHeight="42.0" prefWidth="126.0" style="-fx-background-color: #ef6c00;" text="Se connecter" textFill="WHITE" />
       <Button fx:id="btn_insc2" layoutX="339.0" layoutY="305.0" mnemonicParsing="false" onAction="#emmeneinscription" prefHeight="42.0" prefWidth="126.0" style="-fx-background-color: #ef6c00;" text="S'inscrire" textFill="WHITE" />
-      <Hyperlink fx:id="mdpoublie" layoutX="242.0" layoutY="362.0" text="Mot de passe oublié" textFill="#ef6c00" />
+      <Hyperlink fx:id="mdpoublie" layoutX="242.0" layoutY="362.0" onAction="#mdpenvoi" text="Mot de passe oublié" textFill="#ef6c00" />
       <ImageView fx:id="img" fitHeight="83.0" fitWidth="87.0" layoutX="256.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@resourcesdashboardadmin/img/logo.png" />
