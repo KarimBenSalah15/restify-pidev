@@ -1,5 +1,8 @@
 package edu.esprit.tests;
 
+import edu.esprit.services.MailSender;
+
+import javax.mail.MessagingException;
 import java.sql.Date;
 import java.util.Calendar;
 
@@ -20,8 +23,19 @@ public class MainClass {
        // rc.supprimerEntite(2);
      //rc.modifierEntite(r2,3);
 
-            EnvoyerEmail test = new EnvoyerEmail();
-            test.envoyer();
+            MailSender test = new MailSender();
+        String to = "firas.besslah@esptit.tn";
+        String subject = "Test Email";
+        String body = "This is a test email sent from Java code.";
+
+        try {
+            MailSender.sendEmail(to, subject, body);
+            System.out.println("Email sent successfully!");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            System.out.println("Failed to send email!");
+        }
+
 
     }
 }

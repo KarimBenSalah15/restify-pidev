@@ -146,7 +146,7 @@
                   </AnchorPane>
                </children>
             </GridPane>
-            <GridPane fx:id="panADD" prefHeight="371.0" prefWidth="537.0" style="-fx-background-color: #fff;">
+            <GridPane fx:id="panADD" prefHeight="377.0" prefWidth="1051.0" style="-fx-background-color: #fff;">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -156,14 +156,14 @@
                   <RowConstraints maxHeight="232.66668701171875" minHeight="10.0" prefHeight="96.99998982747394" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TableView fx:id="tableR" prefHeight="237.0" prefWidth="537.0" style="-fx-border-color: #000000;" GridPane.rowIndex="1">
+                  <TableView fx:id="tableR" prefHeight="309.0" prefWidth="898.0" style="-fx-border-color: #000000;" GridPane.rowIndex="1">
                     <columns>
-                      <TableColumn fx:id="idColumn" prefWidth="43.33331298828125" style="-fx-border-color: #000000;" text="ID" />
                       <TableColumn fx:id="dateColumn" prefWidth="73.99995422363281" style="-fx-border-color: #000000;" text="date" />
                         <TableColumn fx:id="etatColumn" prefWidth="111.33331298828125" style="-fx-border-color: #000000;" text="etat" />
                         <TableColumn fx:id="typeColumn" prefWidth="68.66668701171875" style="-fx-border-color: #000000;" text="type" />
-                        <TableColumn fx:id="messageColumn" prefWidth="183.33328247070312" style="-fx-border-color: #000000;" text="Message" />
-                        <TableColumn fx:id="actionid" prefWidth="63.3333740234375" style="-fx-border-color: #000000;" text="Action" />
+                        <TableColumn fx:id="messageColumn" prefWidth="334.00006103515625" style="-fx-border-color: #000000;" text="Message" />
+                        <TableColumn fx:id="actionid" prefWidth="94.66664632161462" style="-fx-border-color: #000000;" text="Action" />
+                       
                     </columns>
                      <opaqueInsets>
                         <Insets right="22.0" />
@@ -186,7 +186,7 @@
             </GridPane>
          </children>
       </StackPane>
-      <Pane fx:id="pn" layoutX="202.0" layoutY="-1.0" prefHeight="122.0" prefWidth="773.0" style="-fx-background-color: #ffaa00;">
+      <Pane fx:id="pn" layoutX="202.0" layoutY="-1.0" prefHeight="122.0" prefWidth="1051.0" style="-fx-background-color: #ffaa00;">
          <children>
             <Label fx:id="libS" layoutX="121.0" layoutY="33.0" text="Afficher reclamation">
                <font>

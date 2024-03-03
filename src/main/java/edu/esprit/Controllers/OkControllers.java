@@ -6,6 +6,10 @@ import java.sql.Date;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.*;
+import com.google.cloud.translate.Translation;
 import edu.esprit.entities.Plat;
 import edu.esprit.entities.Reclamation;
 import edu.esprit.entities.User;
@@ -26,6 +30,18 @@ import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
 public class OkControllers {
+    public String translateText(String text, String sourceLang, String targetLang) throws IOException {
+        String apiKey = "AIzaSyAwZ9YNfCcBKbkpj8dffnF45Yq1NN_OiuQ";
+        Translate translate = TranslateOptions.newBuilder().setApiKey(apiKey).build().getService();
+
+        // Translate the text
+        Translation translation = translate.translate(text,
+                Translate.TranslateOption.sourceLanguage(sourceLang),
+                Translate.TranslateOption.targetLanguage(targetLang));
+
+        // Return the translated text
+        return translation.getTranslatedText();
+    }
 
     @FXML
     private TableColumn<Reclamation, Integer> actionid;
@@ -79,11 +95,27 @@ public class OkControllers {
     public void afficher() {
         ReclamtionCrud rc=new ReclamtionCrud();
         List<Reclamation> reclamations=rc.afficherEntiite();
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         etatColumn.setCellValueFactory(new PropertyValueFactory<>("etat"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         messageColumn.setCellValueFactory(new PropertyValueFactory<>("message"));
+        messageColumn.setCellFactory(column -> {
+            TableCell<Reclamation, String> cell = new TableCell<>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || empty) {
+                        setText(null);
+                        setWrapText(false);
+                    } else {
+                        setText(item);
+                        setWrapText(true); // Enable word wrapping
+                    }
+                }
+            };
+            return cell;
+        });
         etatColumn.setCellFactory(column -> new TableCell<Reclamation, Boolean>() {
             @Override
             protected void updateItem(Boolean etat, boolean empty) {
@@ -104,11 +136,19 @@ public class OkControllers {
         //URL location,ResourceBundle resources
 
         tableR.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        tableR.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            // Check if a new item is selected
 
+            if (newValue != null) {
+                // Call the tars() method when a line is selected
+                this.selectedReclamation = getSelectedReclamation();
+                tars(this.selectedReclamation.getMessage());
+            }
+        });
         afficher();
 
         //////////////////////////////////////////////////////////////////
-      
+
         ///////////////////////////////////////////////////////////////
         PlatCrud pc =new PlatCrud();
         List<Plat> plats=pc.afficherEntiite();
@@ -314,6 +354,7 @@ public class OkControllers {
     }
     @FXML
     void saveR(ActionEvent event) {
+        filterText();
         Calendar calendar = Calendar.getInstance();
         Date currentDate = new Date(calendar.getTime().getTime());
 
@@ -351,6 +392,22 @@ public class OkControllers {
     public Reclamation selectedReclamation ;
     @FXML
     private Button btnselect;
+
+    @FXML
+    void  tars(String text)
+    {
+
+        String sourceLang = "en"; // Set your default source language
+        String targetLang = "fr"; // Set your default target language (can be made user-selectable)
+
+        try {
+            String translatedText = translateText(text, sourceLang, targetLang);
+            messageColumn.setText(translatedText);
+        } catch (IOException e) {
+            e.getMessage();
+            // Handle translation errors (e.g., display an error message)
+        }
+    };
 
     @FXML
     void selectR(ActionEvent event) {
@@ -499,5 +556,28 @@ public class OkControllers {
 
         }catch (IOException e)
         {System.out.println(e.getMessage());}
+    }
+   ///////////////////////////////////////////////bad word
+   private void filterText() {
+       // Get the text from the TextArea
+       String originalText = message.getText();
+
+       // Replace bad words with asterisks or your preferred replacement
+       String filteredText = filterBadWords(originalText);
+
+       // Update the TextArea with the filtered text
+       message.setText(filteredText);
+   }
+
+    private String filterBadWords(String originalText) {
+        // Define your list of bad words
+        String[] badWords = {"putain", "stupide", "Idiot", "anomalie","imbécile","bête"};
+
+        // Replace bad words with asterisks
+        for (String word : badWords) {
+            originalText = originalText.replaceAll("(?i)" + word, "****");
+        }
+
+        return originalText;
     }
 }
