@@ -100,13 +100,14 @@ public class Tab {
     @FXML
     private JFXButton btndetails;
 
-
+    @FXML
+    private TextField searchField;
 
     @FXML
     void save1(ActionEvent event) {
 
-        TableCrud rc=new TableCrud();
-        List<Table> reservations=rc.afficherEntiite();
+        TableCrud rc = new TableCrud();
+        List<Table> reservations = rc.afficherEntiite();
         nbplaceid1.setCellValueFactory(new PropertyValueFactory<>("nbrplace"));
         placeid1.setCellValueFactory(new PropertyValueFactory<>("place"));
         disponibiliteid1.setCellValueFactory(new PropertyValueFactory<>("dispo"));
@@ -115,10 +116,10 @@ public class Tab {
         refreshTableView();
 
         if (validateInput()) {
-            Table p = new Table(nbplaceid.getValue(),placeid.getValue(),disponibiliteid.getValue());
+            Table p = new Table(nbplaceid.getValue(), placeid.getValue(), disponibiliteid.getValue());
             TableCrud pc = new TableCrud();
             pc.ajouterEntite(p);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION,"Table ajoutée avec succès", ButtonType.OK);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Table ajoutée avec succès", ButtonType.OK);
             alert.show();
             refreshTableView();
         } else {
@@ -126,6 +127,7 @@ public class Tab {
             alerts.show();
         }
     }
+
     private boolean validateInput() {
         // Ajouter vos contrôles de saisie ici
         Integer nbplace = nbplaceid.getValue();
@@ -145,6 +147,7 @@ public class Tab {
         }
         return true;
     }
+
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
         alert.show();
@@ -175,9 +178,9 @@ public class Tab {
         Table selectedTable = getSelectedTable();
 
         if (selectedTable != null) {
-           TableCrud tc =new TableCrud();
-           Table t=new Table(nbplaceid.getValue(),placeid.getValue(),disponibiliteid.getValue());
-           tc.modifierEntite(t,selectedTable.getIdtable());
+            TableCrud tc = new TableCrud();
+            Table t = new Table(nbplaceid.getValue(), placeid.getValue(), disponibiliteid.getValue());
+            tc.modifierEntite(t, selectedTable.getIdtable());
             refreshTableView();
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a row to update.", ButtonType.OK);
@@ -216,33 +219,34 @@ public class Tab {
 
     @FXML
     void initialize() {
-        TableCrud rc=new TableCrud();
-        List<Table> reservations=rc.afficherEntiite();
+        TableCrud rc = new TableCrud();
+        List<Table> reservations = rc.afficherEntiite();
         nbplaceid1.setCellValueFactory(new PropertyValueFactory<>("nbrplace"));
         placeid1.setCellValueFactory(new PropertyValueFactory<>("place"));
         disponibiliteid1.setCellValueFactory(new PropertyValueFactory<>("dispo"));
         id.setCellValueFactory(new PropertyValueFactory<>("idtable"));
         tabview.getItems().addAll(reservations);
 
-        List<Integer> choices = Arrays.asList(1,2,3,4,5,6);
+        List<Integer> choices = Arrays.asList(1, 2, 3, 4, 5, 6);
         nbplaceid.setItems(FXCollections.observableArrayList(choices));
         nbplaceid.setOnAction(event -> {
-            int s=nbplaceid.getValue();
-            if (s==1)
-            {nbplaceid.setValue(1);}
-            else if(s==2)
-            {nbplaceid.setValue(2);}
-            else if(s==3)
-            {nbplaceid.setValue(3);}
-            else if(s==4)
-            {nbplaceid.setValue(4);}
-            else if(s==5)
-            {nbplaceid.setValue(5);}
-            else if(s==6)
-            {nbplaceid.setValue(6);}
+            int s = nbplaceid.getValue();
+            if (s == 1) {
+                nbplaceid.setValue(1);
+            } else if (s == 2) {
+                nbplaceid.setValue(2);
+            } else if (s == 3) {
+                nbplaceid.setValue(3);
+            } else if (s == 4) {
+                nbplaceid.setValue(4);
+            } else if (s == 5) {
+                nbplaceid.setValue(5);
+            } else if (s == 6) {
+                nbplaceid.setValue(6);
+            }
         });
 
-        List<String> choicess = Arrays.asList("VIP","STANDART","COMMUNALE");
+        List<String> choicess = Arrays.asList("VIP", "STANDART", "COMMUNALE");
         placeid.setItems(FXCollections.observableArrayList(choicess));
         placeid.setOnAction(event -> {
             String selectedChoice = placeid.getValue();
@@ -251,9 +255,10 @@ public class Tab {
                 placeid.setValue("VIP");
             } else if ("STANDARD".equals(selectedChoice)) {
                 placeid.setValue("DTANDARD");
-            }else if ("COMMUNALE".equals(selectedChoice)) {
+            } else if ("COMMUNALE".equals(selectedChoice)) {
                 placeid.setValue("COMMUNALE");
-        }});
+            }
+        });
 
         disponibiliteid.setConverter(new AvailablilityChoice());
 
@@ -276,7 +281,13 @@ public class Tab {
                 }
             }
         });
+
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            performSearch(newValue);
+        });
     }
+
+
     @FXML
     private void refreshTableView() {
         TableCrud rc = new TableCrud();
@@ -298,6 +309,20 @@ public class Tab {
         }catch (IOException e)
         {System.out.println(e.getMessage());}
     }
-
+    @FXML
+    void search(ActionEvent event) {
+        String searchTerm = searchField.getText();
+        performSearch(searchTerm);
+    }
+    private void performSearch(String searchTerm) {
+        TableCrud rc = new TableCrud();
+        List<Table> searchResults = rc.searchTables(searchTerm);
+        updateTableView(searchResults);
+    }
+    private void updateTableView(List<Table> updatedTable) {
+        tabview.getItems().clear(); // Clear existing items
+        tabview.getItems().addAll(updatedTable); // Add updated items
+        tabview.getSelectionModel().clearSelection();
+    }
 }
 

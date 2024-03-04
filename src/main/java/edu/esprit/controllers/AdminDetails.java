@@ -35,6 +35,14 @@ import java.awt.Desktop;
 
 
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.io.IOException;
+import java.sql.Date;
+import java.util.List;
+import java.util.Properties;
+
 public class AdminDetails {
 
     @FXML
@@ -57,6 +65,9 @@ public class AdminDetails {
 
     @FXML
     private JFXButton btnprint;
+
+    @FXML
+    private JFXButton btnemail;
 
     @FXML
     private TableColumn<Reservation, Date> dateid1;
@@ -168,11 +179,17 @@ public class AdminDetails {
             e.printStackTrace();
         }
     }
-
     private void drawRow(PDPageContentStream contentStream, float x, float y, String label, String value) throws IOException {
         contentStream.beginText();
         contentStream.newLineAtOffset(x, y);
         contentStream.showText(label + ": " + value);
         contentStream.endText();
+    }
+
+
+
+    @FXML
+    void sendEmail() {
+
     }
 }

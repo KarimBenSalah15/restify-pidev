@@ -7,6 +7,7 @@ import edu.esprit.tools.MyConnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TableCrud implements ICrud <Table>{
     Connection cnx2;
@@ -101,4 +102,22 @@ public class TableCrud implements ICrud <Table>{
         }
 
     }
+    public List<Table> searchTables(String searchText) {
+        List<Table> allTables = afficherEntiite();
+
+        // Utiliser stream() pour filtrer les tables en fonction du texte de recherche
+        List<Table> filteredTables = allTables.stream()
+                .filter(table ->
+                        String.valueOf(table.getIdtable()).contains(searchText) ||
+                                table.getPlace().toLowerCase().contains(searchText.toLowerCase()) ||
+                                String.valueOf(table.getNbrplace()).contains(searchText) ||
+                                String.valueOf(table.isDispo()).toLowerCase().contains(searchText.toLowerCase())
+                )
+                .collect(Collectors.toList());
+
+        return filteredTables;
+    }
+
+
+
 }

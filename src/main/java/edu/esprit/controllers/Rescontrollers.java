@@ -46,9 +46,6 @@ public class Rescontrollers {
     private Button btn2;
 
     @FXML
-    private Button returnid;
-
-    @FXML
     private DatePicker dateid;
 
     @FXML
@@ -73,6 +70,9 @@ public class Rescontrollers {
     private TableView<Reservation> viewid1;
 
     public Reservation selectedReservation;
+
+    @FXML
+    private Label currentDateLabel;
 
     @FXML
     void saveRes(ActionEvent event) {
@@ -105,6 +105,7 @@ public class Rescontrollers {
             alert.showAndWait();
         }
     }
+
     TableCrud tableCrud = new TableCrud();
     List<Integer> tableIds = tableCrud.getAllTableIds();
 
@@ -167,10 +168,16 @@ public class Rescontrollers {
                 .map(Table::getTabId)
                 .toList();
 
-// Set items to the ComboBox
+        // Set items to the ComboBox
         tabId1.setItems(FXCollections.observableArrayList(tableId));
-
-
+        // Initialise le DatePicker et définissez la date minimale sur la date actuelle
+        dateid.setValue(LocalDate.now());
+        dateid.setDayCellFactory(picker -> new DateCell() {
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(empty || date.isBefore(LocalDate.now()));
+            }
+        });
 
         List<Integer> choices = Arrays.asList(1, 2, 3, 4, 5, 6);
         nbpersonneid.setItems(FXCollections.observableArrayList(choices));
@@ -190,6 +197,17 @@ public class Rescontrollers {
                 nbpersonneid.setValue(6);
             }
         });
+
+        // Initialise le DatePicker et définissez la date minimale sur la date actuelle
+        dateid.setValue(LocalDate.now());
+        dateid.setDayCellFactory(picker -> new DateCell() {
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(empty || date.isBefore(LocalDate.now()));
+            }
+        });
+        // Afficher la date actuelle dans le label
+        currentDateLabel.setText("Date actuelle : " + LocalDate.now().toString());
     }
 
 

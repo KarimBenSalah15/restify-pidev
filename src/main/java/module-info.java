@@ -9,4 +9,5 @@ module PIDEV {
     requires com.jfoenix;
     requires org.apache.pdfbox;
     requires java.desktop;
+    requires java.mail;
 }

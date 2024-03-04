@@ -88,5 +88,6 @@
             <Font name="Arial Rounded MT Bold" size="12.0" />
          </font>
       </Button>
+      <Label fx:id="currentDateLabel" layoutX="478.0" layoutY="77.0" prefHeight="18.0" prefWidth="206.0" text="Label" />
    </children>
 </AnchorPane>
