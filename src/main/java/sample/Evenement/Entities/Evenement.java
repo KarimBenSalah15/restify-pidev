@@ -1,4 +1,4 @@
-package sample.Evenement;
+package sample.Evenement.Entities;
 
 import java.sql.Date;
 
@@ -10,14 +10,16 @@ public class Evenement {
     private String duree;
     private String etat;
     private String type;
+    private int nbrparticipation;
 
-    public Evenement(int id, String nom, Date date, String duree, String etat, String type) {
+    public Evenement(int id, String nom, Date date, String duree, String etat, String type,int nbrparticipation) {
         this.id = id;
         this.nom = nom;
         this.date = date;
         this.duree = duree;
         this.etat = etat;
         this.type = type;
+        this.nbrparticipation=nbrparticipation;
     }
 
     public Evenement(String etat, String duree, Date date) {
@@ -33,6 +35,14 @@ public class Evenement {
 
     public String getNom() {
         return nom;
+    }
+
+    public int getNbrparticipation() {
+        return nbrparticipation;
+    }
+
+    public void setNbrparticipation(int nbrparticipation) {
+        this.nbrparticipation = nbrparticipation;
     }
 
     public void setNom(String nom) {
@@ -80,6 +90,7 @@ public class Evenement {
                 ", duree='" + duree + '\'' +
                 ", etat='" + etat + '\'' +
                 ", type='" + type + '\'' +
+                ", nbrparticipation='" + nbrparticipation + '\'' +
                 '}';
     }
 }

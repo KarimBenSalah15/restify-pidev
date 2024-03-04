@@ -15,25 +15,26 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxWidth="1000.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Evenement.EvenementController">
+<HBox maxWidth="1000.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Evenement.Controllers.EvenementController">
    <children>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="1000.0" style="-fx-background-color: #ef6c00;" styleClass="form_container" stylesheets="@css/style.css">
          <children>
-            <TableView fx:id="table" layoutX="255.0" layoutY="96.0" onMouseClicked="#getData" prefHeight="357.0" prefWidth="693.0" style="-fx-background-color: grey;" stylesheets="@css/style.css">
+            <TableView fx:id="table" layoutX="255.0" layoutY="96.0" onMouseClicked="#getData" prefHeight="357.0" prefWidth="660.0" style="-fx-background-color: #F44336;" stylesheets="@css/style.css">
               <columns>
-                <TableColumn fx:id="IDA" minWidth="50.0" prefWidth="75.0" text="ID" />
-                <TableColumn fx:id="nomA" minWidth="50.0" prefWidth="140.79998779296875" text="Nom" />
-                  <TableColumn fx:id="dateA" minWidth="50.0" prefWidth="129.5999755859375" text="date" />
-                  <TableColumn fx:id="dureeA" minWidth="50.0" prefWidth="112.0" text="duree" />
-                  <TableColumn fx:id="etatA" minWidth="50.0" prefWidth="104.0" text="etat" />
-                  <TableColumn fx:id="typeA" minWidth="50.0" prefWidth="94.4000244140625" text="type" />
+                <TableColumn fx:id="IDA" minWidth="27.200027465820312" prefWidth="43.20002746582031" text="ID" />
+                <TableColumn fx:id="nomA" minWidth="50.0" prefWidth="117.5999755859375" text="Nom" />
+                  <TableColumn fx:id="dateA" minWidth="50.0" prefWidth="125.0" text="date" />
+                  <TableColumn fx:id="dureeA" minWidth="50.0" prefWidth="125.0" text="duree" />
+                  <TableColumn fx:id="etatA" minWidth="50.0" prefWidth="100.7999267578125" text="etat" />
+                  <TableColumn fx:id="nbParticipation" minWidth="50.0" prefWidth="150.400146484375" text="nombre de particpations" />
+                  <TableColumn fx:id="typeA1" minWidth="50.0" prefWidth="125.0" text="type" />
               </columns>
                <styleClass>
                   <String fx:value="table-row-cell" />
                   <String fx:value="button2" />
                </styleClass>
             </TableView>
-            <Label layoutX="-3.0" layoutY="1.0" prefHeight="38.0" prefWidth="978.0" style="-fx-background-color: # A52A2A;" stylesheets="@css/style.css" text="Evenements" textFill="#201f1f">
+            <Label layoutX="-3.0" layoutY="1.0" prefHeight="38.0" prefWidth="978.0" style="-fx-background-color: #A52A2A;" stylesheets="@css/style.css" text="Evenements:" textFill="#232222">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
@@ -48,7 +49,7 @@
                </opaqueInsets>
             </TextField>
             <TextField fx:id="dureFid" layoutX="75.0" layoutY="217.0" prefHeight="25.0" prefWidth="163.0" />
-            <Label layoutX="9.0" layoutY="121.0" stylesheets="@css/style.css" text="Nom:" textFill="#fffdfd" textOverrun="CENTER_ELLIPSIS">
+            <Label layoutX="9.0" layoutY="121.0" stylesheets="@css/style.css" text="Nom:" textFill="#d7d3d3" textOverrun="CENTER_ELLIPSIS">
                <styleClass>
                   <String fx:value="title" />
                   <String fx:value="my-button" />
@@ -67,14 +68,14 @@
             <Label layoutX="8.0" layoutY="307.0" styleClass="my-button" stylesheets="@css/style.css" text="Type" textFill="#fcfafa" />
             <DatePicker fx:id="dateFid" layoutX="75.0" layoutY="169.0" prefHeight="17.0" prefWidth="163.0" />
             <ComboBox fx:id="etatFid" layoutX="75.0" layoutY="262.0" prefHeight="25.0" prefWidth="163.0" promptText="etat" />
-            <VBox layoutY="481.0" prefHeight="137.0" prefWidth="1000.0">
+            <VBox layoutY="503.0" prefHeight="137.0" prefWidth="1000.0">
                <children>
-                  <Button fx:id="btnSave" mnemonicParsing="false" onAction="#ajouterEvenement" prefHeight="37.0" prefWidth="979.0" styleClass="my-button" stylesheets="@css/style.css" text="Save" textFill="#201f1f">
+                  <Button fx:id="btnSave" mnemonicParsing="false" onAction="#ajouterEvenement" prefHeight="37.0" prefWidth="978.0" style="-fx-background-color: #F44336;" styleClass="my-button" stylesheets="@css/style.css" text="Save" textFill="#201f1f">
                      <font>
                         <Font size="27.0" />
                      </font>
                   </Button>
-                <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#supprimerEvent" prefHeight="47.0" prefWidth="993.0" stylesheets="@css/style.css" text="Delete" textFill="#1e1d1d">
+                <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#supprimerEvent" prefHeight="47.0" prefWidth="993.0" style="-fx-background-color: #F44336;" stylesheets="@css/style.css" text="Delete" textFill="#1e1d1d">
                      <font>
                         <Font size="27.0" />
                      </font>
@@ -84,7 +85,7 @@
                         <String fx:value="my-button" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="btnUpdate" alignment="CENTER" mnemonicParsing="false" onAction="#UpdateEvent" prefHeight="54.0" prefWidth="1047.0" styleClass="my-button" stylesheets="@css/style.css" text="Update" textFill="#f5f4f4">
+                  <Button fx:id="btnUpdate" alignment="CENTER" mnemonicParsing="false" onAction="#UpdateEvent" prefHeight="54.0" prefWidth="1047.0" style="-fx-background-color: #F44336;" styleClass="my-button" stylesheets="@css/style.css" text="Update" textFill="#f5f4f4">
                      <font>
                         <Font size="27.0" />
                      </font>

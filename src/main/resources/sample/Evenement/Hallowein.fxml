@@ -5,40 +5,47 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="312.0" prefWidth="574.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Evenement.HalloweinController">
+<AnchorPane prefHeight="312.0" prefWidth="574.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Evenement.Controllers.HalloweinController">
    <children>
-      <ImageView fitHeight="578.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+      <VBox layoutX="-4.0" layoutY="-1.0" prefHeight="338.0" prefWidth="171.0" />
+      <ImageView fitHeight="377.0" fitWidth="924.0" layoutX="-7.0" opacity="0.92" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@img/hallowein.jpg" />
          </image>
       </ImageView>
-      <Text layoutX="46.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Etat">
+      <Text fill="#f2f1f1" layoutX="31.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Etat:">
          <font>
-            <Font size="43.0" />
+            <Font size="25.0" />
          </font></Text>
-      <Text layoutX="208.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duree">
+      <Text fill="#e7e0df" layoutX="32.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duree:" wrappingWidth="125.60772705078125">
          <font>
-            <Font size="43.0" />
+            <Font size="25.0" />
          </font></Text>
-      <Text layoutX="440.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
+      <Text fill="#e7e7e7" layoutX="31.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:">
          <font>
-            <Font size="43.0" />
+            <Font size="25.0" />
          </font></Text>
-      <Label fx:id="etatLabel" layoutX="46.0" layoutY="88.0" prefHeight="18.0" prefWidth="79.0" text="Label">
+      <Label fx:id="etatLabel" layoutX="8.0" layoutY="254.0" prefHeight="32.0" prefWidth="156.0" style="-fx-background-color: black;" text="Label" textFill="#ff0909">
          <font>
             <Font size="22.0" />
          </font></Label>
-      <Label fx:id="dureeLabel" layoutX="208.0" layoutY="88.0" prefHeight="18.0" prefWidth="79.0" text="Label">
+      <Label fx:id="dureeLabel" layoutX="6.0" layoutY="64.0" prefHeight="32.0" prefWidth="156.0" style="-fx-background-color: black;" text="Label" textFill="#ef0606">
          <font>
             <Font size="22.0" />
          </font></Label>
-      <Label fx:id="dateLabel" layoutX="445.0" layoutY="97.0" prefHeight="18.0" prefWidth="79.0" text="Label">
+      <Label fx:id="dateLabel" layoutX="8.0" layoutY="153.0" prefHeight="32.0" prefWidth="156.0" style="-fx-background-color: black;" text="Label" textFill="RED">
          <font>
             <Font size="22.0" />
          </font></Label>
-      <Button fx:id="back" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" onAction="#backGo" text="Button" />
+      <Button fx:id="back" layoutX="555.0" layoutY="323.0" mnemonicParsing="false" onAction="#backGo" style="-fx-background-color: black;" stylesheets="@css/style.css" text="RETOUR" textFill="#fa0000" />
+      <Text fill="#ffdfdf" layoutX="267.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BIENVENUE AU HALLOWEIN..." wrappingWidth="287.7367630004883">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

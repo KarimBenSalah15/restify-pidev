@@ -7,4 +7,8 @@ module sample.projectfinder {
 
     opens sample.Evenement to javafx.fxml;
     exports sample.Evenement;
+    exports sample.Evenement.Controllers;
+    opens sample.Evenement.Controllers to javafx.fxml;
+    exports sample.Evenement.Entities;
+    opens sample.Evenement.Entities to javafx.fxml;
 }

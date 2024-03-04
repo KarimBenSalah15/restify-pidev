@@ -1,4 +1,4 @@
-package sample.Evenement;
+package sample.Evenement.Controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -7,7 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
+import sample.Evenement.Entities.Evenement;
+import sample.Evenement.MyConnection;
 
 import java.net.URL;
 import java.sql.*;
@@ -19,7 +20,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class EvenementController implements Initializable {
-
+    @FXML
+    private TableColumn<Evenement, Integer> nbrParticipation;
     @FXML
     private TableColumn<Evenement, Integer> IDA;
 
@@ -219,7 +221,7 @@ public class EvenementController implements Initializable {
         });
     }*/
 
-    private void afficher() {
+     private void afficher() {
         EvenementObservableList.clear();
         MyConnection connectNow = MyConnection.getInstance();
         Connection connectDB = connectNow.getCnx();
@@ -235,8 +237,9 @@ public class EvenementController implements Initializable {
                 String querduree = queryOutput.getString("duree");
                 String queryetat = queryOutput.getString("etat");
                 String querytype = queryOutput.getString("type");
+                Integer querynbrparticipation = queryOutput.getInt("nbrparticipation");
 
-                EvenementObservableList.add(new Evenement(queryid, querynom, querydate, querduree, queryetat, querytype));
+                EvenementObservableList.add(new Evenement(queryid, querynom, querydate, querduree, queryetat, querytype,querynbrparticipation));
             }
 
             IDA.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -260,7 +263,7 @@ public class EvenementController implements Initializable {
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.setTitle("Confirmation");
             confirmationAlert.setHeaderText(null);
-            confirmationAlert.setContentText("Voulez-vous vraiment supprimer ce produit ?");
+            confirmationAlert.setContentText("Voulez-vous vraiment supprimer cet evenement ?");
 
             // Afficher l'alerte et attendre la réponse de l'utilisateur
             confirmationAlert.showAndWait().ifPresent(response -> {
@@ -275,13 +278,13 @@ public class EvenementController implements Initializable {
                         afficher();
 
                     } catch (SQLException e) {
-                        showAlert(Alert.AlertType.ERROR, "Erreur",  "Une erreur s'est produite lors de la suppression du produit : " + e.getMessage());
+                        showAlert(Alert.AlertType.ERROR, "Erreur",  "Une erreur s'est produite lors de la suppression de cet evenement : " + e.getMessage());
                     }
                 }
             });
         } else {
             // Aucun produit sélectionné, afficher un message d'erreur
-            showAlert(Alert.AlertType.ERROR, "Erreur",  "Veuillez sélectionner un produit à supprimer.");
+            showAlert(Alert.AlertType.ERROR, "Erreur",  "Veuillez sélectionner un evenement à supprimer.");
         }
 
 

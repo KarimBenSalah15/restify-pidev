@@ -1,42 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Evenement.ReveillonController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="404.0" prefWidth="606.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Evenement.Controllers.ReveillonController">
    <children>
-      <ImageView fitHeight="406.0" fitWidth="619.0" layoutX="-3.0" layoutY="-3.0" opacity="0.56" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="415.0" fitWidth="617.0" layoutX="-3.0" layoutY="-3.0" opacity="0.78" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@img/reveillon.jpg" />
          </image>
       </ImageView>
-      <Text layoutX="20.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Etat" wrappingWidth="78.93677139282227">
+      <VBox layoutX="240.0" layoutY="-4.0" />
+      <VBox layoutX="-1.0" layoutY="3.0" prefHeight="400.0" prefWidth="283.0">
+         <children>
+            <Text fill="#f4eded" strokeType="OUTSIDE" strokeWidth="0.0" text="  Etat:" wrappingWidth="113.33679580688477">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Text>
+            <Label fx:id="etatLabel" prefHeight="48.0" prefWidth="192.0" style="-fx-background-color: #FF9800;">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <Text fill="#faf6f6" strokeType="OUTSIDE" strokeWidth="0.0" text="  Duree:" wrappingWidth="112.21240234375">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Text>
+            <Label fx:id="dureeLabel" prefHeight="49.0" prefWidth="194.0" style="-fx-background-color: #FF9800;">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <Text fill="#faf9f9" strokeType="OUTSIDE" strokeWidth="0.0" text="  date:">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Text>
+            <Label fx:id="dateLabel" prefHeight="54.0" prefWidth="197.0" style="-fx-background-color: #FF9800;">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Text fill="#ac0000" layoutX="282.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BIENVENUE A NOTRE reveillon " wrappingWidth="313.4122314453125">
          <font>
-            <Font size="43.0" />
-         </font></Text>
-      <Label fx:id="etatLabel" layoutX="20.0" layoutY="70.0" prefHeight="18.0" prefWidth="103.0" text="Label">
-         <font>
-            <Font size="22.0" />
-         </font></Label>
-      <Text layoutX="20.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duree">
-         <font>
-            <Font size="43.0" />
-         </font></Text>
-      <Label fx:id="dureeLabel" layoutX="22.0" layoutY="273.0" text="Label">
-         <font>
-            <Font size="22.0" />
-         </font></Label>
-      <Text layoutX="494.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="date">
-         <font>
-            <Font size="43.0" />
-         </font></Text>
-      <Label fx:id="dateLabel" layoutX="492.0" layoutY="80.0" text="Label">
-         <font>
-            <Font size="22.0" />
-         </font></Label>
+            <Font size="34.0" />
+         </font>
+      </Text>
+      <Button fx:id="back" layoutX="500.0" layoutY="349.0" mnemonicParsing="false" onAction="#backGo" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #FF9800;" stylesheets="@css/style.css" text="Retour" />
    </children>
 </AnchorPane>

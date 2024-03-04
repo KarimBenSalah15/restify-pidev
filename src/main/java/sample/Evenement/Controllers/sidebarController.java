@@ -1,4 +1,4 @@
-package sample.Evenement;
+package sample.Evenement.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

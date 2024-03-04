@@ -1,4 +1,4 @@
-package sample.Evenement;
+package sample.Evenement.Controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,16 +8,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import sample.Evenement.Entities.Evenement;
+import sample.Evenement.MyConnection;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class HalloweinController implements Initializable {
-
+public class ReveillonController implements Initializable {
+    @FXML
+    private Button back;
     @FXML
     private Label etatLabel;
 
@@ -26,8 +27,6 @@ public class HalloweinController implements Initializable {
 
     @FXML
     private Label dateLabel;
-    @FXML
-    private Button back;
     @FXML
     void  backGo(){
         FXMLLoader loader=new FXMLLoader((getClass().getResource("/sample/Evenement/EvenementClient.fxml")));
@@ -39,9 +38,10 @@ public class HalloweinController implements Initializable {
         }catch (IOException e)
         {System.out.println(e.getMessage());}
     }
+
     ObservableList<Evenement> EvenementObservableList = FXCollections.observableArrayList();
     private MyConnection cnx = null;
-    Date date = Date.valueOf("2024-02-06");
+    Date date = Date.valueOf("2025-09-30");
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Afficher les événements existants
@@ -65,6 +65,7 @@ public class HalloweinController implements Initializable {
                 String querduree = queryOutput.getString("duree");
                 String queryetat = queryOutput.getString("etat");
                 String querytype = queryOutput.getString("type");
+                Integer querynbrparticipation = queryOutput.getInt("nbrparticipation");
 
 
                 // Afficher les valeurs récupérées dans la console
@@ -72,14 +73,14 @@ public class HalloweinController implements Initializable {
                 System.out.println("Duree: " + querduree);
                 System.out.println("Date: " + querydate);
 
-                EvenementObservableList.add(new Evenement(queryid,querynom,querydate, querduree, queryetat,querytype));
+                EvenementObservableList.add(new Evenement(queryid,querynom,querydate, querduree, queryetat,querytype,querynbrparticipation));
             }
 
-            // Afficher la liste des événements dans la console
+
             for (Evenement evenement : EvenementObservableList) {
                 System.out.println(evenement);
                 if (!EvenementObservableList.isEmpty()) {
-                    // Accéder au premier élément
+                   // Accéder au premier élément
                     etatLabel.setText("État: " + evenement.getEtat());
                     dureeLabel.setText("Durée: " + evenement.getDuree());
                     dateLabel.setText("Date: " + evenement.getDate());
@@ -154,5 +155,5 @@ public class HalloweinController implements Initializable {
           Logger.getLogger(ReveillonController.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }*/
-}
+    }
 

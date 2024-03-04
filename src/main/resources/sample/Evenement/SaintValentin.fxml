@@ -1,42 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Evenement.SaintValentinControlleur">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Evenement.Controllers.SaintValentinControlleur">
    <children>
-      <ImageView fitHeight="414.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="414.0" fitWidth="600.0" opacity="0.84" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@img/Valentine's_Day_Heart_Pink_color_513591_1280x853.jpg" />
          </image>
       </ImageView>
-      <Text layoutX="14.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Etat" wrappingWidth="116.53668212890625">
+      <VBox layoutX="-1.0" prefHeight="400.0" prefWidth="162.0">
+         <children>
+            <Text fill="#efe7e7" strokeType="OUTSIDE" strokeWidth="0.0" text="  Etat:" wrappingWidth="116.53668212890625">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Text>
+            <Label fx:id="etatLabel" prefHeight="86.0" prefWidth="166.0" style="-fx-background-color: #c62828;" text="Label" textFill="#3e3838">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <Text fill="#faf9f9" strokeType="OUTSIDE" strokeWidth="0.0" text="  Duree:" wrappingWidth="116.53668212890625">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Text>
+            <Label fx:id="dureeLabel" prefHeight="66.0" prefWidth="164.0" style="-fx-background-color: #c62828;" text="Label">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <Text fill="#faf6f6" stroke="#f4eeee" strokeType="OUTSIDE" strokeWidth="0.0" text="  Date:" wrappingWidth="116.53668212890625">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Text>
+            <Label fx:id="dateLabel" prefHeight="68.0" prefWidth="169.0" style="-fx-background-color: #c62828;" text="Label">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Text fill="#d10202" layoutX="254.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BIENVENUE A NOTRE SAINT_VALENTIN" wrappingWidth="303.3921356201172">
          <font>
-            <Font size="43.0" />
-         </font></Text>
-      <Label fx:id="etatLabel" layoutX="14.0" layoutY="88.0" prefHeight="116.0" prefWidth="187.0" text="Label">
-         <font>
-            <Font size="22.0" />
-         </font></Label>
-      <Text layoutX="176.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Duree" wrappingWidth="116.53668212890625">
-         <font>
-            <Font size="43.0" />
-         </font></Text>
-      <Label fx:id="dureeLabel" layoutX="234.0" layoutY="88.0" prefHeight="126.0" prefWidth="150.0" text="Label">
-         <font>
-            <Font size="22.0" />
-         </font></Label>
-      <Text layoutX="368.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="116.53668212890625">
-         <font>
-            <Font size="43.0" />
-         </font></Text>
-      <Label fx:id="dateLabel" layoutX="386.0" layoutY="88.0" prefHeight="140.0" prefWidth="174.0" text="Label">
-         <font>
-            <Font size="22.0" />
-         </font></Label>
+            <Font size="39.0" />
+         </font>
+      </Text>
+      <Button fx:id="back" layoutX="499.0" layoutY="339.0" mnemonicParsing="false" onAction="#backGo" prefHeight="46.0" prefWidth="93.0" style="-fx-background-color: #c62828;" stylesheets="@css/style.css" text="Retour" />
    </children>
 </AnchorPane>

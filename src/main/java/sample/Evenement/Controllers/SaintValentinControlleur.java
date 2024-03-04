@@ -1,20 +1,24 @@
-package sample.Evenement;
+package sample.Evenement.Controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import sample.Evenement.Entities.Evenement;
+import sample.Evenement.MyConnection;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class SaintValentinControlleur implements Initializable {
-
+    @FXML
+    private Button back;
     @FXML
     private Label etatLabel;
 
@@ -23,10 +27,20 @@ public class SaintValentinControlleur implements Initializable {
 
     @FXML
     private Label dateLabel;
+    @FXML
+    void  backGo(){
+        FXMLLoader loader=new FXMLLoader((getClass().getResource("/sample/Evenement/EvenementClient.fxml")));
+        try {
+            Parent root= loader.load();
+            EvenementClientController pc=loader.getController();
+            dateLabel.getScene().setRoot(root);
 
+        }catch (IOException e)
+        {System.out.println(e.getMessage());}
+    }
     ObservableList<Evenement> EvenementObservableList = FXCollections.observableArrayList();
     private MyConnection cnx = null;
-    Date date = Date.valueOf("2024-02-06");
+    Date date = Date.valueOf("2025-02-14");
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Afficher les événements existants
@@ -50,6 +64,7 @@ public class SaintValentinControlleur implements Initializable {
                 String querduree = queryOutput.getString("duree");
                 String queryetat = queryOutput.getString("etat");
                 String querytype = queryOutput.getString("type");
+                Integer querynbrparticipation = queryOutput.getInt("nbrparticipation");
 
 
                 // Afficher les valeurs récupérées dans la console
@@ -57,7 +72,7 @@ public class SaintValentinControlleur implements Initializable {
                 System.out.println("Duree: " + querduree);
                 System.out.println("Date: " + querydate);
 
-                EvenementObservableList.add(new Evenement(queryid,querynom,querydate, querduree, queryetat,querytype));
+                EvenementObservableList.add(new Evenement(queryid,querynom,querydate, querduree, queryetat,querytype,querynbrparticipation));
             }
 
             // Afficher la liste des événements dans la console
