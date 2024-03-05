@@ -10,19 +10,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="centerpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="890.0" prefWidth="1315.0" styleClass="gradient-background" stylesheets="@resourcesdashboardadmin/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FenetreDashboardAdmin">
+<BorderPane fx:id="centerpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="890.0" prefWidth="1315.0" styleClass="gradient-background" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.controllers.FenetreDashboardAdmin">
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" prefHeight="62.0" prefWidth="248.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Admin Dashboard" textFill="WHITE">
+            <Label alignment="CENTER" prefHeight="62.0" prefWidth="248.0" styleClass="shadow" stylesheets="style.css" text="Admin Dashboard" textFill="WHITE">
                <font>
                   <Font name="Bodoni MT" size="30.0" />
                </font>
             </Label>
-            <Pane maxHeight="-Infinity" prefHeight="1.0" prefWidth="200.0" styleClass="line-color" stylesheets="@resourcesdashboardadmin/style.css" HBox.hgrow="ALWAYS" />
+            <Pane maxHeight="-Infinity" prefHeight="1.0" prefWidth="200.0" styleClass="line-color" stylesheets="style.css" HBox.hgrow="ALWAYS" />
             <ImageView fitHeight="56.0" fitWidth="35.0" onMouseClicked="#decocadmin" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@resourcesdashboardadmin/img/logout.png" />
+                  <Image url="@img/logout.png" />
                </image>
             </ImageView>
          </children>
@@ -32,7 +32,7 @@
       </HBox>
    </top>
    <left>
-      <VBox prefHeight="200.0" prefWidth="290.0" spacing="10.0" styleClass="container" stylesheets="@resourcesdashboardadmin/style.css" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="290.0" spacing="10.0" styleClass="container" stylesheets="style.css" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </BorderPane.margin>
@@ -43,7 +43,7 @@
                      <children>
                         <ImageView fitHeight="100.0" fitWidth="175.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>
-                              <Image url="@resourcesdashboardadmin/img/logo.png" />
+                              <Image url="@img/logo.png" />
                            </image>
                            <VBox.margin>
                               <Insets />
@@ -59,10 +59,10 @@
                      <children>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>
-                              <Image url="@resourcesdashboardadmin/img/user.png" />
+                              <Image url="@img/user.png" />
                            </image>
                         </ImageView>
-                        <Label onMouseClicked="#btn_affichuser" prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Utilisateurs" textFill="WHITE">
+                        <Label onMouseClicked="#btn_affichuser" prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="style.css" text="Utilisateurs" textFill="WHITE">
                            <font>
                               <Font name="Bodoni MT Condensed" size="24.0" />
                            </font>
@@ -73,10 +73,10 @@
                      <children>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>
-                              <Image url="@resourcesdashboardadmin/img/stocks.png" />
+                              <Image url="@img/stocks.png" />
                            </image>
                         </ImageView>
-                        <Label prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Stock" textFill="WHITE">
+                        <Label prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="style.css" text="Stock" textFill="WHITE">
                            <font>
                               <Font name="Bodoni MT Condensed" size="24.0" />
                            </font>
@@ -87,10 +87,10 @@
                      <children>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>
-                              <Image url="@resourcesdashboardadmin/img/reservation.png" />
+                              <Image url="@img/reservation.png" />
                            </image>
                         </ImageView>
-                        <Label prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Réservations" textFill="WHITE">
+                        <Label prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="style.css" text="Réservations" textFill="WHITE">
                            <font>
                               <Font name="Bodoni MT Condensed" size="24.0" />
                            </font>
@@ -101,10 +101,10 @@
                      <children>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>
-                              <Image url="@resourcesdashboardadmin/img/evenement.png" />
+                              <Image url="@img/evenement.png" />
                            </image>
                         </ImageView>
-                        <Label prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Évènements" textFill="WHITE">
+                        <Label prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="style.css" text="Évènements" textFill="WHITE">
                            <font>
                               <Font name="Bodoni MT Condensed" size="24.0" />
                            </font>
@@ -115,10 +115,10 @@
                      <children>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>
-                              <Image url="@resourcesdashboardadmin/img/commandes.png" />
+                              <Image url="@img/commandes.png" />
                            </image>
                         </ImageView>
-                        <Label prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Commandes" textFill="WHITE">
+                        <Label onMouseClicked="#btncommande" prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="style.css" text="Commandes" textFill="WHITE">
                            <font>
                               <Font name="Bodoni MT Condensed" size="24.0" />
                            </font>
@@ -129,10 +129,10 @@
                      <children>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>
-                              <Image url="@resourcesdashboardadmin/img/plat.png" />
+                              <Image url="@img/plat.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="btn_plat" prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Plats" textFill="WHITE">
+                        <Label fx:id="btn_plat" onMouseClicked="#btnPlat" prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@/style.css" text="Plats" textFill="WHITE">
                            <font>
                               <Font name="Bodoni MT Condensed" size="24.0" />
                            </font>
@@ -143,10 +143,10 @@
                      <children>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>
-                              <Image url="@resourcesdashboardadmin/img/reclamation.png" />
+                              <Image url="@img/reclamation.png" />
                            </image>
                         </ImageView>
-                        <Label prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Réclamations" textFill="WHITE">
+                        <Label prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="style.css" text="Réclamations" textFill="WHITE">
                            <font>
                               <Font name="Bodoni MT Condensed" size="24.0" />
                            </font>

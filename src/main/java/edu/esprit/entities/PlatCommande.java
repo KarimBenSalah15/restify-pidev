@@ -3,6 +3,7 @@ package edu.esprit.entities;
 import edu.esprit.entities.Plat;
 
 public class PlatCommande {
+    private int id;
     private Plat plat;
     private int quantite;
 
@@ -11,8 +12,22 @@ public class PlatCommande {
         this.quantite = quantite;
     }
 
-    public  void setQuantite(int quantite) {
+    public PlatCommande(int id, Plat plat, int quantite) {
+        this.id = id;
+        this.plat = plat;
         this.quantite = quantite;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setQuantite(int quantite) {
+        this.quantite = quantite;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public Plat getPlat() {

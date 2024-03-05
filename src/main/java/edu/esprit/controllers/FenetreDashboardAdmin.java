@@ -1,4 +1,4 @@
-package controllers;
+package edu.esprit.controllers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -50,7 +50,11 @@ public class FenetreDashboardAdmin {
         bp_affich.setVisible(true);
         affichagetableau();
     }
-
+    @FXML
+    void btnPlat(MouseEvent event) {
+        bp_affich.setVisible(true);
+        affichagetableau2();
+    }
     @FXML
     void initialize() {
         bp_affich.setVisible(false);
@@ -68,9 +72,42 @@ public class FenetreDashboardAdmin {
             System.out.println(e.getMessage());
         }
     }
+
+    private void affichagetableau2(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/PlatAd.fxml"));
+        try {
+            Parent root = loader.load();
+            if (bp_affich != null) {
+                bp_affich.setCenter(root);
+            } else {
+                System.out.println("centerPane is null");
+            }
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void affichagetableau3(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/commandeTraiter.fxml"));
+        try {
+            Parent root = loader.load();
+            if (bp_affich != null) {
+                bp_affich.setCenter(root);
+            } else {
+                System.out.println("centerPane is null");
+            }
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
     @FXML
     void decocadmin(MouseEvent event) {
         Stage deco = (Stage) btn_user.getScene().getWindow();
         deco.close();
+    }
+
+    public void btncommande(MouseEvent mouseEvent) {
+        bp_affich.setVisible(true);
+        affichagetableau3();
     }
 }

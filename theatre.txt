@@ -1,0 +1,124 @@
+les roles:
+karim : monachet talfazi
+firas : kronikeur
+aziz hamed : owner hunter information
+aziz goui : pdg actia
+aziz ben salah : formateur SCRUM 
+mehdy belhaj yahia : ingénieur informatique
+
+
+
+1- karim : 
+Chers téléspectateurs, bienvenue sur monde d'informatique ! C'est avec une immense joie et une grande excitation que nous inaugurons 
+aujourd'hui un voyage extraordinaire à travers le monde de l'information, du divertissement et de l'inspiration.
+je veux presenter aujourd'hui notre invite : 
+notre chere kronikeur firas bessalah
+2- firas : merci karim
+
+1- karim: aziz hamed , the proprietaire du Boite Developpement hunter information
+
+3- hamed : merci karim pour votre invitation aujourd'hui
+
+1- karim : mohamed aziz goui, le pdg de societe actia
+
+4- goui : merci . c'est un grand plaisir
+
+1- karim : aziz ben salah , le fameu formateur du SCRUM 
+
+5- aziz ben salah: merci karim . je suis tres heueux d'etre ici aujourd'hui 
+
+1- karim : et finalement Mehdi belhaj yahia , un grand ingenieur d'informatique qui a une grande experience 
+
+6- mehdi : merci karim et merci pour tous les spectateurs qui nous regarde aujourd'hui.
+
+1- karim : merci pour vous d'etre present chez nous. aujourd'hui on parlera sur la methode SCRUM . ma premiere question est pour vous 
+monsieur ben salah . pouvez vous nous parler du scrum?
+
+5- ben salah : oui avec plaisir. le scrum est un cadre de travail leger qui aide les personnes,les equipes et les organisation a 
+generer de la valeur grace a des solutions adaptatives pour des problemes complexes.
+
+2- firas : pouvez vous nous indiquez le role du SCRUM master ?
+
+5- ben salah : le scrum a besoin d'un scrum master pour favoriser un environnement ou:
+*1*un product owner ordonne le travail a faire pour resoudre un probleme complexe dans le product backlog.
+*2*le scrum team transforme une selection de ce travail en un increment de valeur lors d'un sprint.
+*3*le scrum team et ses parties prenantes inspectent les resultats et s'adaptent pour le prochain sprint
+*4*repeter
+
+1-karim : merci monsieur ben salah pour cette clairification . Maintenant , monsieur hamed pouvez vous nous parler de l'artefact du scrum?
+
+3- hamed : oui bien sur. les artefacts de scrum representent un travail ou une valeur.ils sont concu pour maximiser la transparence 
+des informations clés.ainsi,tous ceux qui les inspectent ont la meme base d'adaptation.
+chaque artefact contient un engagement qui apporte l'information nécessaire a la transparence 
+et au focus rendant possible la mesure de la progression
+
+2- firas : donc quel est la mesure de la progression monsieur hamed?(yet9o7eb)
+
+3- hamed:(bech ye7chihoula)
+ *pour le product backlog,il s'agit de l'obejectif de produit
+*pour le sprint backlog,c'est l'objectif de sprint
+*pour l'increment, c'est la definition of done
+ces engagement existent pour renforcer l'empirisme et les valeurs scrum au sein de la scrum team et ses parties prenantes.
+
+1- karim: merci monsieur hamed . maintenant notre question est pour vous monsieur mehdi .pouvez nous parlez en details sur le product et
+sprint backlog et sur l'incriment 
+
+6- mehdi : oui karim . 
+Product Backlog : C'est une liste dynamique et priorisée de toutes les fonctionnalités, améliorations et corrections 
+de bugs nécessaires pour un produit. C'est la responsabilité du Product Owner de gérer et de maintenir le Product Backlog.
+
+Sprint Backlog : C'est la liste des éléments du Product Backlog que l'équipe de développement a accepté de livrer 
+au cours d'un sprint. Le Sprint Backlog est créé lors de la réunion de planification du sprint.
+
+Incrément : C'est la somme de toutes les fonctionnalités terminées pendant un sprint, ainsi que des fonctionnalités complètement
+ terminées au cours des sprints précédents. L'objectif est d'avoir un incrément potentiellement livrable à la fin de chaque sprint.
+
+2- firas : merci monsieur mehdi . c'est toutament claire mais pouvez vous nous indique le role de chaque personne qui utilise la methode
+scrum?
+
+6- mehdi : oui avec plaisir. on a
+le Product Owner qui est La personne responsable de maximiser la valeur du produit en travaillant étroitement avec les parties prenantes 
+et en gérant le Product Backlog.
+
+il ya aussi Scrum Master qui s'agit d'un leader servant qui aide l'équipe Scrum et l'organisation à comprendre et à adopter Scrum. 
+Le Scrum Master s'assure que l'équipe suit les principes et les règles de Scrum.
+
+et finalement l'Équipe de Développement qui est le Groupe auto-organisé de professionnels qui réalisent le travail de livraison. 
+Ils sont responsables de transformer les éléments du Product Backlog en un incrément potentiellement livrable à la fin de chaque sprint.
+
+1- karim : merci beaucoup monsieur mehdi pour ces informations. passant maitenant a monsieur goui. pouvez vous nous indiquez les processus
+du scrum utilisé dans votre fameuse societe actia?
+
+4- goui: avec plaisir (far7an). 
+premierement , la Planification de Sprint : Au début de chaque sprint, l'équipe Scrum planifie le travail à accomplir pendant le sprint. 
+
+Cela implique de sélectionner des éléments du Product Backlog pour le Sprint Backlog.
+
+en seconde partie , le Daily Scrum (Réunion quotidienne) : Réunion quotidienne de 15 minutes pour que l'équipe de développement 
+synchronise ses activités et planifie son travail pour les prochaines 24 heures.
+
+troisiement , Revue de Sprint : À la fin de chaque sprint, l'équipe présente ce qui a été réalisé pendant le sprint au Product Owner, 
+aux parties prenantes et à d'autres membres de l'organisation.
+
+et finalement , Rétrospective de Sprint : Une réunion après la revue de sprint, où l'équipe réfléchit sur le sprint écoulé, identifie 
+ce qui a bien fonctionné et ce qui pourrait être amélioré, et propose des ajustements pour le prochain sprint.
+
+2- firas : merci monsieur goui . pouvez vous maintenant indiquez les Piliers de Scrum?(zay b chmata yes2el)
+
+4- goui: oui monsieur firas ( igoulha mkarraz men firas kifach ye7ki m3ah) .
+on a la Transparence : Toutes les informations importantes sur le projet doivent être visibles et partagées entre les membres de 
+l'équipe Scrum.
+
+il y a aussi l'Inspection : Les progrès doivent être inspectés fréquemment pour détecter les variations. Cela se fait généralement 
+lors de réunions régulières telles que la revue de sprint et la rétrospective de sprint.
+
+et finalement l'Adaptation : Si une inspection révèle que l'une des parties du processus Scrum dévie de son chemin pour atteindre 
+l'objectif du sprint, des ajustements doivent être effectués dès que possible.
+
+1-karim : merci beaucoup monsieur goui . rentrons a monsieur hamed . pouvez vous nous indiquez les 4 valeurs du scrum?
+
+3- hamed: on a l'Individus et interactions plus que les processus et les outils , le Logiciel opérationnel plus qu'une documentation 
+exhaustive , la Collaboration avec le client plus que la négociation de contrats et le Répondre au changement plus que suivre un plan .
+
+1-karim : merci monsieur hamed . merci pour tous nos invités pour la richesse de leur information et pour leur presence beneficielle.
+notre mission s'arrete ici pour aujourd'hui . on se voit la semaine prochaine pour un nouveau sujet.

@@ -19,7 +19,7 @@ public class HomePage extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/commande.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/AffComm.fxml"));
            // root.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
 
             primaryStage.setTitle("Ajouter Plat");

@@ -57,7 +57,19 @@ public class PlatCrud  implements ICrud<Plat> {
         }
         return plats;
     }
-
+    public boolean platExists(String nom) {
+        String query = "SELECT * FROM plat WHERE nom = ?";
+        try (PreparedStatement statement = cnx2.prepareStatement(query)) {
+            statement.setString(1, nom);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                // Si le résultat contient au moins une ligne, cela signifie que le plat existe déjà
+                return resultSet.next();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // En cas d'erreur, retourner false par défaut
+        }
+    }
     @Override
     public void supprimerEntite(int id) {
         String requet = "DELETE FROM plat WHERE id = ?";

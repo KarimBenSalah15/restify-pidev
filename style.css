@@ -1,0 +1,14 @@
+<TableView>
+    <columns>
+        <!-- Example column with orange header -->
+        <TableColumn text="Column 1">
+            <style>
+                -fx-background-color: orange;
+            </style>
+        </TableColumn>
+        
+        <!-- Additional columns -->
+        <TableColumn text="Column 2"/>
+        <!-- Add more TableColumn elements as needed -->
+    </columns>
+</TableView>

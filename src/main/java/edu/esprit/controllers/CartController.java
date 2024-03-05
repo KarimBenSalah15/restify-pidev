@@ -1,5 +1,12 @@
 package edu.esprit.controllers;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import edu.esprit.controllers.CardEntry;
 import edu.esprit.entities.Commande;
 import edu.esprit.entities.Plat;
 import edu.esprit.services.CommandeCrud;
@@ -17,9 +24,12 @@ import javafx.scene.layout.VBox;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class CartController {
@@ -38,7 +48,7 @@ public class CartController {
             cartPane.getChildren().clear();
 
             if (entries.isEmpty()) {
-                Label emptyLabel = new Label("Cart empty");
+                Label emptyLabel = new Label("Panier vide");
                 cartPane.getChildren().add(emptyLabel);
             } else {
                 Label shoppingCartTitle = new Label("Panier");
@@ -138,9 +148,31 @@ public class CartController {
             float totalPrice = ShoppingCart.getInstance().calculTotal();
             int totalQuantity = entries.stream().mapToInt(CardEntry::getQuantity).sum();
 
-            Commande commande = new Commande(totalQuantity, totalPrice, entries.stream().map(CardEntry::getPlat).toList());
+            Commande commande = new Commande(totalQuantity, totalPrice, entries.stream().map(CardEntry::getPlat).toList(), false);
             CommandeCrud commandeCrud = new CommandeCrud();
-            commandeCrud.ajouterEntite(commande);
+            int commandeId = commandeCrud.ajouterEntite2(commande);
+
+            // Generate QR code
+            String qrData = "Commande ID: " + commandeId + "\nTotal Price: " + totalPrice;
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            Map<EncodeHintType, Object> hintMap = new HashMap<>();
+            hintMap.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+            hintMap.put(EncodeHintType.MARGIN, 2); /* default = 4 */
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            BitMatrix bitMatrix = qrCodeWriter.encode(qrData, BarcodeFormat.QR_CODE, 200, 200, hintMap);
+            MatrixToImageWriter.writeToStream(bitMatrix, "PNG", out);
+
+            // Show QR code image
+            byte[] qrImageBytes = out.toByteArray();
+            Image qrImage = new Image(new ByteArrayInputStream(qrImageBytes));
+            ImageView qrCodeImageView = new ImageView(qrImage);
+
+            // Show QR code in an alert dialog
+            Alert qrCodeAlert = new Alert(Alert.AlertType.INFORMATION);
+            qrCodeAlert.setTitle("QR Code");
+            qrCodeAlert.setHeaderText(null);
+            qrCodeAlert.setGraphic(qrCodeImageView);
+            qrCodeAlert.showAndWait();
 
             // Clear the shopping cart after validation
 

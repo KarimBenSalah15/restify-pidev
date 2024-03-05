@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -23,11 +22,6 @@ import java.sql.Blob;
 import java.sql.SQLException;
 
 public class FirstWindow {
-
-    @FXML
-    private Button btn;
-    @FXML
-    private Button btn1;
 
     @FXML
     private TextField tfcal;
@@ -46,12 +40,27 @@ public class FirstWindow {
 
     @FXML
     void savePlat(ActionEvent event) throws SQLException {
-        //sauvegarde de Plat dans la bd
+        // Vérifier si une image a été sélectionnée
+        if (imageView.getImage() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Veuillez choisir une image", ButtonType.OK);
+            alert.showAndWait();
+            return;
+        }
+
+        // Sauvegarde de Plat dans la bd
         Blob imageData = getImageDataFromImageView(imageView);
+
         if (tfnom.getText().isEmpty() || tfprix.getText().isEmpty() || tfingre.getText().isEmpty() || tfcal.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Veuillez remplir tous les champs", ButtonType.OK);
             alert.showAndWait();
             return; // Sort de la méthode si un champ est vide
+        }
+
+        PlatCrud platCrud = new PlatCrud();
+        if (platCrud.platExists(tfnom.getText())) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Ce nom de plat existe déjà", ButtonType.OK);
+            alert.showAndWait();
+            return;
         }
 
         // Vérifie si les valeurs saisies sont valides (prix et calories)
@@ -65,13 +74,16 @@ public class FirstWindow {
             alert.showAndWait();
             return; // Sort de la méthode si les valeurs saisies ne sont pas valides
         }
+
         // Save Plat with image data to the database
         Plat p = new Plat(tfnom.getText(), prix, tfingre.getText(), calories, imageData);
         PlatCrud ps = new PlatCrud();
         ps.ajouterEntite(p);
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Success,Plat ajouté", new ButtonType("ok"));
         alert.show();
     }
+
     private Blob getImageDataFromImageView(ImageView imageView) throws SQLException {
         try {
             // Convert the JavaFX Image to a BufferedImage
@@ -95,6 +107,7 @@ public class FirstWindow {
             throw new RuntimeException(e);
         }
     }
+
     @FXML
     void loadImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -113,16 +126,13 @@ public class FirstWindow {
             }
         }
     }
+
     @FXML
     private void retur(ActionEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/PlatAd.fxml"));
         try {
-
             Parent root = loader.load();
-
-
             tfnom.getScene().setRoot(root);
-
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Failed to load  " + e.getMessage());
