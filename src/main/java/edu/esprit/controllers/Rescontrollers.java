@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import edu.esprit.entities.Reservation;
@@ -21,7 +23,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
+import edu.esprit.email.SendEmail;
 public class Rescontrollers {
 
     @FXML
@@ -75,6 +77,9 @@ public class Rescontrollers {
     private Label currentDateLabel;
 
     @FXML
+    private TextField tfmail;
+
+    @FXML
     void saveRes(ActionEvent event) {
         if (validateInput()) {
             LocalDate localDate = dateid.getValue();
@@ -100,10 +105,32 @@ public class Rescontrollers {
 
             viewid1.getItems().addAll(reservations);
             refreshTableView();
+
+
+
+            String toEmail = tfmail.getText().trim();
+            // Check if the email address is valid
+            if (!isValidEmail1(toEmail)) {
+                showAlert("Invalid Email", Alert.AlertType.valueOf("Please enter a valid email address."));
+                return;
+            }
+            // Call the send method from SendEmail class
+            SendEmail.send(toEmail);
+            // Show success message
+            showAlert("Email Sent", Alert.AlertType.valueOf("Email has been sent successfully to " + toEmail));
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Veuillez sélectionner vos saisies", ButtonType.OK);
             alert.showAndWait();
         }
+    }
+
+
+    private boolean isValidEmail1(String email) {
+        // Utiliser une expression régulière pour vérifier le format de l'e-mail
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
     TableCrud tableCrud = new TableCrud();
@@ -209,8 +236,6 @@ public class Rescontrollers {
         // Afficher la date actuelle dans le label
         currentDateLabel.setText("Date actuelle : " + LocalDate.now().toString());
     }
-
-
 
     @FXML
     void refreshTableView() {

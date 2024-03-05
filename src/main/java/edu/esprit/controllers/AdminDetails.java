@@ -67,9 +67,6 @@ public class AdminDetails {
     private JFXButton btnprint;
 
     @FXML
-    private JFXButton btnemail;
-
-    @FXML
     private TableColumn<Reservation, Date> dateid1;
 
     @FXML
@@ -151,7 +148,7 @@ public class AdminDetails {
             // Content
             yPosition -= rowHeight; // Move down for the content
             // Draw table content
-            for (Reservation reservation : viewid1.getItems()) {
+            for (Reservation reservation : viewid1.getSelectionModel().getSelectedItems()) {
                 yPosition -= rowHeight;
 
                 drawRow(contentStream, margin, yPosition, "DATE", reservation.getDate().toString());
@@ -186,10 +183,4 @@ public class AdminDetails {
         contentStream.endText();
     }
 
-
-
-    @FXML
-    void sendEmail() {
-
-    }
 }

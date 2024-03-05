@@ -39,7 +39,6 @@
                      </columns>
                   </TableView>
                   <JFXButton fx:id="btnprint" buttonType="RAISED" layoutX="298.0" layoutY="5.0" onAction="#exportToPDF" prefHeight="26.0" prefWidth="97.0" text="Print Preview" />
-                  <JFXButton fx:id="btnemail" buttonType="RAISED" layoutX="549.0" layoutY="433.0" onAction="#sendEmail" prefHeight="26.0" prefWidth="97.0" text="Send Email" />
                </children>
             </AnchorPane>
          </children>
