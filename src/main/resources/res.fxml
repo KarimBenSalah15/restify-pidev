@@ -81,7 +81,6 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Pane layoutX="396.0" layoutY="-225.0" prefHeight="438.0" prefWidth="172.0" rotate="-90.0" style="-fx-background-color: #f44336;" />
       <Button fx:id="btn1" layoutX="414.0" layoutY="417.0" mnemonicParsing="false" onAction="#updateR" prefHeight="36.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #f44336;" stylesheets="@style.css" text="UPDATE">
          <font>
             <Font name="Arial Rounded MT Bold" size="12.0" />
@@ -93,5 +92,6 @@
          </font>
       </Button>
       <Label fx:id="currentDateLabel" layoutX="525.0" layoutY="80.0" prefHeight="18.0" prefWidth="168.0" text="Label" />
+      <Pane layoutX="284.0" prefHeight="80.0" prefWidth="418.0" style="-fx-background-color: #f44336;" />
    </children>
 </AnchorPane>

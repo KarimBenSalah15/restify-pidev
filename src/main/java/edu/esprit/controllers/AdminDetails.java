@@ -169,4 +169,7 @@ public class AdminDetails {
         contentStream.showText(label + ": " + value);
         contentStream.endText();
     }
+
+    public void updateR(ActionEvent actionEvent) {
+    }
 }

@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -254,18 +255,24 @@ public class Rescontrollers {
     @FXML
     void updateR(ActionEvent event) {
         this.selectedReservation = getSelectedReservation();
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("/resDetails.fxml")));
         try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/res2.fxml"));
             Parent root = loader.load();
-            ResDetails pc = loader.getController();
+
+            // Access the controller of the new scene
+            Res2 pc = loader.getController();
             pc.setDateid2(this.selectedReservation.getDate());
             pc.setHeureid2(this.selectedReservation.getHeure());
             pc.setNbpersonneid2(this.selectedReservation.getNbrpersonne());
             pc.setid(this.selectedReservation.getId());
             pc.setR(this.selectedReservation);
-            dateid.getScene().setRoot(root);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
+
 }

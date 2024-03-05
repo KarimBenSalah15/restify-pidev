@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXComboBox;
 import edu.esprit.entities.Reservation;
 import edu.esprit.entities.Table;
 import edu.esprit.services.ReservationCrud;
@@ -23,7 +24,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class ResDetails {
+public class Res2 {
 
     @FXML
     private ResourceBundle resources;
@@ -37,13 +38,13 @@ public class ResDetails {
     @FXML
     private DatePicker dateid2;
     @FXML
-    private ComboBox<Integer> tab; // Added ComboBox for selecting the table ID
+    private JFXComboBox<Integer> tab; // Added ComboBox for selecting the table ID
 
     @FXML
     private TextField heureid2;
 
     @FXML
-    private ComboBox<Integer> nbpersonneid2;
+    private JFXComboBox<Integer> nbpersonneid2;
 
     @FXML
     private Reservation r;
