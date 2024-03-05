@@ -4,6 +4,9 @@ module sample.projectfinder {
     requires javafx.graphics;
     requires  java.sql;
     requires org.controlsfx.controls;
+
+
+
     opens sample.Evenement to javafx.fxml;
     exports sample.Evenement;
     exports sample.Evenement.Controllers;

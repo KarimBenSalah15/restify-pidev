@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -9,6 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.Rating?>
 
 <AnchorPane fx:id="bp" prefHeight="457.0" prefWidth="594.0" style="-fx-background-color: #EF6C00;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Evenement.Controllers.ClientController">
    <children>
@@ -92,6 +94,11 @@
             </Label>
          </children>
       </VBox>
-      <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="19.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true" />
+      <Rating fx:id="rateID" layoutX="14.0" layoutY="389.0" rating="0.0" />
+      <Button fx:id="apply" layoutX="76.0" layoutY="430.0" mnemonicParsing="false" onAction="#onRatingChanged" text="Button" />
+      <Rating fx:id="rateID1" layoutX="260.0" layoutY="389.0" rating="0.0" />
+      <Rating fx:id="rateID11" layoutX="508.0" layoutY="389.0" rating="0.0" />
+      <Button fx:id="apply1" layoutX="318.0" layoutY="430.0" mnemonicParsing="false" onAction="#onRatingChanged1" text="Button" />
+      <Button fx:id="apply11" layoutX="570.0" layoutY="430.0" mnemonicParsing="false" onAction="#onRatingChanged11" text="Button" />
    </children>
 </AnchorPane>

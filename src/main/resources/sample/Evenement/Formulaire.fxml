@@ -55,7 +55,7 @@
             <Font size="28.0" />
          </font>
       </Text>
-      <Text layoutX="14.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Evènements:">
+      <Text layoutX="14.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Evènement:">
          <font>
             <Font size="25.0" />
          </font>

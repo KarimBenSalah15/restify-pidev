@@ -13,10 +13,10 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         //Charger l'interface utilisateur et afficher la fenêtre principale
-      // Parent root = FXMLLoader.load(getClass().getResource("/sample/Evenement/Formulaire.fxml"));
+       Parent root = FXMLLoader.load(getClass().getResource("/sample/Evenement/Formulaire.fxml"));
       //Parent root = FXMLLoader.load(getClass().getResource("/sample/Evenement/Evenement.fxml"));
         // Parent root = FXMLLoader.load(getClass().getResource("/sample/Evenement/participantClient.fxml"));
-        Parent root = FXMLLoader.load(getClass().getResource("/sample/Evenement/participantAdmin.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("/sample/Evenement/participantAdmin.fxml"));
         Scene scene = new Scene(root);
         stage.setTitle("Event!");
         stage.setScene(scene);

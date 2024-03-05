@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import sample.Evenement.Entities.Evenement;
@@ -18,8 +20,21 @@ import org.controlsfx.control.Rating;
 
 public class ClientController implements Initializable {
 
+    @FXML
+    private Button apply;
 
+    @FXML
+    private Button apply1;
 
+    @FXML
+    private Button apply11;
+    @FXML
+    private Rating rateID;
+    @FXML
+    private Rating rateID1;
+
+    @FXML
+    private Rating rateID11;
     @FXML
     private Label datelabel;
 
@@ -101,20 +116,48 @@ public class ClientController implements Initializable {
                     datelabel.setText("Date: " + evenement.getDate().toString());
                     dureelabel.setText("Duree: " + evenement.getDuree());
                     etatlabel.setText("Etat: " + evenement.getEtat());
+                    rateID.setRating(0);
                     break;
                 case "Halloween":
                     datelabel1.setText("Date: " + evenement.getDate().toString());
                     dureelabel1.setText("Duree: " + evenement.getDuree());
                     etatlabel1.setText("Etat: " + evenement.getEtat());
+                    rateID1.setRating(0);
                     break;
                 case "SaintValentin":
                     datelabel2.setText("Date: " + evenement.getDate().toString());
                     dureelabel2.setText("Duree: " + evenement.getDuree());
                     etatlabel2.setText("Etat: " + evenement.getEtat());
+                    rateID11.setRating(0);
                     break;
             }
         });
     }
+    @FXML
+    void onRatingChanged(ActionEvent event) {
+        double rating = rateID.getRating();
+        showAlert(rating);
+    }
+
+    @FXML
+    void onRatingChanged1(ActionEvent event) {
+        double rating = rateID1.getRating();
+        showAlert(rating);
+    }
+
+    @FXML
+    void onRatingChanged11(ActionEvent event) {
+        double rating = rateID11.getRating();
+        showAlert(rating);
+    }
+    private void showAlert(double rating) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Rating Information");
+        alert.setHeaderText(null);
+        alert.setContentText("Vous avez donné " + rating + " étoiles.");
+        alert.showAndWait();
+    }
+
 
     private void initEvenments() {
         ObservableList<String> typesEvenements = FXCollections.observableArrayList();

@@ -8,15 +8,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
+
 import sample.Evenement.Entities.Evenement;
 import sample.Evenement.Entities.Participant;
 import sample.Evenement.Repository.EventsRepositorySql;
 import sample.Evenement.Repository.ParticipantRepositorySql;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.net.URL;
-import java.security.GeneralSecurityException;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -56,6 +54,7 @@ public class FormulaireController implements Initializable {
         String email = emailTextField1.getText().trim();
         Integer tel = Integer.valueOf(telTextField11.getText().trim());
 
+
         if (nom.isEmpty() || prenom.isEmpty() ||  this.currentEvent.isEmpty()) {
             showAlert(Alert.AlertType.WARNING, "Avertissement", "Veuillez remplir tous les champs.");
             return;
@@ -75,6 +74,11 @@ public class FormulaireController implements Initializable {
                 evenement.setNbrparticipation(newNbrParticipation);
                 this.eventsDb.update(evenement, evenement.getId());
                 showAlert(Alert.AlertType.INFORMATION, "Success", "Participant ajouté avec succès.");
+                //try {
+                  //  Mailing.sendMail(email, "Vous êtes admis à l'événement " + evenement.getType());
+              //  } catch (Exception e) {
+                    showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de l'envoi de l'e-mail de confirmation.");
+               // }
             });
 
         } catch (NumberFormatException e) {
