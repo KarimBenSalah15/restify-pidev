@@ -61,9 +61,6 @@ public class AdminDetails {
     private AnchorPane ancoright;
 
     @FXML
-    private JFXButton btnplus;
-
-    @FXML
     private JFXButton btnprint;
 
     @FXML
@@ -107,17 +104,7 @@ public class AdminDetails {
         viewid1.getItems().addAll(reservations);
 
     }
-    @FXML
-    void returnD(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader((getClass().getResource("/tab.fxml")));
-        try {
-            Parent root = loader.load();
-            btnplus.getScene().setRoot(root);
 
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
     @FXML
     void exportToPDF(ActionEvent event) {
         try {
@@ -182,5 +169,4 @@ public class AdminDetails {
         contentStream.showText(label + ": " + value);
         contentStream.endText();
     }
-
 }

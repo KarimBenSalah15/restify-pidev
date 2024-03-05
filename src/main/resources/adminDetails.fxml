@@ -18,11 +18,6 @@
                   <Font name="Arial" size="20.0" />
                </font>
             </Label>
-            <JFXButton fx:id="btnplus" layoutX="646.0" layoutY="-21.0" onAction="#returnD" prefHeight="70.0" prefWidth="96.0" rotate="40.2" text="+">
-               <font>
-                  <Font name="System Bold" size="32.0" />
-               </font>
-            </JFXButton>
          </children>
       </Pane>
       <AnchorPane fx:id="anco" layoutX="5.0" layoutY="81.0" prefHeight="487.0" prefWidth="690.0">

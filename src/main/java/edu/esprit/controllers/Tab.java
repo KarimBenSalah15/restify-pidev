@@ -19,11 +19,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-
+import javafx.stage.Stage;
 
 
 public class Tab {
@@ -45,12 +46,6 @@ public class Tab {
 
     @FXML
     private AnchorPane ancoright;
-
-    @FXML
-    private JFXButton btnplus;
-
-    @FXML
-    private JFXButton btnprint;
 
     @FXML
     private JFXButton btnsave;
@@ -168,7 +163,7 @@ public class Tab {
             rc.supprimerEntite(selectedId);
             tabview.getItems().remove(SelectedTable);
         } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a row to delete.", ButtonType.OK);
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Veuillez sélectionner une ligne à supprimer.", ButtonType.OK);
             alert.showAndWait();
         }
     }
@@ -183,7 +178,7 @@ public class Tab {
             tc.modifierEntite(t, selectedTable.getIdtable());
             refreshTableView();
         } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a row to update.", ButtonType.OK);
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Veuillez sélectionner une ligne à modifier.", ButtonType.OK);
             alert.showAndWait();
         }
 
@@ -300,15 +295,18 @@ public class Tab {
 
     @FXML
     void det(ActionEvent event) {
-
-        FXMLLoader loader=new FXMLLoader((getClass().getResource("/adminDetails.fxml")));
         try {
-            Parent root= loader.load();
-            btndetails.getScene().setRoot(root);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/adminDetails.fxml"));
+            Parent root = loader.load();
 
-        }catch (IOException e)
-        {System.out.println(e.getMessage());}
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
+
     @FXML
     void search(ActionEvent event) {
         String searchTerm = searchField.getText();

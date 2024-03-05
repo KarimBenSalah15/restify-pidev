@@ -17,7 +17,7 @@ public class homepage extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/tab.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/FenetreDashboardAdmin.fxml"));
             primaryStage.setTitle("RESERVEZ CHEZ RESTIFY");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
