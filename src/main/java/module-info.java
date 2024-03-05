@@ -3,8 +3,7 @@ module sample.projectfinder {
     requires javafx.fxml;
     requires javafx.graphics;
     requires  java.sql;
-    requires twilio;
-
+    requires org.controlsfx.controls;
     opens sample.Evenement to javafx.fxml;
     exports sample.Evenement;
     exports sample.Evenement.Controllers;

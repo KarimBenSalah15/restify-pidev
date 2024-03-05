@@ -7,16 +7,24 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import sample.Evenement.Entities.Evenement;
 import sample.Evenement.Entities.Participant;
 import sample.Evenement.MyConnection;
+import sample.Evenement.Repository.EventsRepositorySql;
+import sample.Evenement.Repository.ParticipantRepositorySql;
 
 import java.net.URL;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ParticipantController implements Initializable {
+    @FXML
+    private ComboBox<String> participantsComboBox;
     @FXML
     private TextField emailTextField;
     @FXML
@@ -49,7 +57,7 @@ public class ParticipantController implements Initializable {
     private TextField nomTextField;
 
     @FXML
-    private TableColumn<com.twilio.rest.api.v2010.account.conference.Participant, String> prenomP;
+    private TableColumn<Participant, String> prenomP;
 
     @FXML
     private TextField prenomTextField;
@@ -60,6 +68,12 @@ public class ParticipantController implements Initializable {
     private MyConnection cnx2 = null;
     private PreparedStatement pst = null;
     private ObservableList<Participant> participantsObservableList = FXCollections.observableArrayList();
+    private ParticipantRepositorySql participantsDb;
+    private EventsRepositorySql eventsDb;
+    List<Evenement> eventsList = new ArrayList<>();
+    List<Participant> ParticipantList = new ArrayList<>();
+
+    Optional<Evenement> currentEvent;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -73,7 +87,11 @@ public class ParticipantController implements Initializable {
                 btnSave.setDisable(false);
             }
         });
+        participantsDb = new ParticipantRepositorySql();
+        eventsDb = new EventsRepositorySql();
+        this.initEvents();
     }
+
 
     public void ajouterParticipant(Participant participant) {
         participantsObservableList.add(participant);
@@ -234,4 +252,33 @@ public class ParticipantController implements Initializable {
         alert.setContentText(s);
         alert.showAndWait();
     }
-}
+
+
+
+    public void chargerTypesEvenements() {
+        String selectedEventType = participantsComboBox.getValue();
+        Optional<Evenement> selectEvent = this.eventsList.stream().filter(e -> e.getType().equals(selectedEventType)).findFirst();
+        selectEvent.ifPresent(evenement -> {
+            System.out.println("event" + evenement);
+            this.currentEvent = Optional.of(evenement);
+            this.updateParticipantList(evenement);
+        });
+    }
+    private void updateParticipantList (Evenement evenement) {
+
+        ObservableList<String> typesEvenements = FXCollections.observableArrayList();
+        this.ParticipantList = this.participantsDb.getParticpantsByEvent(evenement);
+        this.eventsList.forEach(ev -> typesEvenements.add(ev.getType()));
+        participantsComboBox.setItems(typesEvenements);
+    }
+
+    private void initEvents() {
+        ObservableList<String> typesEvenements = FXCollections.observableArrayList();
+        this.eventsList = this.eventsDb.getAll();
+        this.eventsList.forEach(ev -> typesEvenements.add(ev.getType()));
+        participantsComboBox.setItems(typesEvenements);
+    }
+
+
+
+    }

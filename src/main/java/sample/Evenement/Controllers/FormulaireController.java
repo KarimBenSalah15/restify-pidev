@@ -7,18 +7,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+
 import sample.Evenement.Entities.Evenement;
 import sample.Evenement.Entities.Participant;
 import sample.Evenement.Repository.EventsRepositorySql;
 import sample.Evenement.Repository.ParticipantRepositorySql;
-//import sample.Evenement.Repository.ClientRepositorySql;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.security.GeneralSecurityException;
+import java.util.*;
 import java.util.regex.Pattern;
+
 
 public class FormulaireController implements Initializable {
 
@@ -37,10 +38,9 @@ public class FormulaireController implements Initializable {
     @FXML
     private TextField emailTextField1;
     private ParticipantRepositorySql participantsDb;
-   // private ClientRepositorySql ClientDb;
     private EventsRepositorySql eventsDb;
     List<Evenement> eventsList = new ArrayList<>();
-    Optional<Evenement> currentEvent ;
+    Optional<Evenement> currentEvent;
 
     @FXML
     private Label dateLabel;
@@ -49,14 +49,14 @@ public class FormulaireController implements Initializable {
     @FXML
     private Label etatLabel;
 
-  /**  @FXML
+    @FXML
     void register(ActionEvent event) {
         String nom = nomTextField.getText().trim();
         String prenom = prenomTextField.getText().trim();
         String email = emailTextField1.getText().trim();
         Integer tel = Integer.valueOf(telTextField11.getText().trim());
 
-        if (nom.isEmpty() || prenom.isEmpty() ||  this.currentEvent == null) {
+        if (nom.isEmpty() || prenom.isEmpty() ||  this.currentEvent.isEmpty()) {
             showAlert(Alert.AlertType.WARNING, "Avertissement", "Veuillez remplir tous les champs.");
             return;
         }
@@ -68,59 +68,24 @@ public class FormulaireController implements Initializable {
         }
 
         try {
-            Participant newParticipant = new Participant(nom, prenom, email, tel);
-            this.participantsDb.create(newParticipant);
+            this.currentEvent.ifPresent(evenement -> {
+                Participant newParticipant = new Participant(nom, prenom, email, tel, evenement);
+                this.participantsDb.create(newParticipant);
+                int newNbrParticipation = evenement.getNbrparticipation() + 1;
+                evenement.setNbrparticipation(newNbrParticipation);
+                this.eventsDb.update(evenement, evenement.getId());
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Participant ajouté avec succès.");
+            });
 
-            //TODO : convert participant to client
-
-            showAlert(Alert.AlertType.INFORMATION, "Success", "Participant ajouté avec succès.");
         } catch (NumberFormatException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur","Veuillez saisir un entier pour l'âge");
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", e.getMessage());
         }
-    }*/
-  @FXML
-  void register(ActionEvent event) {
-      String nom = nomTextField.getText().trim();
-      String prenom = prenomTextField.getText().trim();
-      String email = emailTextField1.getText().trim();
-      Integer tel = Integer.valueOf(telTextField11.getText().trim());
+    }
 
-      if (nom.isEmpty() || prenom.isEmpty() ||  this.currentEvent == null) {
-          showAlert(Alert.AlertType.WARNING, "Avertissement", "Veuillez remplir tous les champs.");
-          return;
-      }
 
-      // Vérifier si l'e-mail est valide
-      if (!isValidEmail(email)) {
-          showAlert(Alert.AlertType.ERROR, "Erreur", "L'adresse e-mail n'est pas valide.");
-          return;
-      }
 
-      try {
-          Participant newParticipant = new Participant(nom, prenom, email, tel);
-          this.participantsDb.create(newParticipant);
-
-          // Incrémenter le nombre de participations pour l'événement actuel
-          this.currentEvent.ifPresent(evenement -> {
-              int newNbrParticipation = evenement.getNbrparticipation() + 1;
-              evenement.setNbrparticipation(newNbrParticipation);
-              this.eventsDb.update(evenement, evenement.getId());
-              // Vérifier si le seuil de 50 participants est atteint
-              if (newNbrParticipation >= 50) {
-                  showAlert(Alert.AlertType.INFORMATION, "Success", "Nombre maximum de participants atteint pour cet événement.");
-              } else {
-                  showAlert(Alert.AlertType.INFORMATION, "Success", "Participant ajouté avec succès.");
-              }
-          });
-
-      } catch (NumberFormatException e) {
-          showAlert(Alert.AlertType.ERROR, "Erreur","Veuillez saisir un entier pour l'âge");
-      } catch (Exception e) {
-          showAlert(Alert.AlertType.ERROR, "Erreur", e.getMessage());
-      }
-  }
 
     private boolean isValidEmail(String email) {
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
@@ -139,8 +104,7 @@ public class FormulaireController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         participantsDb = new ParticipantRepositorySql();
         eventsDb = new EventsRepositorySql();
-       // ClientDb= new ClientRepositorySql();
-        this.initEvenments();
+        this.initEvents();
         this.dateLabel.setText("");
         this.dureeLabel.setText("");
         this.etatLabel.setText("");
@@ -158,7 +122,7 @@ public class FormulaireController implements Initializable {
         });
     }
 
-    private void initEvenments() {
+    private void initEvents() {
         ObservableList<String> typesEvenements = FXCollections.observableArrayList();
         this.eventsList = this.eventsDb.getAll();
         this.eventsList.forEach(ev -> typesEvenements.add(ev.getType()));

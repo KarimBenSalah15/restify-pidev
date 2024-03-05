@@ -1,6 +1,7 @@
 package sample.Evenement.Entities;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Evenement {
     private int id;
@@ -12,7 +13,10 @@ public class Evenement {
     private String type;
     private int nbrparticipation;
 
-    public Evenement(int id, String nom, Date date, String duree, String etat, String type,int nbrparticipation) {
+
+
+
+    public Evenement(int id, String nom, Date date, String duree, String etat, String type, int nbrparticipation) {
         this.id = id;
         this.nom = nom;
         this.date = date;
@@ -21,6 +25,9 @@ public class Evenement {
         this.type = type;
         this.nbrparticipation=nbrparticipation;
     }
+
+
+
 
     public Evenement(String etat, String duree, Date date) {
     }
@@ -41,7 +48,8 @@ public class Evenement {
         return nbrparticipation;
     }
 
-    public void setNbrparticipation(int nbrparticipation) {
+    public void setNbrparticipation(int nbrparticipation ) {
+
         this.nbrparticipation = nbrparticipation;
     }
 

@@ -9,10 +9,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import sample.Evenement.Entities.Evenement;
 import sample.Evenement.MyConnection;
+import sample.Evenement.Repository.EventsRepositorySql;
 
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -21,7 +23,7 @@ import java.util.logging.Logger;
 
 public class EvenementController implements Initializable {
     @FXML
-    private TableColumn<Evenement, Integer> nbrParticipation;
+    private TableColumn<Evenement, Integer> nbrparticipation;
     @FXML
     private TableColumn<Evenement, Integer> IDA;
 
@@ -69,6 +71,8 @@ public class EvenementController implements Initializable {
 
     private PreparedStatement pst = null;
     private MyConnection cnx = null;
+    private EventsRepositorySql eventsDb;
+    List<Evenement> eventsList = new ArrayList<>();
 
     @FXML
     void ajouterEvenement() {
@@ -90,16 +94,19 @@ public class EvenementController implements Initializable {
                     showAlert(Alert.AlertType.INFORMATION, "Information", "Le produit existe déjà dans la base de données.");
                 } else {
                     // Insérer le nouvel événement dans la base de données
-                    String insertQuery = "INSERT INTO evenement(nom, date, duree, etat, type) VALUES (?, ?, ?, ?, ?)";
+                    String insertQuery = "INSERT INTO evenement(nom, date, duree, etat, type,nbrparticipation) VALUES (?, ?, ?, ?, ?,?)";
                     PreparedStatement insertPst = cnx.getCnx().prepareStatement(insertQuery);
                     insertPst.setString(1, nom);
                     insertPst.setDate(2, Date.valueOf(localDate));
                     insertPst.setString(3, duree);
                     insertPst.setString(4, etat);
                     insertPst.setString(5, type);
+                    insertPst.setInt(6,0);
                     insertPst.executeUpdate();
                     showAlert(Alert.AlertType.INFORMATION, "Succès", "Événement ajouté avec succès.");
                     afficher();
+
+
                 }
             } catch (SQLException e) {
                 showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur s'est produite lors de l'ajout de l'événement : " + e.getMessage());
@@ -149,6 +156,7 @@ public class EvenementController implements Initializable {
 
         // Afficher les événements existants
         afficher();
+
 
         // Choix pour le ComboBox etatFid
         List<String> choices = Arrays.asList("Full", "Empty");
@@ -221,7 +229,7 @@ public class EvenementController implements Initializable {
         });
     }*/
 
-     private void afficher() {
+    private void afficher() {
         EvenementObservableList.clear();
         MyConnection connectNow = MyConnection.getInstance();
         Connection connectDB = connectNow.getCnx();
@@ -237,9 +245,10 @@ public class EvenementController implements Initializable {
                 String querduree = queryOutput.getString("duree");
                 String queryetat = queryOutput.getString("etat");
                 String querytype = queryOutput.getString("type");
-                Integer querynbrparticipation = queryOutput.getInt("nbrparticipation");
+                int querynbrparticipation = queryOutput.getInt("nbrparticipation");
 
-                EvenementObservableList.add(new Evenement(queryid, querynom, querydate, querduree, queryetat, querytype,querynbrparticipation));
+                Evenement evenement = new Evenement(queryid, querynom, querydate, querduree, queryetat, querytype, querynbrparticipation);
+                EvenementObservableList.add(evenement);
             }
 
             IDA.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -248,6 +257,7 @@ public class EvenementController implements Initializable {
             dureeA.setCellValueFactory(new PropertyValueFactory<>("duree"));
             etatA.setCellValueFactory(new PropertyValueFactory<>("etat"));
             typeA.setCellValueFactory(new PropertyValueFactory<>("type"));
+            nbrparticipation.setCellValueFactory(new PropertyValueFactory<>("nbrparticipation")); // Ajout de cette ligne
             table.setItems(EvenementObservableList);
         } catch (SQLException e) {
             Logger.getLogger(EvenementController.class.getName()).log(Level.SEVERE, null, e);
@@ -276,6 +286,7 @@ public class EvenementController implements Initializable {
                         pst.setInt(1, evenement.getId());
                         pst.executeUpdate();
                         afficher();
+                        //eventsDb.getAll();
 
                     } catch (SQLException e) {
                         showAlert(Alert.AlertType.ERROR, "Erreur",  "Une erreur s'est produite lors de la suppression de cet evenement : " + e.getMessage());
@@ -318,7 +329,7 @@ public class EvenementController implements Initializable {
 
 
                         pst.executeUpdate();
-                        afficher();
+                       afficher();
 
                     }//catch(){
                        // showAlert(Alert.AlertType.ERROR,"Erreur","Veuillez saisir un entier");

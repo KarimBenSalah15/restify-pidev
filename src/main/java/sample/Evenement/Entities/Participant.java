@@ -1,11 +1,14 @@
 package sample.Evenement.Entities;
 
+import java.util.Optional;
+
 public class Participant {
     private int id;
     private String nom;
     private String prenom;
     private String email;
     private int tel;
+    private Evenement evenement;
 
     public Participant(int id, String nom, String prenom, String email, int tel) {
         this.id = id;
@@ -15,12 +18,32 @@ public class Participant {
         this.tel = tel;
     }
 
+
+
+    public Participant(String nom, String prenom, String email, Integer tel, Evenement evenement) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.tel = tel;
+        this.evenement = evenement;
+    }
+
+    public Evenement getEvenement() {
+        return evenement;
+    }
+
+    public void setEvenement(Evenement evenement) {
+        this.evenement = evenement;
+    }
+
     public Participant(String nom, String prenom, String email, int tel) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.tel = tel;
     }
+
+
 
     public int getId() {
         return id;
@@ -64,12 +87,13 @@ public class Participant {
 
     @Override
     public String toString() {
-        return "Client{" +
+        return "Participant{" +
                 "id=" + id +
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 ", email='" + email + '\'' +
                 ", tel=" + tel +
+                ", id_event=" + getEvenement().getId() +
                 '}';
     }
 }

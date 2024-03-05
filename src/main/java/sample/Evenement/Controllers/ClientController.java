@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import org.controlsfx.control.Rating;
 
 public class ClientController implements Initializable {
 

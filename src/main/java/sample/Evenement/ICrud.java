@@ -1,5 +1,8 @@
 package sample.Evenement;
 
+import sample.Evenement.Entities.Evenement;
+import sample.Evenement.Entities.Participant;
+
 import java.sql.ResultSet;
 import java.util.List;
 
@@ -11,6 +14,8 @@ public interface ICrud<T>{
 
     public T mapTableToObject(ResultSet row);
 }
+
+
 
 
 
