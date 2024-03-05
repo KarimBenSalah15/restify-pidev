@@ -10,21 +10,43 @@ public class Reclamation {
     private String type;
     private String message;
     private int 	idRO;
+    private int userId;
+    private int platId;
 
+    public int getUserId() {
+        return userId;
+    }
 
-    public Reclamation(Date date, Boolean etat, String type,String message,int isp) {
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getPlatId() {
+        return platId;
+    }
+
+    public void setPlatId(int platId) {
+        this.platId = platId;
+    }
+
+    public Reclamation(Date date, Boolean etat, String type, String message, int isp,int user, int plt) {
         this.date = date;
         this.etat = etat;
         this.type = type;
         this.message =message;
         this.idRO=isp;
+        this.userId=user;
+        this.platId=plt;
+
+
+
     }
     public Reclamation(Date date, Boolean etat, String type,String message) {
         this.date = date;
         this.etat = etat;
         this.type = type;
         this.message =message;
-
+        this.idRO=0;
     }
 
     public Reclamation() {
@@ -36,6 +58,7 @@ public class Reclamation {
         this.etat = etat;
         this.type = type;
         this.message = message;
+        this.idRO= Integer.parseInt(null);
     }
 
     public int getIdRO() {
@@ -88,13 +111,10 @@ public class Reclamation {
 
     @Override
     public String toString() {
-        return "Reclamation{" +
-                "id=" + id +
-                ", date=" + date +
-                ", etat=" + etat +
-                ", type='" + type + '\'' +
-                ", message='" + message + '\'' +
-                '}';
+        // Customize the string representation as needed, handling null etat
+        String etatString = (this.etat != null && this.etat) ? "réclamation traitée" : "réclamation non traitée";
+        return "Date: [" + this.date + "]  Message:[" + this.message + "]  Type:[" + this.type + "]  Etat:[" + etatString + "]";
     }
+
 }
 

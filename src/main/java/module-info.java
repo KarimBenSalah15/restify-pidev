@@ -6,9 +6,10 @@ module ProjetPiJava {
     requires java.datatransfer;
 
     requires javax.mail.api;
-    requires google.cloud.translate;
-    requires google.cloud.core;
-    requires google.cloud.core.http;
+    requires org.controlsfx.controls;
+    requires twilio;
+
+
     opens edu.esprit.Controllers;
     opens edu.esprit.entities;
 }

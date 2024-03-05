@@ -48,6 +48,9 @@ public class ReclamtionCrud implements ICrud<Reclamation> {
                 p.setEtat(rs.getBoolean(3));
                 p.setType(rs.getString(4));
                 p.setMessage(rs.getString(5));
+                p.setIdRO(rs.getInt(6));
+                p.setUserId(rs.getInt(7));
+                p.setPlatId(rs.getInt(8));
                 reclamations.add(p);
             }
         } catch (SQLException e) {
@@ -71,7 +74,7 @@ public class ReclamtionCrud implements ICrud<Reclamation> {
     }
     @Override
     public void ajouterEntite(Reclamation p) {
-        String requet="INSERT INTO reclamation (date,etat,type,message,idRO) VALUES(?,?,?,?,?)";
+        String requet="INSERT INTO reclamation (date,etat,type,message,employe_id,id_client,plat_id) VALUES(?,?,?,?,?,?,?)";
         try {
             PreparedStatement pst =cnx2.prepareStatement(requet);
             pst.setDate(1,p.getDate());
@@ -79,6 +82,10 @@ public class ReclamtionCrud implements ICrud<Reclamation> {
             pst.setString(3,p.getType());
             pst.setString(4,p.getMessage());
             pst.setInt(5,p.getIdRO());
+            pst.setInt(6,p.getUserId());
+            pst.setInt(7,p.getPlatId());
+
+
             pst.executeUpdate();
             System.out.println("Ajoute");
         }

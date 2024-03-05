@@ -62,6 +62,44 @@
             <artifactId>google-cloud-translate</artifactId>
             <version>2.36.0</version>
         </dependency>
+        <dependency>
+            <groupId>us.ihmc</groupId>
+            <artifactId>jfoenix</artifactId>
+            <version>17-0.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>11.2.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.twilio.sdk/twilio-java-sdk -->
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.14.0</version>
+        </dependency>
+
+
+
+
+
+        <!-- https://mvnrepository.com/artifact/com.twilio.sdk/twilio -->
+        <!-- https://mvnrepository.com/artifact/com.twilio.sdk/twilio -->
+        <dependency>
+            <groupId>com.twilio.sdk</groupId>
+            <artifactId>twilio</artifactId>
+            <version>10.1.0</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/de.gsi.chart/chartfx-chart -->
+        <dependency>
+            <groupId>de.gsi.chart</groupId>
+            <artifactId>chartfx-chart</artifactId>
+            <version>11.2.7</version>
+        </dependency>
+
     </dependencies>
     <build>
         <plugins>

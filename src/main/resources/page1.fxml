@@ -147,24 +147,24 @@
                </children>
             </GridPane>
             <GridPane fx:id="panADD" prefHeight="377.0" prefWidth="1051.0" style="-fx-background-color: #fff;">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
                   <RowConstraints maxHeight="259.66667683919275" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="360.0" minHeight="10.0" prefHeight="360.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="360.0" minHeight="10.0" prefHeight="360.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="232.66668701171875" minHeight="10.0" prefHeight="96.99998982747394" vgrow="SOMETIMES" />
-              </rowConstraints>
+               </rowConstraints>
                <children>
                   <TableView fx:id="tableR" prefHeight="309.0" prefWidth="898.0" style="-fx-border-color: #000000;" GridPane.rowIndex="1">
-                    <columns>
-                      <TableColumn fx:id="dateColumn" prefWidth="73.99995422363281" style="-fx-border-color: #000000;" text="date" />
+                     <columns>
+                        <TableColumn fx:id="dateColumn" prefWidth="73.99995422363281" style="-fx-border-color: #000000;" text="date" />
                         <TableColumn fx:id="etatColumn" prefWidth="111.33331298828125" style="-fx-border-color: #000000;" text="etat" />
                         <TableColumn fx:id="typeColumn" prefWidth="68.66668701171875" style="-fx-border-color: #000000;" text="type" />
                         <TableColumn fx:id="messageColumn" prefWidth="334.00006103515625" style="-fx-border-color: #000000;" text="Message" />
                         <TableColumn fx:id="actionid" prefWidth="94.66664632161462" style="-fx-border-color: #000000;" text="Action" />
-                       
-                    </columns>
+
+                     </columns>
                      <opaqueInsets>
                         <Insets right="22.0" />
                      </opaqueInsets>
@@ -174,9 +174,10 @@
                   </TableView>
                   <AnchorPane fx:id="panenew" prefHeight="485.0" prefWidth="537.0" GridPane.rowIndex="2">
                      <children>
-                        <Button fx:id="delbtn" layoutX="269.0" layoutY="7.0" mnemonicParsing="false" onAction="#deleteR" style="-fx-background-radius: 20;" stylesheets="@style.css" text="Suprimer" textFill="WHITE" />
-                        <Button fx:id="btnadd" layoutX="167.0" layoutY="7.0" mnemonicParsing="false" onAction="#handleClicks" style="-fx-background-radius: 20;" stylesheets="@style.css" text="Ajouter" textFill="WHITE" />
-                        <Button fx:id="btnselect" layoutX="85.0" layoutY="7.0" mnemonicParsing="false" onAction="#selectR" style="-fx-background-radius: 20;" stylesheets="@style.css" text="Modifier" textFill="WHITE" />
+                        <Button fx:id="delbtn" layoutX="162.0" layoutY="8.0" mnemonicParsing="false" onAction="#deleteR" style="-fx-background-radius: 20;" stylesheets="@style.css" text="Suprimer" textFill="WHITE" />
+                        <Button fx:id="btnadd" layoutX="20.0" layoutY="7.0" mnemonicParsing="false" onAction="#handleClicks" style="-fx-background-radius: 20;" stylesheets="@style.css" text="Ajouter" textFill="WHITE" />
+                        <Button fx:id="tradbtn" layoutX="437.0" layoutY="7.0" mnemonicParsing="false" onAction="#translateComments" style="-fx-background-radius: 20;" stylesheets="@style.css" text="Traduire" textFill="WHITE" />
+                        <Button fx:id="statisticsButton" layoutX="526.0" layoutY="8.0" mnemonicParsing="false" onAction="#openStatisticsWindow" style="-fx-background-radius: 20;" stylesheets="@style.css" text="statistique" textFill="WHITE" />
                      </children>
                   </AnchorPane>
                </children>
