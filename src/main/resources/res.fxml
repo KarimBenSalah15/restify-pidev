@@ -7,7 +7,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -63,35 +62,26 @@
             </Label>
          </children>
       </AnchorPane>
-      <TableView fx:id="viewid1" layoutX="314.0" layoutY="129.0" opacity="0.8" prefHeight="269.0" prefWidth="371.0" style="-fx-background-color: #f44336;" stylesheets="@style.css">
-         <columns>
-            <TableColumn fx:id="id" prefWidth="69.5999755859375" text="ID" />
-            <TableColumn fx:id="dateid1" prefWidth="92.80007934570312" text="DATE" />
-            <TableColumn fx:id="heureid1" prefWidth="87.199951171875" text="HEURE" />
-            <TableColumn fx:id="nbpersonneid1" prefWidth="89.60009765625" text="NPERSONNES" />
-            <!-- Add a new TableColumn for tabId -->
-            <TableColumn fx:id="tabId" prefWidth="100" text="Table ID">
-               <cellValueFactory>
-                  <PropertyValueFactory property="tabId" />
-               </cellValueFactory>
-            </TableColumn>
-
-         </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
-      </TableView>
-      <Button fx:id="btn1" layoutX="414.0" layoutY="417.0" mnemonicParsing="false" onAction="#updateR" prefHeight="36.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #f44336;" stylesheets="@style.css" text="UPDATE">
+      <Button fx:id="btn1" layoutX="392.0" layoutY="417.0" mnemonicParsing="false" onAction="#updateR" prefHeight="36.0" prefWidth="100.0" style="-fx-background-radius: 10; -fx-background-color: #f44336;" stylesheets="@style.css" text="UPDATE">
          <font>
             <Font name="Arial Rounded MT Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="btn2" layoutX="544.0" layoutY="417.0" mnemonicParsing="false" onAction="#deleteR" prefHeight="36.0" prefWidth="100.0" style="-fx-background-radius: 10;" stylesheets="@style.css" text="DELETE">
+      <Button fx:id="btn2" layoutX="522.0" layoutY="417.0" mnemonicParsing="false" onAction="#deleteR" prefHeight="36.0" prefWidth="100.0" style="-fx-background-radius: 10;" stylesheets="@style.css" text="DELETE">
          <font>
             <Font name="Arial Rounded MT Bold" size="12.0" />
          </font>
       </Button>
       <Label fx:id="currentDateLabel" layoutX="525.0" layoutY="80.0" prefHeight="18.0" prefWidth="168.0" text="Label" />
       <Pane layoutX="284.0" prefHeight="80.0" prefWidth="418.0" style="-fx-background-color: #f44336;" />
+      <TableView fx:id="viewid1" layoutX="303.0" layoutY="117.0" prefHeight="278.0" prefWidth="389.0">
+         <columns>
+            <TableColumn fx:id="id" prefWidth="76.79998779296875" text="ID" />
+            <TableColumn fx:id="dateid1" prefWidth="69.5999755859375" text="DATE" />
+            <TableColumn fx:id="heureid1" prefWidth="80.00003051757812" text="HEURE" />
+            <TableColumn fx:id="nbpersonneid1" minWidth="0.0" prefWidth="80.7999267578125" text="NPERSONNE" />
+            <TableColumn fx:id="tabId" prefWidth="81.60009765625" text="Table ID" />
+         </columns>
+      </TableView>
    </children>
 </AnchorPane>

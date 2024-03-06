@@ -119,42 +119,85 @@ public class AdminDetails {
             float tableWidth = page.getMediaBox().getWidth() - 2 * margin;
             float yPosition = yStart;
             float rowHeight = 20f;
-            float cellMargin = 30f;
-            // Set border color
-            contentStream.setStrokingColor(255, 0, 0); // Red color
-            // Draw border
-            float margins = 40;
-            contentStream.addRect(margins, margins, tableWidth, yStart - margins);
+            float cellMargin = 10f;
+
+            // Draw border with shadow
+            contentStream.setLineWidth(1f);
+            contentStream.setLineDashPattern(new float[]{5, 5}, 0);
+            contentStream.setStrokingColor(0, 0, 0); // Black color
+            contentStream.moveTo(margin, yStart);
+            contentStream.lineTo(margin + tableWidth, yStart);
+            contentStream.moveTo(margin + tableWidth, yStart);
+            contentStream.lineTo(margin + tableWidth, margin);
+            contentStream.moveTo(margin + tableWidth, margin);
+            contentStream.lineTo(margin, margin);
+            contentStream.moveTo(margin, margin);
+            contentStream.lineTo(margin, yStart);
+            contentStream.closePath();
             contentStream.stroke();
+
             // Title
+            float titleHeight = 30f;
+            float titleWidth = tableWidth;
+            float titleX = margin;
+            float titleY = yStart + 15;
+
+            contentStream.setNonStrokingColor(100, 149, 237); // CornflowerBlue color
+            contentStream.addRect(titleX, titleY, titleWidth, titleHeight);
+            contentStream.fill();
+
+            contentStream.setNonStrokingColor(255, 255, 255); // White color for text
             contentStream.beginText();
-            contentStream.newLineAtOffset(margin, yPosition);
+            contentStream.newLineAtOffset(titleX + 10, titleY + titleHeight - 15);
             contentStream.showText("RÉSERVATION");
             contentStream.endText();
-            yPosition -= 10;
+
+            yPosition -= titleHeight + cellMargin;
+
             // Content
-            yPosition -= rowHeight; // Move down for the content
-            // Draw table content
-            for (Reservation reservation : viewid1.getSelectionModel().getSelectedItems()) {
+            List<Reservation> selectedReservations = viewid1.getSelectionModel().getSelectedItems();
+            if (selectedReservations.isEmpty()) {
+                // Aucune ligne sélectionnée, afficher toutes les lignes
+                selectedReservations = viewid1.getItems();
+            }
+
+            for (Reservation selectedReservation : selectedReservations) {
                 yPosition -= rowHeight;
 
-                drawRow(contentStream, margin, yPosition, "DATE", reservation.getDate().toString());
-                yPosition -= cellMargin;
+                drawRow(contentStream, margin, yPosition, "DATE", selectedReservation.getDate().toString());
+                yPosition -= rowHeight;
 
-                drawRow(contentStream, margin, yPosition, "HEURE", reservation.getHeure());
-                yPosition -= cellMargin;
+                drawRow(contentStream, margin, yPosition, "HEURE", selectedReservation.getHeure());
+                yPosition -= rowHeight;
 
-                drawRow(contentStream, margin, yPosition, "NBPERSONNE", String.valueOf(reservation.getNbrpersonne()));
-                yPosition -= cellMargin;
+                drawRow(contentStream, margin, yPosition, "NBPERSONNE", String.valueOf(selectedReservation.getNbrpersonne()));
+                yPosition -= rowHeight;
 
-                drawRow(contentStream, margin, yPosition, "TABLE_ID", String.valueOf(reservation.getTabId()));
-                yPosition -= cellMargin * 2; // Additional space between rows
+                drawRow(contentStream, margin, yPosition, "TABLE_ID", String.valueOf(selectedReservation.getTabId()));
+                yPosition -= cellMargin;
             }
+
+            // Draw content border
+            contentStream.setLineWidth(1f);
+            contentStream.setStrokingColor(0, 0, 0); // Black color
+            contentStream.moveTo(margin, yPosition);
+            contentStream.lineTo(margin + tableWidth, yPosition);
+            contentStream.moveTo(margin + tableWidth, yPosition);
+            contentStream.lineTo(margin + tableWidth, yPosition + titleHeight + selectedReservations.size() * 3 * rowHeight);
+            contentStream.moveTo(margin + tableWidth, yPosition + titleHeight + selectedReservations.size() * 3 * rowHeight);
+            contentStream.lineTo(margin, yPosition + titleHeight + selectedReservations.size() * 3 * rowHeight);
+            contentStream.moveTo(margin, yPosition + titleHeight + selectedReservations.size() * 3 * rowHeight);
+            contentStream.lineTo(margin, yPosition);
+            contentStream.closePath();
+            contentStream.stroke();
+
             contentStream.close();
+
             // Save the document
-            File file = new File("Reservations.pdf");
+            File file = new File("Reservation.pdf");
             document.save(file);
             document.close();
+
             // Open the PDF file
             Desktop.getDesktop().open(file);
 
@@ -163,10 +206,19 @@ public class AdminDetails {
             e.printStackTrace();
         }
     }
-    private void drawRow(PDPageContentStream contentStream, float x, float y, String label, String value) throws IOException {
+
+
+
+
+    private void drawRow(PDPageContentStream contentStream, float x, float y, String... values) throws IOException {
+        contentStream.setNonStrokingColor(0, 0, 0); // Black color for text
         contentStream.beginText();
         contentStream.newLineAtOffset(x, y);
-        contentStream.showText(label + ": " + value);
+
+        for (String value : values) {
+            contentStream.showText(value + "  ");
+        }
+
         contentStream.endText();
     }
 

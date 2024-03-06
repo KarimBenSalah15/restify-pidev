@@ -11,6 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import edu.esprit.email.SendEmail;
 import edu.esprit.entities.Reservation;
 import edu.esprit.entities.Table;
 import edu.esprit.services.ReservationCrud;
@@ -24,7 +25,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import edu.esprit.email.SendEmail;
+
 public class Rescontrollers {
 
     @FXML
@@ -73,6 +74,7 @@ public class Rescontrollers {
     private TableView<Reservation> viewid1;
 
     public Reservation selectedReservation;
+    public  int tt;
 
     @FXML
     private Label currentDateLabel;
@@ -107,24 +109,21 @@ public class Rescontrollers {
             viewid1.getItems().addAll(reservations);
             refreshTableView();
 
-
-
             String toEmail = tfmail.getText().trim();
             // Check if the email address is valid
             if (!isValidEmail1(toEmail)) {
-                showAlert("Invalid Email", Alert.AlertType.valueOf("Please enter a valid email address."));
+                showAlert("Email invalide", Alert.AlertType.ERROR);
                 return;
             }
             // Call the send method from SendEmail class
-            SendEmail.send(toEmail);
+            SendEmail.send(toEmail, p);
             // Show success message
-            showAlert("Email Sent", Alert.AlertType.valueOf("Email has been sent successfully to " + toEmail));
+            showAlert("Email envoyé", Alert.AlertType.INFORMATION);
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Veuillez sélectionner vos saisies", ButtonType.OK);
             alert.showAndWait();
         }
     }
-
 
     private boolean isValidEmail1(String email) {
         // Utiliser une expression régulière pour vérifier le format de l'e-mail
@@ -171,8 +170,8 @@ public class Rescontrollers {
         }
     }
 
-    private void showAlert(String message, Alert.AlertType warning) {
-        Alert alert = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
+    private void showAlert(String message, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType, message, ButtonType.OK);
         alert.show();
     }
 
@@ -190,14 +189,8 @@ public class Rescontrollers {
         // Initialize the tab ComboBox
         TableCrud tableCrud = new TableCrud();
         List<Integer> tableIds = tableCrud.getAllTableIds();
-        List<Table> tabls=tableCrud.afficherEntiite();
-        List<Integer> tableId = tabls.stream()
-                .filter(Table::isDispo)
-                .map(Table::getTabId)
-                .toList();
+        List<Table> tabls = tableCrud.afficherEntiite();
 
-        // Set items to the ComboBox
-        tabId1.setItems(FXCollections.observableArrayList(tableId));
         // Initialise le DatePicker et définissez la date minimale sur la date actuelle
         dateid.setValue(LocalDate.now());
         dateid.setDayCellFactory(picker -> new DateCell() {
@@ -211,20 +204,19 @@ public class Rescontrollers {
         nbpersonneid.setItems(FXCollections.observableArrayList(choices));
         nbpersonneid.setOnAction(event -> {
             int s = nbpersonneid.getValue();
-            if (s == 1) {
-                nbpersonneid.setValue(1);
-            } else if (s == 2) {
-                nbpersonneid.setValue(2);
-            } else if (s == 3) {
-                nbpersonneid.setValue(3);
-            } else if (s == 4) {
-                nbpersonneid.setValue(4);
-            } else if (s == 5) {
-                nbpersonneid.setValue(5);
-            } else if (s == 6) {
-                nbpersonneid.setValue(6);
+            if (s >= 1 && s <= 6) {
+                nbpersonneid.setValue(s);
+                tt = s;
             }
+
+            List<Integer> tableId = tabls.stream()
+                    .filter(table -> table.isDispo() && table.getNbrplace() >= tt) // Adjust the condition based on your requirements
+                    .map(Table::getTabId)
+                    .toList();
+            tabId1.setItems(FXCollections.observableArrayList(tableId));
         });
+
+        // Set items to the ComboBox
 
         // Initialise le DatePicker et définissez la date minimale sur la date actuelle
         dateid.setValue(LocalDate.now());
@@ -241,11 +233,11 @@ public class Rescontrollers {
     @FXML
     void refreshTableView() {
         ReservationCrud rc = new ReservationCrud();
-        List<Reservation> UpdateReservation = rc.afficherEntiite();
+        List<Reservation> updateReservation = rc.afficherEntiite();
 
         // Clear and re-populate the TableView with the updated data
         viewid1.getItems().clear();
-        viewid1.getItems().addAll(UpdateReservation);
+        viewid1.getItems().addAll(updateReservation);
     }
 
     private Reservation getSelectedReservation() {
@@ -274,5 +266,4 @@ public class Rescontrollers {
             System.out.println(e.getMessage());
         }
     }
-
 }
