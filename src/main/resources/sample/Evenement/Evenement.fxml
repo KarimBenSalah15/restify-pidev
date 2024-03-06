@@ -14,12 +14,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.NotificationPane?>
 
 <HBox maxWidth="1000.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Evenement.Controllers.EvenementController">
    <children>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="1000.0" style="-fx-background-color: #ef6c00;" styleClass="form_container" stylesheets="@css/style.css">
          <children>
-            <TableView fx:id="table" layoutX="255.0" layoutY="96.0" prefHeight="357.0" prefWidth="660.0" style="-fx-background-color: #F44336;" stylesheets="@css/style.css">
+            <TableView fx:id="table" layoutX="255.0" layoutY="96.0" onMouseClicked="#getData" prefHeight="357.0" prefWidth="660.0" style="-fx-background-color: #F44336;" stylesheets="@css/style.css">
               <columns>
                 <TableColumn fx:id="IDA" minWidth="27.200027465820312" prefWidth="52.00001525878906" text="ID" />
                 <TableColumn fx:id="nomA" minWidth="50.0" prefWidth="86.4000244140625" text="Nom" />
@@ -94,6 +95,7 @@
             </VBox>
             <BorderPane layoutX="-36.0" layoutY="54.0" prefHeight="6.0" prefWidth="1000.0" style="-fx-background-color: black;" />
             <ComboBox fx:id="typeFid" layoutX="75.0" layoutY="306.0" prefHeight="25.0" prefWidth="163.0" promptText="type" />
+            <NotificationPane fx:id="notificationImage" layoutX="74.0" layoutY="375.0" prefHeight="6.0" prefWidth="0.0" style="-fx-background-color: black;" />
          </children>
       </Pane>
    </children>

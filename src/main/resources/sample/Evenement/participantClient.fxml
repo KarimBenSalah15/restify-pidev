@@ -14,11 +14,7 @@
 
 <AnchorPane fx:id="bp" prefHeight="457.0" prefWidth="594.0" style="-fx-background-color: #EF6C00;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Evenement.Controllers.ClientController">
    <children>
-      <Text layoutX="14.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenue chers client:" wrappingWidth="460.6288757324219">
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Text>
+      <Button layoutX="2.0" layoutY="13.0" mnemonicParsing="false" onAction="#stopFlashingAnimation" opacity="0.0" prefHeight="26.0" prefWidth="272.0" text="Button" />
       <ImageView fitHeight="124.0" fitWidth="190.0" layoutX="14.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@img/reveillon.jpg" />
@@ -36,7 +32,7 @@
       </ImageView>
       <Pane layoutX="228.0" layoutY="58.0" prefHeight="411.0" prefWidth="6.0" style="-fx-background-color: white;" />
       <Pane layoutX="471.0" layoutY="57.0" prefHeight="411.0" prefWidth="6.0" style="-fx-background-color: white;" />
-      <ComboBox fx:id="evenementComboBox" layoutX="412.0" layoutY="14.0" onAction="#chargerTypesEvenements" prefHeight="26.0" prefWidth="272.0" styleClass="white-bg" stylesheets="@css/style.css" />
+      <ComboBox fx:id="evenementComboBox" layoutX="423.0" layoutY="12.0" onAction="#chargerTypesEvenements" prefHeight="26.0" prefWidth="272.0" styleClass="white-bg" stylesheets="@css/style.css" />
       <VBox layoutX="32.0" layoutY="276.0" prefHeight="98.0" prefWidth="195.0">
          <children>
             <Label fx:id="datelabel" text="DateLabel">
@@ -95,10 +91,15 @@
          </children>
       </VBox>
       <Rating fx:id="rateID" layoutX="14.0" layoutY="389.0" rating="0.0" />
-      <Button fx:id="apply" layoutX="76.0" layoutY="430.0" mnemonicParsing="false" onAction="#onRatingChanged" text="Button" />
+      <Button fx:id="apply" layoutX="47.0" layoutY="422.0" mnemonicParsing="false" onAction="#onRatingChanged" prefHeight="41.0" prefWidth="90.0" stylesheets="@css/style.css" text="rate" />
       <Rating fx:id="rateID1" layoutX="260.0" layoutY="389.0" rating="0.0" />
       <Rating fx:id="rateID11" layoutX="508.0" layoutY="389.0" rating="0.0" />
-      <Button fx:id="apply1" layoutX="318.0" layoutY="430.0" mnemonicParsing="false" onAction="#onRatingChanged1" text="Button" />
-      <Button fx:id="apply11" layoutX="570.0" layoutY="430.0" mnemonicParsing="false" onAction="#onRatingChanged11" text="Button" />
+      <Button fx:id="apply1" layoutX="318.0" layoutY="430.0" mnemonicParsing="false" onAction="#onRatingChanged1" text="rate" />
+      <Text fx:id="evenementsText" layoutX="10.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nos Evenements" wrappingWidth="407.0289001464844">
+         <font>
+            <Font size="35.0" />
+         </font>
+      </Text>
+      <Button fx:id="apply11" layoutX="570.0" layoutY="430.0" mnemonicParsing="false" onAction="#onRatingChanged11" text="rate" />
    </children>
 </AnchorPane>

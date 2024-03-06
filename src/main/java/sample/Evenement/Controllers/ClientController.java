@@ -1,5 +1,6 @@
 package sample.Evenement.Controllers;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,6 +18,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import org.controlsfx.control.Rating;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+
+import javax.swing.*;
 
 public class ClientController implements Initializable {
 
@@ -64,13 +71,19 @@ public class ClientController implements Initializable {
     @FXML
     private ComboBox<String> evenementComboBox;
 
+
+
     private EventsRepositorySql eventsDb;
     private List<Evenement> eventsList = new ArrayList<>();
-
+    @FXML
+    private Text evenementsText;
 
     Optional<Evenement> currentEvent ;
+    private Timer flashTimeline;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
 
         eventsDb = new EventsRepositorySql();
         this.initEvenments();
@@ -83,8 +96,25 @@ public class ClientController implements Initializable {
         this.datelabel2.setText("");
         this.dureelabel2.setText("");
         this.etatlabel2.setText("");
+
+
+        startFlashingAnimation();
+
+    }
+    private void startFlashingAnimation() {
+        Timeline flashTimeline = new Timeline(
+                new KeyFrame(Duration.seconds(0.5), e -> evenementsText.setVisible(true)),
+                new KeyFrame(Duration.seconds(1), e -> evenementsText.setVisible(false))
+        );
+        flashTimeline.setCycleCount(Timeline.INDEFINITE);
+        flashTimeline.play();
+
     }
 
+    @FXML
+  public   void stopFlashingAnimation(ActionEvent event) {
+        flashTimeline.stop();
+    }
 
     /**@FXML
     void chargerTypesEvenements(ActionEvent event) {

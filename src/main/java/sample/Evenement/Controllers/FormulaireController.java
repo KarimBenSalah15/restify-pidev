@@ -14,9 +14,25 @@ import sample.Evenement.Entities.Participant;
 import sample.Evenement.Repository.EventsRepositorySql;
 import sample.Evenement.Repository.ParticipantRepositorySql;
 
+import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
 import java.util.regex.Pattern;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.net.HttpURLConnection;
+import javax.swing.JOptionPane;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 
 
 public class FormulaireController implements Initializable {
@@ -46,6 +62,8 @@ public class FormulaireController implements Initializable {
     private Label dureeLabel;
     @FXML
     private Label etatLabel;
+    private final String AUTH_TOKEN ="e86c4822eb2c05a5a3c93c3fa61ebf65";
+    private final String ACCOUNT_SID="AC1666e1d7814cdca4b7a02cde85358cc3";
 
     @FXML
     void register(ActionEvent event) {
@@ -74,10 +92,13 @@ public class FormulaireController implements Initializable {
                 evenement.setNbrparticipation(newNbrParticipation);
                 this.eventsDb.update(evenement, evenement.getId());
                 showAlert(Alert.AlertType.INFORMATION, "Success", "Participant ajouté avec succès.");
+
+
+                sendSMS("+21693139534" , "Vous êtes un participant au package " );
                 //try {
                   //  Mailing.sendMail(email, "Vous êtes admis à l'événement " + evenement.getType());
               //  } catch (Exception e) {
-                    showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de l'envoi de l'e-mail de confirmation.");
+                 //   showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de l'envoi de l'e-mail de confirmation.");
                // }
             });
 
@@ -88,8 +109,30 @@ public class FormulaireController implements Initializable {
         }
     }
 
+    public void sendSMS(String to,String body){
+        Twilio.init(ACCOUNT_SID,AUTH_TOKEN);
+        Message message =Message.creator(
+                        new PhoneNumber("+21693139534"),
+                        new PhoneNumber("+19497104170"),
 
+                        body)
+                .create();
+    }
+   /** private void nbStock(){
+        StringBuilder messageBody = new StringBuilder("Réapprovisionner les stocks pour les produits suivants :\n");
+        boolean needsReplenishment = false;
 
+        for(StocksSearchModel stock: StocksSearchModelObservableList){
+            if(stock.getQuantite() < 5){
+                messageBody.append(stock.getNom()).append("\n");
+                needsReplenishment = true;
+            }
+        }
+
+        if(needsReplenishment){
+            sendSMS("+21693139534", messageBody.toString());
+        }
+    }*/
 
     private boolean isValidEmail(String email) {
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
@@ -112,6 +155,7 @@ public class FormulaireController implements Initializable {
         this.dateLabel.setText("");
         this.dureeLabel.setText("");
         this.etatLabel.setText("");
+
     }
 
     public void chargerTypesEvenements() {

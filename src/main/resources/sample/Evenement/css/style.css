@@ -131,3 +131,12 @@
     -fx-background-color:#E6E5E5;
     -fx-background-radius:8px;
 }
+.flash-text {
+    -fx-fill: red;
+    -fx-font-size: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.5), 10, 0, 0, 0);
+}
+
+.flash-text.hidden {
+    -fx-opacity: 0;
+}

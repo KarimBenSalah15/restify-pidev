@@ -1,16 +1,35 @@
 package sample.Evenement.Controllers;
 
+import com.twilio.rest.api.v2010.account.Notification;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
+import org.controlsfx.control.NotificationPane;
+
+
+import org.controlsfx.control.Notifications;
+import org.w3c.dom.Text;
 import sample.Evenement.Entities.Evenement;
 import sample.Evenement.MyConnection;
 import sample.Evenement.Repository.EventsRepositorySql;
 
+import javax.swing.text.Element;
+import java.awt.*;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
@@ -21,7 +40,10 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 public class EvenementController implements Initializable {
+    @FXML
+    private NotificationPane notificationImage;
     @FXML
     private TableColumn<Evenement, Integer> nbrparticipation;
     @FXML
@@ -68,6 +90,8 @@ public class EvenementController implements Initializable {
 
     @FXML
     private ComboBox<String> typeFid;
+
+
 
     private PreparedStatement pst = null;
     private MyConnection cnx = null;
@@ -300,55 +324,61 @@ public class EvenementController implements Initializable {
 
 
     }
-    @FXML
-    void UpdateEvent(ActionEvent event) {
-        Evenement evenement = table.getSelectionModel().getSelectedItem();
-        if (table != null) {
 
-            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmationAlert.setTitle("Confirmation");
-            confirmationAlert.setHeaderText(null);
-            confirmationAlert.setContentText("Voulez-vous vraiment mettre à jour cette evenement ?");
+     @FXML
+      void UpdateEvent(ActionEvent event) {
+          Evenement evenement = table.getSelectionModel().getSelectedItem();
+          if (table != null) {
 
-            // Afficher l'alerte et attendre la réponse de l'utilisateur
-            confirmationAlert.showAndWait().ifPresent(response -> {
-                if (response == ButtonType.OK) {
-                    // Si l'utilisateur a cliqué sur OK, mettre à jour le produit
-                    String update ="update evenement set Nom=?, date =?, duree=?,etat=?,type=? where id=?";
-                    cnx=MyConnection.getInstance();
-                    try {
-                        pst=cnx.cnx.prepareStatement(update);
+              Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+              confirmationAlert.setTitle("Confirmation");
+              confirmationAlert.setHeaderText(null);
+              confirmationAlert.setContentText("Voulez-vous vraiment mettre à jour cette evenement ?");
 
-                        pst.setInt(6, evenement.getId());
-                        pst.setString(1, nomTextField.getText());
-                        pst.setDate(2, Date.valueOf(dateFid.getValue()));
-                        pst.setString(3, dureFid.getText());
-                        pst.setString(4, etatFid.getValue());
-                        pst.setString(5, typeFid.getValue());
+              // Afficher l'alerte et attendre la réponse de l'utilisateur
+              confirmationAlert.showAndWait().ifPresent(response -> {
+                  if (response == ButtonType.OK) {
+                      // Si l'utilisateur a cliqué sur OK, mettre à jour le produit
+                      String update ="update evenement set Nom=?, date =?, duree=?,etat=?,type=? where id=?";
+                      cnx=MyConnection.getInstance();
+                      try {
+                          pst=cnx.cnx.prepareStatement(update);
 
+                          pst.setInt(6, evenement.getId());
+                          pst.setString(1, nomTextField.getText());
+                          pst.setDate(2, Date.valueOf(dateFid.getValue()));
+                          pst.setString(3, dureFid.getText());
+                          pst.setString(4, etatFid.getValue());
+                          pst.setString(5, typeFid.getValue());
+                          pst.executeUpdate();
+                         afficher();
 
-
-                        pst.executeUpdate();
-                       afficher();
-
-                    }//catch(){
-                       // showAlert(Alert.AlertType.ERROR,"Erreur","Veuillez saisir un entier");
-                    //}
-
-
-                    catch (SQLException e) {
-                        showAlert(Alert.AlertType.ERROR, "Erreur",  "Une erreur s'est produite lors de la mise à jour de votre event : " + e.getMessage());
-                    }
-                }
-            });
-        } else {
-            // Aucun produit sélectionné, afficher un message d'erreur
-            showAlert(Alert.AlertType.ERROR, "Erreur",  "Veuillez sélectionner un produit à mettre à jour.");
-        }
+                          Notifications.create()
+                                  .title("Succès")
+                                  .text("Événement modifié")
+                                  .hideAfter(Duration.seconds(4))
+                                  .owner(notificationImage)
+                                  .show();
+                      }//catch(){
+                         // showAlert(Alert.AlertType.ERROR,"Erreur","Veuillez saisir un entier");
+                      //}
 
 
-    }
+                      catch (SQLException e) {
+                          showAlert(Alert.AlertType.ERROR, "Erreur",  "Une erreur s'est produite lors de la mise à jour de votre event : " + e.getMessage());
+                      }
 
+                  }
+              });
+          } else {
+              // Aucun produit sélectionné, afficher un message d'erreur
+              showAlert(Alert.AlertType.ERROR, "Erreur",  "Veuillez sélectionner un produit à mettre à jour.");
+          }
+
+
+
+
+      }
 
 
 }

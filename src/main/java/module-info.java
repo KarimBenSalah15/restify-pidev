@@ -4,7 +4,9 @@ module sample.projectfinder {
     requires javafx.graphics;
     requires  java.sql;
     requires org.controlsfx.controls;
-
+    requires java.desktop;
+    requires twilio;
+    requires javafx.media;
 
 
     opens sample.Evenement to javafx.fxml;
