@@ -17,13 +17,13 @@ public class HomePage extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Intro.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/FenetreDashboardAdmin.fxml"));
             primaryStage.setTitle("Inscription");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
+////
     }
 }

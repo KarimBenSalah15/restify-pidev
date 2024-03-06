@@ -7,53 +7,16 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="646.0" prefWidth="787.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.Controllers.OkControllers">
+<AnchorPane prefHeight="646.0" prefWidth="787.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.Controllers.ReclmationControllers">
    <children>
-      <VBox prefHeight="459.0" prefWidth="202.0" style="-fx-background-color: #F57C00#FB8C00;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Pane prefHeight="105.0" prefWidth="202.0">
-               <children>
-                  <ImageView fx:id="imageid" fitHeight="94.0" fitWidth="131.0" layoutX="54.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../../image.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-            <Button fx:id="add" mnemonicParsing="false" prefHeight="41.0" prefWidth="206.0" style="-fx-background-color: #EF6C00;" text="Ajouter reclamation" textFill="WHITE">
-               <font>
-                  <Font name="Arial Black" size="14.0" />
-               </font>
-            </Button>
-            <Button fx:id="update" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="41.0" prefWidth="205.0" style="-fx-background-color: #EF6C00;" text="Modifier reclamation" textFill="WHITE">
-               <font>
-                  <Font name="Arial Black" size="14.0" />
-               </font>
-            </Button>
-            <Button fx:id="del" layoutX="10.0" layoutY="51.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="41.0" prefWidth="203.0" style="-fx-background-color: #EF6C00;" text="   Supprimer reclamation" textFill="WHITE">
-               <font>
-                  <Font name="Arial Black" size="14.0" />
-               </font>
-            </Button>
-            <Button fx:id="show" layoutX="10.0" layoutY="93.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="41.0" prefWidth="211.0" style="-fx-background-color: #EF6C00;" text=" Afficher reclamation" textFill="WHITE">
-               <font>
-                  <Font name="Arial Black" size="14.0" />
-               </font>
-            </Button>
-         </children>
-      </VBox>
-      <StackPane layoutX="202.0" layoutY="201.0">
+      <StackPane layoutX="46.0" layoutY="199.0">
          <children>
             <GridPane fx:id="penUPDATE" layoutX="10.0" layoutY="10.0" prefHeight="243.0" prefWidth="427.0" style="-fx-background-color: #fff;">
                <columnConstraints>
@@ -146,25 +109,25 @@
                   </AnchorPane>
                </children>
             </GridPane>
-            <GridPane fx:id="panADD" prefHeight="377.0" prefWidth="1051.0" style="-fx-background-color: #fff;">
+            <GridPane fx:id="panADD" prefHeight="377.0" prefWidth="746.0" style="-fx-background-color: #fff;">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints maxHeight="259.66667683919275" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="360.0" minHeight="10.0" prefHeight="360.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="360.0" minHeight="10.0" prefHeight="360.0" valignment="BOTTOM" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="232.66668701171875" minHeight="10.0" prefHeight="96.99998982747394" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <TableView fx:id="tableR" prefHeight="309.0" prefWidth="898.0" style="-fx-border-color: #000000;" GridPane.rowIndex="1">
+                  <TableView fx:id="tableR" prefHeight="309.0" prefWidth="688.0" style="-fx-border-color: #000000;" GridPane.rowIndex="1">
                      <columns>
-                        <TableColumn fx:id="dateColumn" prefWidth="73.99995422363281" style="-fx-border-color: #000000;" text="date" />
-                        <TableColumn fx:id="etatColumn" prefWidth="111.33331298828125" style="-fx-border-color: #000000;" text="etat" />
-                        <TableColumn fx:id="typeColumn" prefWidth="68.66668701171875" style="-fx-border-color: #000000;" text="type" />
+                        <TableColumn fx:id="dateColumn" prefWidth="73.99995422363281" style="-fx-border-color: #000000;" text="Date" />
+                        <TableColumn fx:id="etatColumn" prefWidth="111.33331298828125" style="-fx-border-color: #000000;" text="Etat" />
+                        <TableColumn fx:id="typeColumn" prefWidth="68.66668701171875" style="-fx-border-color: #000000;" text="Type" />
                         <TableColumn fx:id="messageColumn" prefWidth="334.00006103515625" style="-fx-border-color: #000000;" text="Message" />
                         <TableColumn fx:id="actionid" prefWidth="94.66664632161462" style="-fx-border-color: #000000;" text="Action" />
-
-                     </columns>
+            
+                                                                     </columns>
                      <opaqueInsets>
                         <Insets right="22.0" />
                      </opaqueInsets>
@@ -178,6 +141,7 @@
                         <Button fx:id="btnadd" layoutX="20.0" layoutY="7.0" mnemonicParsing="false" onAction="#handleClicks" style="-fx-background-radius: 20;" stylesheets="@style.css" text="Ajouter" textFill="WHITE" />
                         <Button fx:id="tradbtn" layoutX="437.0" layoutY="7.0" mnemonicParsing="false" onAction="#translateComments" style="-fx-background-radius: 20;" stylesheets="@style.css" text="Traduire" textFill="WHITE" />
                         <Button fx:id="statisticsButton" layoutX="526.0" layoutY="8.0" mnemonicParsing="false" onAction="#openStatisticsWindow" style="-fx-background-radius: 20;" stylesheets="@style.css" text="statistique" textFill="WHITE" />
+                        <Button fx:id="reponse" layoutX="354.0" layoutY="10.0" mnemonicParsing="false" style="-fx-background-radius: 20;" stylesheets="@style.css" text="Rponse" textFill="WHITE" />
                      </children>
                   </AnchorPane>
                </children>
@@ -187,21 +151,10 @@
             </GridPane>
          </children>
       </StackPane>
-      <Pane fx:id="pn" layoutX="202.0" layoutY="-1.0" prefHeight="122.0" prefWidth="1051.0" style="-fx-background-color: #ffaa00;">
-         <children>
-            <Label fx:id="libS" layoutX="121.0" layoutY="33.0" text="Afficher reclamation">
-               <font>
-                  <Font name="Cambria" size="23.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Label layoutX="337.0" layoutY="177.0" text=" Reclamtion">
+      <Label fx:id="rep" layoutX="337.0" layoutY="177.0" text=" Reclamation">
          <font>
             <Font name="Consolas" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="backbtn" layoutX="215.0" layoutY="133.0" mnemonicParsing="false" onAction="#goback" style="-fx-background-radius: 20;" stylesheets="@style.css" text="Retour" textFill="WHITE" />
-      <Button fx:id="reponse" layoutX="579.0" layoutY="133.0" mnemonicParsing="false" onAction="#reponseGo" style="-fx-background-radius: 20;" stylesheets="@style.css" text="Rponse" textFill="WHITE" />
    </children>
 </AnchorPane>
