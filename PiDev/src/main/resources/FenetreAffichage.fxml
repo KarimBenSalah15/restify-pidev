@@ -7,7 +7,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FenetreAffichage">
    <children>
-      <TableView fx:id="tabview_aff" editable="true" layoutX="88.0" layoutY="14.0" prefHeight="430.0" prefWidth="904.0" stylesheets="@tabview_aff.css">
+      <TableView fx:id="tabview_aff" editable="true" prefHeight="430.0" prefWidth="904.0" stylesheets="@tabview_aff.css">
         <columns>
           <TableColumn fx:id="col_id" editable="false" prefWidth="30.39996337890625" text="ID" />
           <TableColumn fx:id="col_nom" prefWidth="76.80001831054688" text="Nom" />

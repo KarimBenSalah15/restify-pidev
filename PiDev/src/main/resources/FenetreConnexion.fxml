@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FenetreConnexion">
+<AnchorPane maxHeight="400.0" maxWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FenetreConnexion">
    <children>
       <TextField fx:id="tf_login_con" layoutX="225.0" layoutY="161.0" promptText="Login" style="-fx-background-color: transparent; -fx-border-color: #EF6C00; -fx-border-width: 0px 0px 2px 0px;" />
       <PasswordField fx:id="tf_mdp_con" layoutX="225.0" layoutY="235.0" promptText="Mot de passe" style="-fx-background-color: transparent; -fx-border-color: #EF6C00; -fx-border-width: 0px 0px 2px 0px;" />

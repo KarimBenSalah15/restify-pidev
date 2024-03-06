@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
@@ -8,7 +9,7 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-import entities.Utilisateur;
+import com.github.sarxos.webcam.Webcam;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,9 +22,12 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import tools.MyConnection;
 
+import javax.imageio.ImageIO;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 public class FenetreConnexion {
 
@@ -50,6 +54,7 @@ public class FenetreConnexion {
     Connection cnx2;
     Encryptor encryptor = new Encryptor();
 
+    private int tentative = 0;
 
     public FenetreConnexion() {
         cnx2 = MyConnection.getInstance().getCnx();
@@ -87,24 +92,28 @@ public class FenetreConnexion {
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FenetreDashboardClient.fxml"));
                             try {
                                 Parent root = loader.load();
-                                Scene scene = new Scene(root, 1315, 890);
+                                Scene scene = new Scene(root, 1300, 750);
                                 Stage stage = (Stage) tf_login_con.getScene().getWindow();
                                 stage.setScene(scene);
-                                stage.setFullScreen(true);
+                                stage.setResizable(false);
+                                stage.setX(0);
+                                stage.setY(0);
+                                stage.show();
                             } catch (IOException e) {
                                 System.err.println(e.getMessage());
                             }
-                        } else {
-                            System.err.println("Aucun utilisateur CLIENT trouvé.");
                         }
                     } else if ("EMPLOYE".equals(role)) {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FenetreDashboardEmploye.fxml"));
                         try {
                             Parent root = loader.load();
-                            Scene scene = new Scene(root, 1315, 890);
+                            Scene scene = new Scene(root, 1300, 750);
                             Stage stage = (Stage) tf_login_con.getScene().getWindow();
                             stage.setScene(scene);
-                            stage.setFullScreen(true);
+                            stage.setResizable(false);
+                            stage.setX(0);
+                            stage.setY(0);
+                            stage.show();
                         } catch (IOException e) {
                             System.err.println(e.getMessage());
                         }
@@ -112,12 +121,24 @@ public class FenetreConnexion {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FenetreDashboardAdmin.fxml"));
                         try {
                             Parent root = loader.load();
-                            Scene scene = new Scene(root, 1920, 1080);
+                            Scene scene = new Scene(root, 1400, 750);
                             Stage stage = (Stage) tf_login_con.getScene().getWindow();
                             stage.setScene(scene);
+                            stage.setResizable(false);
+                            stage.setX(0);
+                            stage.setY(0);
+                            stage.show();
                         } catch (IOException e) {
                             System.err.println(e.getMessage());
                         }
+                    }
+                }
+                else {
+                    tentative++;
+                    showAlert("Connexion", "Aucun utilisateur avec ces identifiants n'existe.");
+                    if (tentative >= 3) {
+                        captureWebcamImage();
+                        sendEmailWithAttachment();
                     }
                 }
             } catch (SQLException ex) {
@@ -181,6 +202,20 @@ public class FenetreConnexion {
         return null;
     }
 
+    private String getprenom(String email) {
+        String req = "SELECT prenom FROM Utilisateur WHERE email = ?";
+        try {
+            PreparedStatement pst = cnx2.prepareStatement(req);
+            pst.setString(1, email);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                return rs.getString("prenom");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     private String generermdp() {
         Random random = new Random();
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[{]}|;:',<.>/?";
@@ -226,10 +261,63 @@ public class FenetreConnexion {
             message.setFrom(new InternetAddress("restify.help@gmail.com"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
             message.setSubject("Réinitialisation de votre mot de passe");
-            message.setText("Votre nouveau mot de passe est : " + nouveauMdp);
+            message.setText("Bonjour "+getprenom(email)+", votre nouveau mot de passe est : " + nouveauMdp);
 
             Transport.send(message);
         } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void sendEmailWithAttachment() {
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+
+        Session session = Session.getInstance(props, new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("restify.help@gmail.com", "fcihveizkyzscxbg");
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("restify.help@gmail.com"));
+            message.setRecipients(
+                    Message.RecipientType.TO,
+                    InternetAddress.parse("karim.bensalah@esprit.tn")
+            );
+            message.setSubject("Capture d'image, tentative échouée.");
+            String file = "CaptureConnexion.jpg";
+            MimeBodyPart messageBodyPart = new MimeBodyPart();
+            Multipart multipart = new MimeMultipart();
+            messageBodyPart.setText("Bonjour,\n\nVeuillez trouver la capture d'image en pièce jointe d'une personne qui s'est trompé au moins 3 fois, c'est peut être un usurpateur d'identité.");
+            MimeBodyPart attachPart = new MimeBodyPart();
+            try {
+                attachPart.attachFile(new File(file));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            multipart.addBodyPart(messageBodyPart);
+            multipart.addBodyPart(attachPart);
+            message.setContent(multipart);
+            System.out.println("Envoi du message...");
+            Transport.send(message);
+            System.out.println("Message envoyé avec succès.");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void captureWebcamImage() {
+        try {
+            Webcam webcam = Webcam.getDefault();
+            webcam.open();
+            ImageIO.write(webcam.getImage(), "JPG", new File("CaptureConnexion.jpg"));
+            webcam.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

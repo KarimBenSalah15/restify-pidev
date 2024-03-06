@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -18,6 +19,12 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import tools.MyConnection;
+
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class FenetreAjout {
 
@@ -149,12 +156,14 @@ public class FenetreAjout {
                 pst.setNull(9, java.sql.Types.INTEGER);
                 pst.setNull(10, java.sql.Types.DATE);
                 pst.executeUpdate();
+                sendCode();
                 showAlert("Succès", "Vous avez bien ajouté le nouveau client.");
             } else if ("Employé".equals(role)) {
                 pst.setString(8, tf_posteemp.getText());
                 pst.setString(9, tf_salaireemp.getText());
                 pst.setDate(10, sqlDate);
                 pst.executeUpdate();
+                sendCode();
                 hp.afficheru();
                 showAlert("Succès", "Vous avez bien ajouté le nouvel employé.");
             }
@@ -219,4 +228,42 @@ public class FenetreAjout {
         alert.showAndWait();
     }
 
+    public void sendCode(){
+        Properties props=new Properties();
+        props.put("mail.smtp.host","smtp.gmail.com");
+        props.put("mail.smtp.port",465);
+        props.put("mail.smtp.user","mkcomputeredu03@gmail.com");
+        props.put("mail.smtp.auth",true);
+        props.put("mail.smtp.starttls.enable",true);
+        props.put("mail.smtp.debug",true);
+        props.put("mail.smtp.socketFactory.port",465);
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.socketFactory.fallback",false);
+
+        try {
+            Session session = Session.getDefaultInstance(props, null);
+            session.setDebug(true);
+            MimeMessage message = new MimeMessage(session);
+            message.setText("Bonjour " +tf_prenomemp.getText()+
+                    ", vous venez d'être inscrit sur la plateforme Restify, voici votre mot de passe: '"+tf_mdpemp.getText()+"'"+
+                    "\nVous pouvez le modifier à tout moment sur votre profil client.");
+            message.setSubject("Votre mot de passe Restify");
+            message.setFrom(new InternetAddress("restify.help@gmail.com"));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(tf_emailemp.getText().trim()));
+            message.saveChanges();
+            try
+            {
+                Transport transport = session.getTransport("smtp");
+                transport.connect("smtp.gmail.com","restify.help@gmail.com","fcihveizkyzscxbg");
+                transport.sendMessage(message, message.getAllRecipients());
+                transport.close();
+            }catch(Exception e)
+            {
+                showAlert("Vérification","Une erreur s'est produite lors de l'envoie du mot de passe");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -70,7 +71,21 @@ public class FenetreDashboardAdmin {
     }
     @FXML
     void decocadmin(MouseEvent event) {
-        Stage deco = (Stage) btn_user.getScene().getWindow();
-        deco.close();
+        /*Stage deco = (Stage) btn_user.getScene().getWindow();
+        deco.close();*/
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FenetreConnexion.fxml"));
+        try {
+            Parent root = loader.load();
+            Scene scene = new Scene(root, 600, 400);
+            Stage stage = (Stage) btn_user.getScene().getWindow();
+            stage.setX(450);
+            stage.setY(200);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
     }
 }

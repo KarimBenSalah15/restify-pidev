@@ -1,17 +1,31 @@
 package controllers;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.Properties;
 import java.util.Random;
 import java.util.ResourceBundle;
-
-/*import javafx.concurrent.Worker;
-import net.tanesha.recaptcha.ReCaptcha;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import javafx.concurrent.Worker;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.ImageView;
+/*import net.tanesha.recaptcha.ReCaptcha;
 import net.tanesha.recaptcha.ReCaptchaFactory;
 import net.tanesha.recaptcha.ReCaptchaResponse;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;*/
@@ -45,10 +59,19 @@ public class FenetreInscription {
     private Button btn_insc;
 
     @FXML
+    private ImageView test;
+
+    @FXML
     private AnchorPane ap_1;
 
     @FXML
     private AnchorPane ap_2;
+
+    @FXML
+    private AnchorPane ap_3;
+
+    @FXML
+    private AnchorPane ap_4;
 
     @FXML
     private TextField tf_email;
@@ -75,13 +98,24 @@ public class FenetreInscription {
     private Button btn_verif;
 
     @FXML
+    private Button btn_verif2;
+
+    @FXML
+    private Button btn_verif3;
+
+    @FXML
+    private TextField tf_verif3;
+
+    @FXML
     private TextField hide;
 
-/*
-    @FXML
+
+   /* @FXML
     private WebView webViewRecaptcha;
 
-    private String reCaptchaResponse;*/
+    private String reCaptchaResponse;
+
+    private static final String RECAPTCHA_SECRET_KEY = "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe";*/
 
     Connection cnx2;
     Encryptor encryptor = new Encryptor();
@@ -110,7 +144,7 @@ public class FenetreInscription {
             Session session = Session.getDefaultInstance(props, null);
             session.setDebug(true);
             MimeMessage message = new MimeMessage(session);
-            message.setText("Votre code de vérification est " + hide.getText());
+            message.setText("Bonjour " +tf_prenom.getText()+ ", votre code de vérification est " + hide.getText());
             message.setSubject("Code de vérification de votre compte Restify");
             message.setFrom(new InternetAddress("restify.help@gmail.com"));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(tf_email.getText().trim()));
@@ -134,8 +168,13 @@ public class FenetreInscription {
 
     @FXML
     void inscription(ActionEvent event) {
-/*        if (reCaptchaResponse == null || reCaptchaResponse.isEmpty()) {
+        /*if (reCaptchaResponse == null || reCaptchaResponse.isEmpty()) {
             showAlert("Erreur", "Veuillez cocher le reCAPTCHA.");
+            return;
+        }
+        boolean isValidRecaptcha = verifyRecaptcha(reCaptchaResponse);
+        if (!isValidRecaptcha) {
+            showAlert("Erreur", "Le reCAPTCHA n'est pas valide.");
             return;
         }*/
         String nom = tf_nom.getText().trim();
@@ -206,6 +245,38 @@ public class FenetreInscription {
                     sendCode();
                     ap_1.setVisible(false);
                     ap_2.setVisible(true);
+                    QRCodeWriter qrCodeWriter = new QRCodeWriter();
+                    String myWeb = "Login: "+tf_login.getText()+"\nMot de Passe: "+tf_mdp.getText();
+                    int width = 300;
+                    int height = 300;
+                    String fileType = "png";
+
+                    BufferedImage bufferedImage = null;
+                    try {
+                        BitMatrix byteMatrix = qrCodeWriter.encode(myWeb, BarcodeFormat.QR_CODE, width, height);
+                        bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+                        bufferedImage.createGraphics();
+
+                        Graphics2D graphics = (Graphics2D) bufferedImage.getGraphics();
+                        graphics.setColor(Color.WHITE);
+                        graphics.fillRect(0, 0, width, height);
+                        graphics.setColor(Color.BLACK);
+
+                        for (int i = 0; i < height; i++) {
+                            for (int j = 0; j < width; j++) {
+                                if (byteMatrix.get(i, j)) {
+                                    graphics.fillRect(i, j, 1, 1);
+                                }
+                            }
+                        }
+
+                        System.out.println("Success...");
+
+                    } catch (WriterException ex) {
+                        System.out.println(ex);
+                    }
+
+                    test.setImage(SwingFXUtils.toFXImage(bufferedImage, null));
                     } catch (SQLException e) {
                         System.err.println(e.getMessage());
                     } catch (NoSuchAlgorithmException e) {
@@ -218,29 +289,11 @@ public class FenetreInscription {
     }
 
     @FXML
-    void verifcode(ActionEvent event) throws SQLException, NoSuchAlgorithmException {
+    void verifcode(ActionEvent event){
         if (tf_verif.getText().equals(hide.getText())){
             showAlert("Succès", "Vous vous êtes bien inscrit.");
-            String req2 = "SELECT id from Utilisateur where login = '"+ tf_login.getText() +"' and mdp = '"+ encryptor.encryptString(tf_mdp.getText()) +"'";
-            Statement st2 = cnx2.createStatement();
-            ResultSet rs2 = st2.executeQuery(req2);
-            if (rs2.next()) {
-                int idenvoi = rs2.getInt(1);
-                MyConnection.getInstance().setIdenvoi(idenvoi);
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/FenetreDashboardClient.fxml"));
-                try {
-                    Parent root = loader.load();
-                    Scene scene = new Scene(root, 1315, 890);
-                    Stage stage = (Stage) tf_nom.getScene().getWindow();
-                    stage.setScene(scene);
-                    stage.setFullScreen(true);
-                } catch (IOException e) {
-                    System.err.println(e.getMessage());
-                }
-            }
-            else {
-                System.err.println("ERREUR.");
-            }
+            ap_2.setVisible(false);
+            ap_3.setVisible(true);
         }
         else {
             showAlert("Vérification", "Le code écrit n'est pas correct");
@@ -293,9 +346,33 @@ public class FenetreInscription {
     }
 
     @FXML
+    void redirectiondb(ActionEvent event) throws SQLException, NoSuchAlgorithmException {
+        String req2 = "SELECT id from Utilisateur where login = '"+ tf_login.getText() +"' and mdp = '"+ encryptor.encryptString(tf_mdp.getText()) +"'";
+        Statement st2 = cnx2.createStatement();
+        ResultSet rs2 = st2.executeQuery(req2);
+        if (rs2.next()) {
+            int idenvoi = rs2.getInt(1);
+            MyConnection.getInstance().setIdenvoi(idenvoi);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FenetreDashboardClient.fxml"));
+            try {
+                Parent root = loader.load();
+                Scene scene = new Scene(root, 1315, 890);
+                Stage stage = (Stage) tf_nom.getScene().getWindow();
+                stage.setScene(scene);
+                stage.setFullScreen(true);
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
+        }
+        else {
+            System.err.println("ERREUR.");
+        }
+    }
+
+    @FXML
     void initialize() {
-  /*      WebEngine webEngine = webViewRecaptcha.getEngine();
-        webEngine.loadContent("<html><body><div class='g-recaptcha' data-sitekey='6Lfy28YaAAAAAAe2jFKOUqSKJQwalQZ6Hzxwy3Zv11' data-callback='handleRecaptcha'></div><script src='https://www.google.com/recaptcha/api.js'></script><script>function handleRecaptcha(response) { window.javaConnector.setRecaptchaResponse(response); }</script></body></html>");
+        /*WebEngine webEngine = webViewRecaptcha.getEngine();
+        webEngine.loadContent("<html><body><div class='g-recaptcha' data-sitekey='6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' data-callback='handleRecaptcha'></div><script src='https://www.google.com/recaptcha/api.js'></script><script>function handleRecaptcha(response) { window.javaConnector.setRecaptchaResponse(response); }</script></body></html>");
 
         // Écouteur de changement pour récupérer la réponse reCAPTCHA
         webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
@@ -304,11 +381,34 @@ public class FenetreInscription {
                 window.setMember("javaConnector", new JavaConnector());
             }
         });*/
+
     }
-  /*  public class JavaConnector {
+/*    public class JavaConnector {
         public void setRecaptchaResponse(String response) {
             reCaptchaResponse = response;
             System.out.println("reCAPTCHA Response: " + response);
+        }
+    }
+
+    private boolean verifyRecaptcha(String recaptchaResponse) {
+        try {
+            String url = "https://www.google.com/recaptcha/api/siteverify";
+            String params = "secret=" + RECAPTCHA_SECRET_KEY + "&response=" + recaptchaResponse;
+            HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.getOutputStream().write(params.getBytes("UTF-8"));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+            JsonObject jsonObject = JsonParser.parseString(sb.toString()).getAsJsonObject();
+            return jsonObject.get("success").getAsBoolean();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }*/
 

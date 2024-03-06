@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="centerpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="890.0" prefWidth="1315.0" styleClass="gradient-background" stylesheets="@resourcesdashboardadmin/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FenetreDashboardAdmin">
+<BorderPane fx:id="centerpane" prefHeight="750.0" prefWidth="1300.0" styleClass="gradient-background" stylesheets="@resourcesdashboardadmin/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FenetreDashboardAdmin">
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
@@ -76,7 +76,21 @@
                               <Image url="@resourcesdashboardadmin/img/stocks.png" />
                            </image>
                         </ImageView>
-                        <Label prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Stock" textFill="WHITE">
+                        <Label fx:id="btnStocks" onMouseClicked="#methodeStock" prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Stock" textFill="WHITE">
+                           <font>
+                              <Font name="Bodoni MT Condensed" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="btn_stock1" alignment="CENTER" prefHeight="60.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+                           <image>
+                              <Image url="@resourcesdashboardadmin/img/stocks.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="btnProduits" onMouseClicked="#methodeProduit" prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Produits" textFill="WHITE">
                            <font>
                               <Font name="Bodoni MT Condensed" size="24.0" />
                            </font>
@@ -118,7 +132,7 @@
                               <Image url="@resourcesdashboardadmin/img/commandes.png" />
                            </image>
                         </ImageView>
-                        <Label prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Commandes" textFill="WHITE">
+                        <Label onMouseClicked="#btncommande" prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Commandes" textFill="WHITE">
                            <font>
                               <Font name="Bodoni MT Condensed" size="24.0" />
                            </font>
@@ -132,14 +146,14 @@
                               <Image url="@resourcesdashboardadmin/img/plat.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="btn_plat" prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Plats" textFill="WHITE">
+                        <Label fx:id="btn_plat" onMouseClicked="#btnPlat" prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Plats" textFill="WHITE">
                            <font>
                               <Font name="Bodoni MT Condensed" size="24.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
-                  <HBox fx:id="btn_recla" alignment="CENTER" prefHeight="60.0" prefWidth="200.0" spacing="20.0">
+                  <HBox fx:id="btn_recla" alignment="CENTER" onMouseClicked="#recla" prefHeight="60.0" prefWidth="200.0" spacing="20.0">
                      <children>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>
@@ -147,6 +161,20 @@
                            </image>
                         </ImageView>
                         <Label prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Réclamations" textFill="WHITE">
+                           <font>
+                              <Font name="Bodoni MT Condensed" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="btn_recla1" alignment="CENTER" onMouseClicked="#repla" prefHeight="60.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+                           <image>
+                              <Image url="@resourcesdashboardadmin/img/reclamation.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Réponses" textFill="WHITE">
                            <font>
                               <Font name="Bodoni MT Condensed" size="24.0" />
                            </font>
@@ -161,7 +189,7 @@
    <center>
       <BorderPane fx:id="bp_affich" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
-            <Insets bottom="20.0" left="100.0" right="50.0" top="20.0" />
+            <Insets bottom="20.0" left="100.0" right="40.0" top="20.0" />
          </BorderPane.margin>
       </BorderPane>
    </center>
