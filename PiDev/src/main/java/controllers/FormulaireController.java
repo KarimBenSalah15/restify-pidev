@@ -63,7 +63,9 @@ public class FormulaireController implements Initializable {
     private Label dureeLabel;
     @FXML
     private Label etatLabel;
-//TOKEN
+    private String ACCOUNT_SID="AC1666e1d7814cdca4b7a02cde85358cc3";
+    private String AUTH_TOKEN="7fe82e8a85e61a227e81eafaed4bd22e";
+
 
     @FXML
     void register(ActionEvent event) {
@@ -94,7 +96,7 @@ public class FormulaireController implements Initializable {
                 showAlert(Alert.AlertType.INFORMATION, "Success", "Participant ajouté avec succès.");
 
 
-                //sendSMS("+21693139534" , "Vous êtes un participant au package " );
+                sendSMS("+21693139534" , "Vous êtes un participant au package " );
                 Stage ajout = (Stage)  nomTextField.getScene().getWindow();
                 ajout.close();
                 //try {
@@ -111,7 +113,7 @@ public class FormulaireController implements Initializable {
         }
     }
 
-   /* public void sendSMS(String to,String body){
+   public void sendSMS(String to,String body){
         Twilio.init(ACCOUNT_SID,AUTH_TOKEN);
         Message message =Message.creator(
                         new PhoneNumber(to),
@@ -119,7 +121,7 @@ public class FormulaireController implements Initializable {
 
                         body)
                 .create();
-    }*/
+    }
    /** private void nbStock(){
         StringBuilder messageBody = new StringBuilder("Réapprovisionner les stocks pour les produits suivants :\n");
         boolean needsReplenishment = false;
