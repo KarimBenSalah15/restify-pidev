@@ -104,7 +104,7 @@ public class FenetreConnexion {
                             }
                         }
                     } else if ("EMPLOYE".equals(role)) {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FenetreDashboardEmploye.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/NavbarEmp.fxml"));
                         try {
                             Parent root = loader.load();
                             Scene scene = new Scene(root, 1300, 750);

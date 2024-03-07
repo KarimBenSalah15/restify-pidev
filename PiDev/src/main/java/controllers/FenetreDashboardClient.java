@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,6 +17,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import tools.MyConnection;
 
@@ -46,8 +49,15 @@ public class FenetreDashboardClient {
     }
 
     @FXML
+    void rec(MouseEvent event) {
+        bp_modif.setVisible(true);
+        affichagerecla();
+    }
+
+    @FXML
     void initialize() {
-        bp_modif.setVisible(false);
+        bp_modif.setVisible(true);
+        affhome();
     }
 
     public void affichagemodif() {
@@ -87,8 +97,68 @@ public class FenetreDashboardClient {
         }
     }
 
+    public void affichagerecla() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ReclamationPage.fxml"));
+        try {
+            Parent root = loader.load();
+            if (bp_modif != null) {
+                bp_modif.setCenter(root);
+            } else {
+                System.out.println("centerPane is null");
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
+    private void affress(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/res.fxml"));
+        try {
+            Parent root = loader.load();
+            if (bp_modif != null) {
+                bp_modif.setCenter(root);
+            } else {
+                System.out.println("centerPane is null");
+            }
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
+    @FXML
+    void reserverC(MouseEvent event) {
+        bp_modif.setVisible(true);
+        affress();
+    }
+
+    private void affevent(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/participantClient.fxml"));
+        try {
+            Parent root = loader.load();
+            if (bp_modif != null) {
+                bp_modif.setCenter(root);
+            } else {
+                System.out.println("centerPane is null");
+            }
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void redirectionevent2(MouseEvent mouseEvent) {
+        bp_modif.setVisible(true);
+        music();
+        affevent();
+    }
+
+    MediaPlayer mediaPlayer;
+    public void music(){
+        String s= "ME.wav";
+        Media h = new Media (Paths.get(s).toUri().toString());
+        mediaPlayer=new MediaPlayer(h);
+        mediaPlayer.play();
+
+    }
     @FXML
     void decoclient(MouseEvent event) {
         /*Stage deco = (Stage) btn_modif.getScene().getWindow();
@@ -106,5 +176,42 @@ public class FenetreDashboardClient {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    private void affhome(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/home.fxml"));
+        try {
+            Parent root = loader.load();
+            if (bp_modif != null) {
+                bp_modif.setCenter(root);
+            } else {
+                System.out.println("centerPane is null");
+            }
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void affpanier(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Cart.fxml"));
+        try {
+            Parent root = loader.load();
+            if (bp_modif != null) {
+                bp_modif.setCenter(root);
+            } else {
+                System.out.println("centerPane is null");
+            }
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void panier(MouseEvent mouseEvent) {
+        bp_modif.setVisible(true);
+        affpanier();
+    }
+
+    public void home(MouseEvent mouseEvent) {
+        bp_modif.setVisible(true);
+        affhome();
     }
 }

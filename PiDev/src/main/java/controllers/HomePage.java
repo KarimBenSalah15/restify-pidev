@@ -18,7 +18,7 @@ public class HomePage extends Application {
     public void start(Stage primaryStage) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/FenetreConnexion.fxml"));
-            primaryStage.setTitle("Inscription");
+            primaryStage.setTitle("Connexion");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }

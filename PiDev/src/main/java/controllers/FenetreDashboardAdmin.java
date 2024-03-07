@@ -54,7 +54,8 @@ public class FenetreDashboardAdmin {
 
     @FXML
     void initialize() {
-        bp_affich.setVisible(false);
+        bp_affich.setVisible(true);
+        affichagetableau();
     }
     private void affichagetableau(){
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FenetreAffichage.fxml"));
@@ -87,5 +88,157 @@ public class FenetreDashboardAdmin {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    @FXML
+    void recla(MouseEvent event) {
+        bp_affich.setVisible(true);
+        affichagetableau6();
+    }
+
+    @FXML
+    void repla(MouseEvent event) {
+        bp_affich.setVisible(true);
+        affichagetableau5();
+    }
+
+    private void affichagetableau6() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/page1.fxml"));
+        try {
+            Parent root = loader.load();
+            if (bp_affich != null) {
+                bp_affich.setCenter(root);
+            } else {
+                System.out.println("centerPane is null");
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    private void affichagetableau5(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/reponse.fxml"));
+        try {
+            Parent root = loader.load();
+            if (bp_affich != null) {
+                bp_affich.setCenter(root);
+            } else {
+                System.out.println("centerPane is null");
+            }
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void affres(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/tab.fxml"));
+        try {
+            Parent root = loader.load();
+            if (bp_affich != null) {
+                bp_affich.setCenter(root);
+            } else {
+                System.out.println("centerPane is null");
+            }
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    void reserver(MouseEvent event) {
+        bp_affich.setVisible(true);
+        affres();
+    }
+
+    public void redirectionevent(MouseEvent mouseEvent) {
+        bp_affich.setVisible(true);
+        affichEvent();
+    }
+
+    private void affichEvent(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Evenement.fxml"));
+        try {
+            Parent root = loader.load();
+            if (bp_affich != null) {
+                bp_affich.setCenter(root);
+            } else {
+                System.out.println("centerPane is null");
+            }
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void loadstock() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/stockssearch.fxml"));
+        try {
+            Parent root = loader.load();
+            if (bp_affich != null) {
+                bp_affich.setCenter(root);
+            } else {
+                System.out.println("centerPane is null");
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    private void loadproduit() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/productsearch.fxml"));
+        try {
+            Parent root = loader.load();
+            if (bp_affich != null) {
+                bp_affich.setCenter(root);
+            } else {
+                System.out.println("centerPane is null");
+            }
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    @FXML
+    void methodeStock(MouseEvent event) {
+        System.out.println("Clic sur le label Stocks");
+        bp_affich.setVisible(true);
+        loadstock();
+    }
+    @FXML
+    void methodeProduit(MouseEvent event) {
+        bp_affich.setVisible(true);
+        loadproduit();
+    }
+
+    private void loadplat() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/PlatAd.fxml"));
+        try {
+            Parent root = loader.load();
+            if (bp_affich != null) {
+                bp_affich.setCenter(root);
+            } else {
+                System.out.println("centerPane is null");
+            }
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    private void loadcommande() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/CommandeTraiter.fxml"));
+        try {
+            Parent root = loader.load();
+            if (bp_affich != null) {
+                bp_affich.setCenter(root);
+            } else {
+                System.out.println("centerPane is null");
+            }
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void btnPlat(MouseEvent mouseEvent) {
+        bp_affich.setVisible(true);
+        loadplat();
+    }
+
+    public void btncommande(MouseEvent mouseEvent) {
+        bp_affich.setVisible(true);
+        loadcommande();
     }
 }

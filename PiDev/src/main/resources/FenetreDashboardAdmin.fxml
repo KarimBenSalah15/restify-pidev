@@ -77,6 +77,7 @@
                            </image>
                         </ImageView>
                         <Label fx:id="btnStocks" onMouseClicked="#methodeStock" prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Stock" textFill="WHITE">
+                           <!-- Déclaration d'un label onMouseClicked="#methodeStock" -->
                            <font>
                               <Font name="Bodoni MT Condensed" size="24.0" />
                            </font>
@@ -91,6 +92,7 @@
                            </image>
                         </ImageView>
                         <Label fx:id="btnProduits" onMouseClicked="#methodeProduit" prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Produits" textFill="WHITE">
+                           <!-- Déclaration d'un label onMouseClicked="#methodeProduit" -->
                            <font>
                               <Font name="Bodoni MT Condensed" size="24.0" />
                            </font>
@@ -104,14 +106,14 @@
                               <Image url="@resourcesdashboardadmin/img/reservation.png" />
                            </image>
                         </ImageView>
-                        <Label prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Réservations" textFill="WHITE">
+                        <Label fx:id="btn_reserv" onMouseClicked="#reserver" prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Réservations" textFill="WHITE">
                            <font>
                               <Font name="Bodoni MT Condensed" size="24.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
-                  <HBox fx:id="btn_event" alignment="CENTER" prefHeight="60.0" prefWidth="200.0" spacing="20.0">
+                  <HBox fx:id="btn_event" alignment="CENTER" onMouseClicked="#redirectionevent" prefHeight="60.0" prefWidth="200.0" spacing="20.0">
                      <children>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>
@@ -132,7 +134,8 @@
                               <Image url="@resourcesdashboardadmin/img/commandes.png" />
                            </image>
                         </ImageView>
-                        <Label onMouseClicked="#btncommande" prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Commandes" textFill="WHITE">
+                        <Label prefHeight="21.0" prefWidth="118.0" onMouseClicked="#btncommande" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Commandes" textFill="WHITE">
+                           <!-- Déclaration d'un label onMouseClicked="#btncommande" -->
                            <font>
                               <Font name="Bodoni MT Condensed" size="24.0" />
                            </font>
@@ -146,21 +149,22 @@
                               <Image url="@resourcesdashboardadmin/img/plat.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="btn_plat" onMouseClicked="#btnPlat" prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Plats" textFill="WHITE">
+                        <Label fx:id="btn_plat" prefHeight="21.0" onMouseClicked="#btnPlat" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Plats" textFill="WHITE">
+                           <!-- Déclaration d'un label onMouseClicked="#btnPlat" -->
                            <font>
                               <Font name="Bodoni MT Condensed" size="24.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
-                  <HBox fx:id="btn_recla" alignment="CENTER" onMouseClicked="#recla" prefHeight="60.0" prefWidth="200.0" spacing="20.0">
+                  <HBox fx:id="btn_recla" alignment="CENTER" prefHeight="60.0" prefWidth="200.0" spacing="20.0">
                      <children>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>
                               <Image url="@resourcesdashboardadmin/img/reclamation.png" />
                            </image>
                         </ImageView>
-                        <Label prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Réclamations" textFill="WHITE">
+                        <Label onMouseClicked="#recla" prefHeight="21.0" prefWidth="118.0" styleClass="shadow" stylesheets="@resourcesdashboardadmin/style.css" text="Réclamations" textFill="WHITE">
                            <font>
                               <Font name="Bodoni MT Condensed" size="24.0" />
                            </font>

@@ -7,6 +7,7 @@ module PiDev {
     opens controllers;
     opens entities;
     exports controllers;
+    exports entities;
     /*requires recaptcha4j;
     requires javafx.web;
     requires jdk.jsobject;*/
@@ -16,4 +17,13 @@ module PiDev {
     requires core;
     requires twilio;
     requires webcam.capture;
+    requires java.datatransfer;
+    requires org.controlsfx.controls;
+    requires com.jfoenix;
+    requires org.apache.pdfbox;
+    requires javafx.media;
+    requires com.google.zxing.javase;
+    requires java.sql.rowset;
+    requires poi.ooxml;
+    requires poi;
 }

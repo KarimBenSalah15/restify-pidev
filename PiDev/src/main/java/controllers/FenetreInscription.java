@@ -356,10 +356,13 @@ public class FenetreInscription {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FenetreDashboardClient.fxml"));
             try {
                 Parent root = loader.load();
-                Scene scene = new Scene(root, 1315, 890);
-                Stage stage = (Stage) tf_nom.getScene().getWindow();
+                Scene scene = new Scene(root, 1400, 750);
+                Stage stage = (Stage) tf_login.getScene().getWindow();
                 stage.setScene(scene);
-                stage.setFullScreen(true);
+                stage.setResizable(false);
+                stage.setX(0);
+                stage.setY(0);
+                stage.show();
             } catch (IOException e) {
                 System.err.println(e.getMessage());
             }
