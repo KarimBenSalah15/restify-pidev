@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.projectfinder.CommandeController">
+
+    <children>
+        <TableView fx:id="commandeTable" layoutX="109.0" layoutY="157.0" prefHeight="300.0" prefWidth="600.0" stylesheets="@css/style.css">
+            <columns>
+                <TableColumn fx:id="idColumn" prefWidth="150.0" text="ID">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="id" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="platsColumn" prefWidth="400.0" text="Plats">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="plats" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="totalColumn" prefWidth="150.0" text="Total">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="total" />
+                    </cellValueFactory>
+                </TableColumn>
+            <TableColumn prefWidth="200.0" text="Action" />
+            </columns>
+        </TableView>
+      <Text fill="#c62827" layoutX="164.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Commande non traité">
+         <font>
+            <Font name="Eras Bold ITC" size="42.0" />
+         </font>
+      </Text>
+     
+    </children>
+
+</AnchorPane>

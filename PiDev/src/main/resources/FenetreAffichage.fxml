@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.FenetreAffichage">
+   <children>
+      <TableView fx:id="tabview_aff" editable="true" prefHeight="430.0" prefWidth="904.0" stylesheets="@tabview_aff.css">
+        <columns>
+          <TableColumn fx:id="col_id" editable="false" prefWidth="30.39996337890625" text="ID" />
+          <TableColumn fx:id="col_nom" prefWidth="76.80001831054688" text="Nom" />
+            <TableColumn fx:id="col_prenom" prefWidth="85.60000610351562" text="Prénom" />
+            <TableColumn fx:id="col_email" prefWidth="191.20001220703125" text="Email" />
+            <TableColumn fx:id="col_tel" prefWidth="79.19998168945312" text="Teléphone" />
+            <TableColumn fx:id="col_login" minWidth="0.0" prefWidth="101.60003662109375" text="Login" />
+            <TableColumn fx:id="col_role" editable="false" prefWidth="96.0" text="Role" />
+            <TableColumn fx:id="col_poste" prefWidth="56.800048828125" text="Poste" />
+            <TableColumn fx:id="col_salaire" prefWidth="54.4000244140625" text="Salaire" />
+            <TableColumn fx:id="col_date" editable="false" prefWidth="119.199951171875" text="Date d'embauche" />
+        </columns>
+      </TableView>
+      <Button fx:id="btn_supp" layoutX="605.0" layoutY="526.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="42.0" prefWidth="126.0" style="-fx-background-color: #ef6c00;" text="Supprimer" textFill="WHITE" />
+      <Button fx:id="btn_ajout2" layoutX="279.0" layoutY="526.0" mnemonicParsing="false" onAction="#redirectionajout" prefHeight="42.0" prefWidth="152.0" style="-fx-background-color: #ef6c00;" text="Ajouter un utilisateur" textFill="WHITE" />
+   </children>
+</AnchorPane>
