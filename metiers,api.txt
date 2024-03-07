@@ -1,6 +1,0 @@
-mdp oublié FAIT
-recaptcha 
-complexite mdp        FAIT
-hashage        FAIT 
-vérif mail  FAIT 
-autentification google 
