@@ -1,32 +1,17 @@
-    package sample.projectfinder;
+    package projectfinder.controllers;
 
-    import javafx.scene.chart.*;
     import com.twilio.Twilio;
     import com.twilio.rest.api.v2010.account.Message;
     import com.twilio.type.PhoneNumber;
-
-
-    import javafx.scene.chart.BarChart;
-    import java.io.IOException;
-    import java.net.URL;
-    import java.util.ResourceBundle;
-    import javafx.event.ActionEvent;
-    import javafx.fxml.FXML;
-    import javafx.fxml.FXMLLoader;
-    import javafx.fxml.Initializable;
-    import javafx.scene.Parent;
-    import javafx.scene.control.Button;
-    import javafx.scene.control.TableColumn;
-    import javafx.scene.control.TableView;
-    import javafx.scene.control.TextField;
-    import javafx.scene.input.MouseEvent;
-
     import javafx.collections.FXCollections;
     import javafx.collections.ObservableList;
     import javafx.event.ActionEvent;
     import javafx.fxml.FXML;
+    import javafx.fxml.Initializable;
+    import javafx.scene.chart.*;
     import javafx.scene.control.*;
     import javafx.scene.control.cell.PropertyValueFactory;
+    import javafx.scene.input.MouseEvent;
 
     import java.net.URL;
     import java.sql.*;
@@ -34,26 +19,19 @@
     import java.util.logging.Level;
     import java.util.logging.Logger;
 
-    import javafx.scene.input.MouseEvent;
-    import javafx.scene.control.Alert;
-    import javafx.scene.chart.BarChart;
-    import javafx.scene.chart.CategoryAxis;
-    import javafx.scene.chart.NumberAxis;
-    import javafx.scene.chart.XYChart;
-
-    import javafx.scene.control.TextField;
-
-        public class StocksSearchController implements Initializable {
+    public class StocksSearchController implements Initializable {
             private final String ACCOUNT_SID = "AC3bf5360731b75413420aba6003748918";
-            private final String AUTH_TOKEN =""; //avant push fasakh
+                private final String AUTH_TOKEN ="295bd6a16d6ac70aeee107071955582f ";
 
 
 
+            private Connection connectDB;
             @FXML
             private BarChart<String, Integer> stockBarChart;
 
             @FXML
             private TableView<StocksSearchModel> StocksTableView;
+
 
 
             @FXML
@@ -65,6 +43,11 @@
             private URL location;
 
 
+            @FXML
+            private TableColumn<StocksSearchModel, Button> stocksPlusTableColumn;
+
+            @FXML
+            private TableColumn<StocksSearchModel, Button> stocksMoinsTableColumn;
             @FXML
             private BarChart<String, Number> barChart;
 
@@ -101,10 +84,11 @@
             private TableColumn<?,?>  stocksQuantiteTableColumn;
 
 
+
             MyConnection cnx2 =null;
             PreparedStatement pst=null;
 
-           /* public void sendSMS(String to,String body){
+           public void sendSMS(String to,String body){
                 Twilio.init(ACCOUNT_SID,AUTH_TOKEN);
                 Message message =Message.creator(
                         new PhoneNumber("+21656607836"),
@@ -113,57 +97,72 @@
                 body)
                         .create();
             }
-            */
 
 
             @FXML
             void creatStocks(ActionEvent event) {
+                String nom = nomTextField.getText().trim();
+                String quantite = quantiteTextField.getText().trim();
 
-
-
-
-
-                    String nom = nomTextField.getText().trim();
-
-                    String quantite = quantiteTextField.getText().trim();
-
-
-                    // Vérifier que les champs ne sont pas vides
-                    if (!nom.isEmpty()  && !quantite.isEmpty() ) {
-                        String query = "SELECT * FROM stock WHERE nom = ?  ";
-                        cnx2 = MyConnection.getInstance();
-                        try {
-                            pst = cnx2.getCnx().prepareStatement(query);
-                            pst.setString(1, nom);
-
-
-                           // pst.setInt(2, Integer.parseInt(quantite));
-
-                            ResultSet rs = pst.executeQuery();
-                            if (rs.next()) {
-                                showAlert(Alert.AlertType.INFORMATION, "Information",  "Le stocks existe déjà dans la base de données.");
-                            } else {
-                                // Insérer le nouveau produit dans la base de données
-                                String insertQuery = "INSERT INTO stock(nom, quantite) VALUES (?, ?)";
-                                PreparedStatement insertPst = cnx2.getCnx().prepareStatement(insertQuery);
-                                insertPst.setString(1, nom);
-
-
-                                insertPst.setInt(2, Integer.parseInt(quantite));
-                                insertPst.executeUpdate();
-                                showAlert(Alert.AlertType.INFORMATION, "Succès",  "stocks ajouté avec succès.");
-                                afficher();
-                            }
-                        } catch (SQLException e) {
-                            showAlert(Alert.AlertType.ERROR, "Erreur",  "Une erreur s'est stocks lors de l'ajout du produit : " + e.getMessage());
-                        }
-                    } else {
-                        // Afficher une alerte si un champ est vide
-                        showAlert(Alert.AlertType.WARNING, "Avertissement",  "Veuillez remplir tous les champs.");
-                    }
-                setupBarChart();
-
+                if (connectDB == null) {
+                    MyConnection connectNow = new MyConnection();
+                    connectDB = connectNow.getCnx();
                 }
+                if (!nom.isEmpty() && !quantite.isEmpty()) {
+                    try {
+                        MyConnection connectNow = new MyConnection();
+                        Connection connectDB = connectNow.getCnx();
+
+                        /*// Commencer une transaction
+                        connectDB.setAutoCommit(false);*/
+
+                        // Insérer le nouveau stock dans la table stock
+                        String insertQueryStock = "INSERT INTO stock(nom, quantite) VALUES (?, ?)";
+                        PreparedStatement insertPstStock = cnx2.getCnx().prepareStatement(insertQueryStock);
+                        insertPstStock.setString(1, nom);
+                        insertPstStock.setInt(2, Integer.parseInt(quantite));
+                        insertPstStock.executeUpdate();
+
+                       /* // Insérer le nouveau nom dans la table produit
+                        String insertQueryProduct = "INSERT INTO produit(nom) VALUES (?)";
+                        PreparedStatement insertPstProduct = cnx2.getCnx().prepareStatement(insertQueryProduct);
+                        insertPstProduct.setString(1, nom);
+                        insertPstProduct.executeUpdate();*/
+
+
+
+                        /*// Valider la transaction
+                        connectDB.commit();*/
+
+                        showAlert(Alert.AlertType.INFORMATION, "Succès",  "Stock ajouté avec succès.");
+                        afficher();
+                    } catch (SQLException e) {
+                        // En cas d'erreur, annuler la transaction
+                        try {
+                            connectDB.rollback();
+                        } catch (SQLException rollbackException) {
+                            rollbackException.printStackTrace();
+                        }
+
+                        showAlert(Alert.AlertType.ERROR, "Erreur",  "Une erreur s'est produite lors de l'ajout du stock : " + e.getMessage());
+                    } finally {
+                        // Rétablir le mode de traitement automatique des commits
+                        try {
+                            connectDB.setAutoCommit(true);
+                        } catch (SQLException autoCommitException) {
+                            autoCommitException.printStackTrace();
+                        }
+                    }
+                } else {
+                    // Afficher une alerte si un champ est vide
+                    showAlert(Alert.AlertType.WARNING, "Avertissement",  "Veuillez remplir tous les champs.");
+                }
+                setupBarChart();
+            }
+            public void rafraichirInterfaceStock() {
+                afficher();
+            }
+
 
 
             private void showAlert(Alert.AlertType type, String title, String content) {
@@ -256,17 +255,22 @@
             }
 
 
-            /*private void nbStock(){
-                int nb=0;
+            private void nbStock(){
+                StringBuilder messageBody = new StringBuilder("Réapprovisionner les stocks pour les produits suivants :\n");
+                boolean needsReplenishment = false;
+
                 for(StocksSearchModel stock: StocksSearchModelObservableList){
-                    if(stock.getQuantite()<5){
-                        nb++;
+                    if(stock.getQuantite() < 5){
+                        messageBody.append(stock.getNom()).append("\n");
+                        needsReplenishment = true;
                     }
                 }
-                if(nb!=0){
-                    sendSMS("+21656607836","reapprovisionner le Stock");
+
+                if(needsReplenishment){
+                    sendSMS("+21656607836", messageBody.toString());
                 }
-            }*/
+            }
+
 
 
             @FXML
@@ -326,25 +330,25 @@
             ObservableList<StocksSearchModel> StocksSearchModelObservableList = FXCollections.observableArrayList();
 
 
-            private void afficher   () {
+            private void afficher() {
                 StocksSearchModelObservableList.clear();
                 MyConnection connectNow = new MyConnection();
                 Connection connectDB = connectNow.getCnx();
 
                 try {
-                    String stocksViewQuery = "SELECT * from  stock ";
+                    String stocksViewQuery = "SELECT s.ID AS stock_id, p.nom AS produit_nom, s.Quantite FROM stock s LEFT JOIN produit p ON s.produit_id = p.ID";
                     Statement statement = connectDB.createStatement();
                     ResultSet queryOutput = statement.executeQuery(stocksViewQuery);
                     while (queryOutput.next()) {
-                        Integer queryid = queryOutput.getInt("ID");
-                        String querynom = queryOutput.getString("Nom");
-                        Integer queryquantite = queryOutput.getInt("Quantite");
-                        StocksSearchModelObservableList.add(new StocksSearchModel(queryid, querynom, queryquantite));
+                        Integer stockId = queryOutput.getInt("stock_id");
+                        String produitNom = queryOutput.getString("produit_nom");
+                        Integer quantite = queryOutput.getInt("Quantite");
+                        StocksSearchModelObservableList.add(new StocksSearchModel(stockId, produitNom, quantite));
                     }
 
                     stocksIDTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-                    stocksQuantiteTableColumn.setCellValueFactory(new PropertyValueFactory<>("quantite"));
                     stocksNomTableColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
+                    stocksQuantiteTableColumn.setCellValueFactory(new PropertyValueFactory<>("quantite"));
 
                     StocksTableView.setItems(StocksSearchModelObservableList);
                 } catch (SQLException e) {
@@ -352,14 +356,12 @@
                     e.printStackTrace();
                 }
             }
+
             private void setupBarChart() {
                 XYChart.Series<String, Integer> series = new XYChart.Series<>();
-                MyConnection connectNow = new MyConnection();
-                Connection connectDB = connectNow.getCnx();
-
                 try {
                     String productTypeQuery = "SELECT nom, SUM(quantite) as total_quantite FROM stock GROUP BY nom";
-                    Statement statement = connectDB.createStatement();
+                    Statement statement = cnx2.getCnx().createStatement(); // Utilisation de cnx2 ici
                     ResultSet queryOutput = statement.executeQuery(productTypeQuery);
                     while (queryOutput.next()) {
                         String type = queryOutput.getString("nom");
@@ -374,14 +376,46 @@
                 }
             }
 
+            private void executeQuery() {
+                String sql = "SELECT s.*, p.* FROM stock s INNER JOIN produit p ON s.nom = p.nom";
+
+                try (Connection connection = MyConnection.getInstance().getCnx();
+                     PreparedStatement statement = connection.prepareStatement(sql);
+                     ResultSet resultSet = statement.executeQuery()) {
+
+                    // Traiter les résultats de la requête
+                    while (resultSet.next()) {
+                        // Exemple de traitement des résultats
+                        int stockId = resultSet.getInt("s.id");
+                        String stockNom = resultSet.getString("s.nom");
+                        int stockQuantite = resultSet.getInt("s.quantite");
+
+                        int produitId = resultSet.getInt("p.id");
+                        String produitNom = resultSet.getString("p.nom");
+                        // Continuez à récupérer d'autres colonnes selon vos besoins
+
+                        // Faites quelque chose avec les résultats, comme les afficher dans votre interface utilisateur
+                        afficher();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    // Gérer les erreurs de base de données
+                }
+            }
+
+
 
             @Override
             public void initialize(URL url, ResourceBundle resourceBundle) {
 
+                cnx2 = MyConnection.getInstance();
                 setupBarChart();
 
                 afficher();
-                //nbStock();
+
+                nbStock();
+               /* stocksPlusTableColumn.setCellValueFactory(new PropertyValueFactory<>("buttonPlus"));
+                stocksMoinsTableColumn.setCellValueFactory(new PropertyValueFactory<>("buttonMoins"));*/
                 // Ajouter un écouteur de changement de texte au champ de recherche
                 keywordTextField.textProperty().addListener((observable, oldValue, newValue) -> {
                     // Appeler la méthode searchProduct à chaque fois que le texte du champ de recherche change
@@ -391,5 +425,6 @@
             }
 
         }
+
 
 

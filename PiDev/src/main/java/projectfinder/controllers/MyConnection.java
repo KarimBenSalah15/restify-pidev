@@ -1,4 +1,4 @@
-package sample.projectfinder;
+package projectfinder.controllers;
 
 
 import java.sql.Connection;
@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class MyConnection {
-    public String url="jdbc:mysql://localhost:3306/restify";
+    public String url="jdbc:mysql://localhost:3306/restify3";
     public String login="root";
     public String pwd="";
     Connection cnx=null;

@@ -1,4 +1,4 @@
-package sample.projectfinder;
+package projectfinder.controllers;
 
 import java.util.List;
 

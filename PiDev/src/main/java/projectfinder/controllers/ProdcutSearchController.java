@@ -1,62 +1,44 @@
-            package sample.projectfinder;
+            package projectfinder.controllers;
 
-            import javafx.fxml.FXML;
-            import javafx.fxml.Initializable;
-            import javafx.scene.control.Button;
-            import javafx.scene.control.Pagination;
-            import javafx.scene.control.TableView;
-            import javafx.scene.control.TableColumn;
-            import javafx.collections.FXCollections;
-            import javafx.collections.ObservableList;
-
-
-            import java.io.File;
-            import java.io.FileOutputStream;
-            import java.io.IOException;
-            import java.net.URL;
-            import java.util.ResourceBundle;
+            import com.google.zxing.BarcodeFormat;
+            import com.google.zxing.client.j2se.MatrixToImageWriter;
+            import com.google.zxing.common.BitMatrix;
+            import com.google.zxing.oned.Code128Writer;
             import javafx.collections.FXCollections;
             import javafx.collections.ObservableList;
             import javafx.event.ActionEvent;
             import javafx.fxml.FXML;
+            import javafx.fxml.FXMLLoader;
             import javafx.fxml.Initializable;
-            import javafx.scene.chart.BarChart;
-            import javafx.scene.chart.CategoryAxis;
-            import javafx.scene.chart.NumberAxis;
-            import javafx.scene.chart.PieChart;
+            import javafx.scene.Parent;
+            import javafx.scene.Scene;
+            import javafx.scene.chart.*;
             import javafx.scene.control.*;
             import javafx.scene.control.cell.PropertyValueFactory;
-            import javafx.scene.chart.BarChart;
-            import javafx.scene.chart.CategoryAxis;
-            import javafx.scene.chart.NumberAxis;
-            import javafx.scene.chart.XYChart;
-            import java.net.URL;
-            import java.sql.*;
-            import java.util.ResourceBundle;
-            import java.util.logging.Level;
-            import java.util.logging.Logger;
-
             import javafx.scene.input.MouseEvent;
-            import javafx.scene.control.Alert;
-            import javafx.scene.control.ButtonType;
-
-
+            import javafx.stage.FileChooser;
+            import javafx.stage.Modality;
+            import javafx.stage.Stage;
             import org.apache.poi.ss.usermodel.Row;
             import org.apache.poi.ss.usermodel.Sheet;
             import org.apache.poi.ss.usermodel.Workbook;
             import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-            import javafx.application.Application;
-            import javafx.fxml.FXMLLoader;
-            import javafx.scene.Parent;
-            import javafx.scene.Scene;
-            import javafx.stage.Stage;
-            import java.awt.* ;
-            import javafx.scene.control.TextField;
+            import java.awt.*;
+            import java.io.File;
+            import java.io.FileOutputStream;
+            import java.io.IOException;
+            import java.net.URL;
+            import java.sql.*;
+            import java.util.ResourceBundle;
+            import java.util.logging.Level;
+            import java.util.logging.Logger;
             public class ProdcutSearchController implements Initializable {
             @FXML
                 private TableView<ProductSearchModel> ProductTableView;
+
                 private final ObservableList<ProductSearchModel> data = FXCollections.observableArrayList();
+
             int id=0;
                 @FXML
                 private Pagination pagination;
@@ -96,6 +78,10 @@
                 private PieChart productPieChart;
 
                 @FXML
+                private TextField imageTextField;
+
+
+                @FXML
                 void clear( ) {
                     ProductTableView.getSelectionModel().clearSelection();
                     afficher();
@@ -118,6 +104,8 @@
             @FXML
                 private TableColumn<ProductSearchModel,Integer>productPrixTableColumn;
                 @FXML
+                private TableColumn<ProductSearchModel,String> productImageTableColumn;
+                @FXML
                 private BarChart<String, Integer> productBarChart;
 
                 @FXML
@@ -134,54 +122,142 @@
                 PreparedStatement pst=null;
 
                 @FXML
+                void generateBarcode(ActionEvent event) {
+                    ProductSearchModel produit = ProductTableView.getSelectionModel().getSelectedItem();
+                    if (produit != null) {
+                        // Concaténez l'ID, le nom et d'autres informations du produit
+                        String productInfo = "id" + produit.getId() + "prix" + produit.getPrix();
+
+                        generateBarcode(productInfo);
+
+                    } else {
+                        showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez sélectionner un produit.");
+                    }
+                }
+
+                // Méthode pour générer le code-barres
+                private void generateBarcode(String productInfo) {
+                    int width = 400;
+                    int height = 100;
+
+                    // Utilisez le format Code 128 pour le code-barres
+                    Code128Writer writer = new Code128Writer();
+                    BitMatrix bitMatrix;
+                    try {
+                        bitMatrix = writer.encode(productInfo, BarcodeFormat.CODE_128, width, height);
+
+                        // Enregistrez le code-barres généré dans un fichier
+                        File file = new File("barcode.png");
+                        MatrixToImageWriter.writeToPath(bitMatrix, "PNG", file.toPath());
+
+                        // Débogage : imprime le chemin du fichier du code-barres
+                        System.out.println("Chemin du fichier du code-barres : " + file.getAbsolutePath());
+
+                        // Appel de la méthode pour afficher la fenêtre modale avec le code-barres
+                        showBarcodeWindow(file);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                // Méthode pour afficher une fenêtre modale avec l'image du code-barres généré
+                // Déclaration de la méthode pour afficher une fenêtre modale avec l'image du code-barres généré
+                private void showBarcodeWindow(File barcodeImageFile) {
+                    try {
+                        // Chargement du fichier FXML
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("BarcodeWindow.fxml"));
+                        Parent root = loader.load();
+
+                        // Obtention du contrôleur de la fenêtre FXML
+                        BarcodeWindowController controller = loader.getController();
+
+                        // Passage de l'image du code-barres au contrôleur de la fenêtre
+                        controller.setBarcodeImage(barcodeImageFile);
+
+                        // Création de la scène et du stage pour afficher la fenêtre modale
+                        Stage stage = new Stage();
+                        stage.initModality(Modality.APPLICATION_MODAL);
+                        stage.setTitle("Code-barres");
+                        stage.setScene(new Scene(root));
+
+                        // Affichage de la fenêtre modale et attente de sa fermeture
+                        stage.showAndWait();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
 
 
+                @FXML
                 void creatProduct(ActionEvent event) {
                     String nom = nomTextField.getText().trim();
-
                     String type = typeTextField.getText().trim();
                     String prix = prixTextField.getText().trim();
+                    String imageUrl = imageTextField.getText().trim(); // Récupérer l'URL de l'image depuis le TextField
 
                     // Vérifier que les champs ne sont pas vides
-                    if (!nom.isEmpty()  && !type.isEmpty() && !prix.isEmpty()) {
-                        String query = "SELECT * FROM produit WHERE nom = ?  ";
+                    if (!nom.isEmpty() && !type.isEmpty() && !prix.isEmpty() && !imageUrl.isEmpty()) {
+                        String query = "SELECT * FROM produit WHERE nom = ?";
                         cnx2 = MyConnection.getInstance();
                         try {
                             pst = cnx2.getCnx().prepareStatement(query);
                             pst.setString(1, nom);
-
-                            //pst.setString(2, type);
-                            //pst.setInt(3, Integer.parseInt(prix));
-
                             ResultSet rs = pst.executeQuery();
                             if (rs.next()) {
-                                showAlert(Alert.AlertType.INFORMATION, "Information",  "Le produit existe déjà dans la base de données.");
+                                showAlert(Alert.AlertType.INFORMATION, "Information", "Le produit existe déjà dans la base de données.");
                             } else {
                                 // Insérer le nouveau produit dans la base de données
-                                String insertQuery = "INSERT INTO produit(nom, type, prix) VALUES (?, ?, ?)";
-                                PreparedStatement insertPst = cnx2.getCnx().prepareStatement(insertQuery);
+                                String insertQuery = "INSERT INTO produit(nom, type, prix, image) VALUES (?, ?, ?, ?)";
+                                PreparedStatement insertPst = cnx2.getCnx().prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
                                 insertPst.setString(1, nom);
-
                                 insertPst.setString(2, type);
                                 insertPst.setInt(3, Integer.parseInt(prix));
+                                insertPst.setString(4, imageUrl); // Insérer l'URL de l'image
+
+                                // Exécuter la requête d'insertion
                                 insertPst.executeUpdate();
-                                showAlert(Alert.AlertType.INFORMATION, "Succès",  "Produit ajouté avec succès.");
+
+                                // Récupérer l'ID du produit nouvellement inséré
+                                ResultSet generatedKeys = insertPst.getGeneratedKeys();
+                                int productId = -1; // Initialise à une valeur par défaut
+                                if (generatedKeys.next()) {
+                                    productId = generatedKeys.getInt(1);
+                                }
+
+                                // Maintenant, insérer une nouvelle entrée dans la table stock en utilisant l'ID du produit
+                                if (productId != -1) {
+                                    String insertStockQuery = "INSERT INTO stock(produit_id, quantite, nom) VALUES (?, ?, ?)";
+                                    PreparedStatement insertStockPst = cnx2.getCnx().prepareStatement(insertStockQuery);
+                                    insertStockPst.setInt(1, productId);
+                                    insertStockPst.setInt(2, 10); // Par exemple, vous pouvez initialiser la quantité à 0
+                                    insertStockPst.setString(3, nom);
+                                    insertStockPst.executeUpdate();
+                                }
+
+                                showAlert(Alert.AlertType.INFORMATION, "Succès", "Produit ajouté avec succès.");
+
                                 afficher();
                             }
-                        }
-                        catch(NumberFormatException e){
-                            showAlert(Alert.AlertType.ERROR,"Erreur","Veuillez saisir un entier");
-                        }
-                        catch (SQLException e) {
-                            showAlert(Alert.AlertType.ERROR, "Erreur",  "Une erreur s'est produite lors de l'ajout du produit : " + e.getMessage());
+                        } catch (NumberFormatException e) {
+                            showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez saisir un entier");
+                        } catch (SQLException e) {
+                            showAlert(Alert.AlertType.ERROR, "Erreur", "Une erreur s'est produite lors de l'ajout du produit : " + e.getMessage());
                         }
                     } else {
                         // Afficher une alerte si un champ est vide
-                        showAlert(Alert.AlertType.WARNING, "Avertissement",  "Veuillez remplir tous les champs.");
+                        showAlert(Alert.AlertType.WARNING, "Avertissement", "Veuillez remplir tous les champs.");
                     }
                     setupPieChart();
                     setupBarChart();
+                    // Insérer le nouveau produit dans la base de données (code existant)
+// Après l'insertion réussie, appelez generateBarcode avec l'ID du nouveau produit
+                    int productId =id; // Récupérez l'ID du produit nouvellement inséré depuis la base de données
+                    generateBarcode(String.valueOf(productId));
+
                 }
+
+
 
                 private void showAlert(Alert.AlertType type, String title, String content) {
                     Alert alert = new Alert(type);
@@ -298,6 +374,26 @@
                     setupBarChart();
 
                 }
+
+                @FXML
+                private Button btnImportImage;
+
+                @FXML
+                void importImage(ActionEvent event) {
+                    FileChooser fileChooser = new FileChooser();
+                    fileChooser.setTitle("Sélectionner une image");
+                    fileChooser.getExtensionFilters().addAll(
+                            new FileChooser.ExtensionFilter("Fichiers d'images", "*.png", "*.jpg", "*.gif")
+                    );
+                    File selectedFile = fileChooser.showOpenDialog(null);
+                    if (selectedFile != null) {
+                        // Mettre à jour le TextField avec l'URL de l'image sélectionnée
+                        imageTextField.setText(selectedFile.toURI().toString());
+                    }
+                }
+
+
+
 
 
 
@@ -454,7 +550,8 @@
                                 String querynom = queryOutput.getString("Nom");
                                 String querytype = queryOutput.getString("Type");
                                 Integer queryprix = queryOutput.getInt("Prix");
-                                productSearchModelObservableList.add(new ProductSearchModel(queryid, querynom, querytype, queryprix));
+                                String queryimage= queryOutput.getString("image");
+                                productSearchModelObservableList.add(new ProductSearchModel(queryid, querynom, querytype, queryprix,queryimage));
                             }
                             // Mettre à jour la TableView avec les résultats de la recherche
                             ProductTableView.setItems(productSearchModelObservableList);
@@ -495,7 +592,8 @@
 
                             String querytype = queryOutput.getString("Type");
                             Integer queryprix = queryOutput.getInt("Prix");
-                            productSearchModelObservableList.add(new ProductSearchModel(queryid, querynom, querytype, queryprix));
+                            String queryimage = queryOutput.getString("image");
+                            productSearchModelObservableList.add(new ProductSearchModel(queryid, querynom, querytype, queryprix,queryimage));
                         }
 
                         productIDTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -503,6 +601,7 @@
 
                         productTypeTableColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
                         productPrixTableColumn.setCellValueFactory(new PropertyValueFactory<>("prix"));
+                        productImageTableColumn.setCellValueFactory(new PropertyValueFactory<>("image"));
                         ProductTableView.setItems(productSearchModelObservableList);
                     } catch (SQLException e) {
                         Logger.getLogger(ProdcutSearchController.class.getName()).log(Level.SEVERE, null, e);
