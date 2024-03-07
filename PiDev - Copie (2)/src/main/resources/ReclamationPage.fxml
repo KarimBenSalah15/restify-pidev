@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="578.0" prefWidth="855.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ReclamationPageControlllers">
+    <children>
+        <VBox prefHeight="578.0" prefWidth="201.0" style="-fx-background-color: #F57C00#FB8C00;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Pane prefHeight="105.0" prefWidth="202.0">
+                </Pane>
+                <Button fx:id="add" mnemonicParsing="false" prefHeight="41.0" prefWidth="206.0" style="-fx-background-color: #EF6C00;" text="Ajouter reponse" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Black" size="14.0" />
+                    </font>
+                </Button>
+                <Button fx:id="update" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="205.0" style="-fx-background-color: #EF6C00;" text="Modifier reponse" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Black" size="14.0" />
+                    </font>
+                </Button>
+                <Button fx:id="del" layoutX="10.0" layoutY="51.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="203.0" style="-fx-background-color: #EF6C00;" text="   Supprimer reponse" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Black" size="14.0" />
+                    </font>
+                </Button>
+                <Button fx:id="show" layoutX="10.0" layoutY="93.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="211.0" style="-fx-background-color: #EF6C00;" text=" Afficher reponse" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Black" size="14.0" />
+                    </font>
+                </Button>
+            </children>
+        </VBox>
+        <StackPane layoutX="202.0" layoutY="201.0">
+            <children>
+                <GridPane fx:id="penDEL" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="377.0" prefWidth="486.0" style="-fx-background-color: #fff;">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="232.66668701171875" minHeight="10.0" prefHeight="25.000035603841155" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="351.66663106282556" minHeight="10.0" prefHeight="351.66663106282556" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <AnchorPane prefHeight="341.0" prefWidth="773.0" GridPane.rowIndex="1">
+                            <children>
+                                <Label fx:id="messageL1" layoutX="13.0" layoutY="176.0" text="Message:">
+                                    <font>
+                                        <Font name="Comic Sans MS" size="14.0" />
+                                    </font>
+                                </Label>
+                                <TextArea fx:id="message1" layoutX="82.0" layoutY="99.0" prefHeight="163.0" prefWidth="395.0" style="-fx-background-color: #ffaa00;" />
+                                <Button fx:id="ADDBtn1" ellipsisString="" layoutX="248.0" layoutY="280.0" mnemonicParsing="false" onAction="#updateR" style="-fx-background-color: #000000;" text="Modifier" textFill="WHITE">
+                                    <font>
+                                        <Font name="Arial Narrow Bold Italic" size="19.0" />
+                                    </font>
+                                </Button>
+                                <Button fx:id="ADDBtn11" ellipsisString="" layoutX="400.0" layoutY="14.0" mnemonicParsing="false" onAction="#gobackR" style="-fx-background-color: #ffaa00;" text="Retour" textFill="WHITE">
+                                    <font>
+                                        <Font name="Arial Narrow Bold Italic" size="19.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </GridPane>
+                <GridPane fx:id="penUPDATE" layoutX="10.0" layoutY="10.0" prefHeight="275.0" prefWidth="691.0" style="-fx-background-color: #fff;">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="232.66668701171875" minHeight="10.0" prefHeight="72.33333333333334" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="306.999989827474" minHeight="10.0" prefHeight="304.33333333333337" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                  <ListView fx:id="reponseid" prefHeight="271.0" prefWidth="691.0" GridPane.rowIndex="1" />
+                  <Pane prefHeight="85.0" prefWidth="691.0">
+                     <children>
+                        <Button fx:id="btnadd1" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#gobackR" style="-fx-background-radius: 20;" stylesheets="@style.css" text="Retour" textFill="WHITE" />
+                     </children>
+                  </Pane>
+                    </children>
+                </GridPane>
+                <GridPane fx:id="penSHOW" layoutX="10.0" layoutY="10.0" prefHeight="377.0" prefWidth="377.0" style="-fx-background-color: #fff;" StackPane.alignment="TOP_LEFT">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="232.66668701171875" minHeight="10.0" prefHeight="33.99997456868489" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="360.0000305175781" minHeight="10.0" prefHeight="343.33335876464844" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <AnchorPane prefHeight="344.0" prefWidth="550.0" GridPane.rowIndex="1">
+                            <children>
+                                <Label layoutX="82.0" layoutY="41.0" text="type">
+                                    <font>
+                                        <Font name="Comic Sans MS" size="16.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="messageL" layoutX="13.0" layoutY="199.0" text="Message:">
+                                    <font>
+                                        <Font name="Comic Sans MS" size="14.0" />
+                                    </font>
+                                </Label>
+                                <TextArea fx:id="message" layoutX="82.0" layoutY="145.0" prefHeight="129.0" prefWidth="395.0" style="-fx-background-color: #ffaa00;" />
+                                <Button fx:id="ADDBtn" ellipsisString="" layoutX="251.0" layoutY="286.0" mnemonicParsing="false" onAction="#saveR" stylesheets="@style.css" text="Ajouter" textFill="WHITE">
+                                    <font>
+                                        <Font name="Arial Narrow Bold Italic" size="19.0" />
+                                    </font>
+                                </Button>
+                                <Button fx:id="ADDBtn2" ellipsisString="" layoutX="513.0" layoutY="26.0" mnemonicParsing="false" onAction="#gobackR" style="-fx-background-color: #ffaa00;" text="Retour" textFill="WHITE">
+                                    <font>
+                                        <Font name="Arial Narrow Bold Italic" size="19.0" />
+                                    </font>
+                                </Button>
+                                <ComboBox fx:id="idRR" layoutX="200.0" layoutY="40.0" prefWidth="150.0" promptText="type" style="-fx-background-color: #ffaa00;" />
+                        <ComboBox fx:id="idRR1" layoutX="200.0" layoutY="89.0" prefWidth="150.0" promptText="choix" style="-fx-background-color: #ffaa00;" />
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </GridPane>
+                <GridPane fx:id="panADD" prefHeight="377.0" prefWidth="691.0" style="-fx-background-color: #fff;">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="259.66667683919275" minHeight="10.0" prefHeight="72.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="360.0" minHeight="10.0" prefHeight="360.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="232.66668701171875" minHeight="10.0" prefHeight="96.99998982747394" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <AnchorPane fx:id="panenew" prefHeight="485.0" prefWidth="537.0" GridPane.rowIndex="2">
+                            <children>
+                                <Button fx:id="delbtn" layoutX="269.0" layoutY="7.0" mnemonicParsing="false" onAction="#deleteR" style="-fx-background-radius: 20;" stylesheets="@style.css" text="Suprimer" textFill="WHITE" />
+                                <Button fx:id="btnadd" layoutX="167.0" layoutY="7.0" mnemonicParsing="false" onAction="#handleClicks" style="-fx-background-radius: 20;" stylesheets="@style.css" text="Ajouter" textFill="WHITE" />
+                                <Button fx:id="btnselect" layoutX="85.0" layoutY="7.0" mnemonicParsing="false" onAction="#selectR" style="-fx-background-radius: 20;" stylesheets="@style.css" text="Modifier" textFill="WHITE" />
+                        <Button fx:id="delbtn1" layoutX="356.0" layoutY="7.0" mnemonicParsing="false" onAction="#reponseR" style="-fx-background-radius: 20;" stylesheets="@style.css" text="Reponse" textFill="WHITE" />
+                        <Button fx:id="backbtn" layoutX="10.0" layoutY="6.0" mnemonicParsing="false"  style="-fx-background-radius: 20;" stylesheets="@style.css" text="Retour" textFill="WHITE" />
+                            </children>
+                        </AnchorPane>
+                  <TreeView fx:id="treeView" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+                    </children>
+                    <StackPane.margin>
+                        <Insets />
+                    </StackPane.margin>
+                </GridPane>
+            </children>
+        </StackPane>
+        <Pane fx:id="pn" layoutX="202.0" layoutY="-1.0" prefHeight="122.0" prefWidth="773.0" style="-fx-background-color: #ffaa00;">
+            <children>
+                <Label fx:id="libS" layoutX="121.0" layoutY="33.0" text="Afficher Reclamation">
+                    <font>
+                        <Font name="Cambria" size="23.0" />
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+        <Label layoutX="337.0" layoutY="177.0" text="Reclamation">
+            <font>
+                <Font name="Consolas" size="18.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>

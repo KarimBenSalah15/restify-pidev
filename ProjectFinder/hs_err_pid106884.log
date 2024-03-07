@@ -1,0 +1,254 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 132120576 bytes for G1 virtual space
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_windows.cpp:3825), pid=106884, tid=74704
+#
+# JRE version:  (17.0.8.1+7) (build )
+# Java VM: OpenJDK 64-Bit Server VM (17.0.8.1+7-b1059.3, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2023.2.2\lib\idea_rt.jar=55422:C:\Program Files\JetBrains\IntelliJ IDEA 2023.2.2\bin -Dfile.encoding=UTF-8 --module-path=C:\Users\jacob\.m2\repository\com\fasterxml\woodstox\woodstox-core\6.2.4\woodstox-core-6.2.4.jar;C:\Users\jacob\.m2\repository\org\openjfx\javafx-base\17.0.6\javafx-base-17.0.6-win.jar;C:\Users\jacob\.m2\repository\org\openjfx\javafx-controls\17.0.6\javafx-controls-17.0.6-win.jar;C:\Users\jacob\.m2\repository\org\openjfx\javafx-fxml\17.0.6\javafx-fxml-17.0.6-win.jar;C:\Users\jacob\IdeaProjects\ProjectFinder\target\classes;C:\Users\jacob\.m2\repository\com\google\zxing\javase\3.4.1\javase-3.4.1.jar;C:\Users\jacob\.m2\repository\org\apache\poi\poi\4.1.2\poi-4.1.2.jar;C:\Users\jacob\.m2\repository\org\apache\poi\poi-ooxml\4.1.2\poi-ooxml-4.1.2.jar;C:\Users\jacob\.m2\repository\org\codehaus\woodstox\stax2-api\4.2.1\stax2-api-4.2.1.jar;C:\Users\jacob\.m2\repository\com\twilio\sdk\twilio\8.24.0\twilio-8.24.0.jar;C:\Users\jacob\.m2\repository\org\openjfx\javafx-graphics\17.0.6\javafx-graphics-17.0.6-win.jar;C:\Users\jacob\.m2\repository\com\google\zxing\core\3.4.1\core-3.4.1.jar -Djdk.module.main=sample.projectfinder sample.projectfinder/sample.projectfinder.Main
+
+Host: 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz, 8 cores, 7G,  Windows 10 , 64 bit Build 19041 (10.0.19041.3636)
+Time: Mon Mar  4 13:06:27 2024 Afr. centrale Ouest elapsed time: 0.017524 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00000240fec070b0):  JavaThread "Unknown thread" [_thread_in_vm, id=74704, stack(0x0000008bb6e00000,0x0000008bb6f00000)]
+
+Stack: [0x0000008bb6e00000,0x0000008bb6f00000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x6852da]  os::platform_print_native_stack+0xca  (os_windows_x86.cpp:235)
+V  [jvm.dll+0x844ad4]  VMError::report+0xc34  (vmError.cpp:741)
+V  [jvm.dll+0x8463ee]  VMError::report_and_die+0x78e  (vmError.cpp:1582)
+V  [jvm.dll+0x846a53]  VMError::report_and_die+0x43  (vmError.cpp:1368)
+V  [jvm.dll+0x24b7cf]  report_vm_out_of_memory+0x8f  (debug.cpp:321)
+V  [jvm.dll+0x682099]  os::pd_commit_memory_or_exit+0xc9  (os_windows.cpp:3833)
+V  [jvm.dll+0x67677a]  os::commit_memory_or_exit+0x2a  (os.cpp:1750)
+V  [jvm.dll+0x30be2b]  G1PageBasedVirtualSpace::commit+0x19b  (g1PageBasedVirtualSpace.cpp:204)
+V  [jvm.dll+0x3132d6]  G1RegionsLargerThanCommitSizeMapper::commit_regions+0x96  (g1RegionToSpaceMapper.cpp:100)
+V  [jvm.dll+0x36302e]  HeapRegionManager::expand_any+0xee  (heapRegionManager.cpp:363)
+V  [jvm.dll+0x36325f]  HeapRegionManager::expand_by+0x7f  (heapRegionManager.cpp:380)
+V  [jvm.dll+0x2e1f48]  G1CollectedHeap::expand+0xb8  (g1CollectedHeap.cpp:1298)
+V  [jvm.dll+0x2e2eb4]  G1CollectedHeap::initialize+0x664  (g1CollectedHeap.cpp:1719)
+V  [jvm.dll+0x815a61]  universe_init+0xb1  (universe.cpp:736)
+V  [jvm.dll+0x370df1]  init_globals+0x31  (init.cpp:124)
+V  [jvm.dll+0x7f4e2c]  Threads::create_vm+0x60c  (thread.cpp:2901)
+V  [jvm.dll+0x3f3f1f]  JNI_CreateJavaVM_inner+0x8f  (jni.cpp:3635)
+V  [jvm.dll+0x3f5b31]  JNI_CreateJavaVM+0x11  (jni.cpp:3727)
+C  [jli.dll+0x528f]  JavaMain+0x113  (java.c:413)
+C  [ucrtbase.dll+0x21bb2]
+C  [KERNEL32.DLL+0x17344]
+C  [ntdll.dll+0x526b1]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00007ff8fcc500d8, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+  0x00000240fec608a0 GCTaskThread "GC Thread#0" [stack: 0x0000008bb6f00000,0x0000008bb7000000] [id=91576]
+  0x00000240fec71130 ConcurrentGCThread "G1 Main Marker" [stack: 0x0000008bb7000000,0x0000008bb7100000] [id=42684]
+  0x00000240fec722e0 ConcurrentGCThread "G1 Conc#0" [stack: 0x0000008bb7100000,0x0000008bb7200000] [id=72356]
+
+[error occurred during error reporting (printing all threads), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ff8fc402ab7]
+
+VM state: not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00000240fec01c00] Heap_lock - owner thread: 0x00000240fec070b0
+
+Heap address: 0x0000000083600000, size: 1994 MB, Compressed Oops mode: 32-bit
+
+CDS archive(s) mapped at: [0x0000000000000000-0x0000000000000000-0x0000000000000000), size 0, SharedBaseAddress: 0x0000000800000000, ArchiveRelocationMode: 1.
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0, Narrow klass range: 0x0
+
+GC Precious Log:
+<Empty>
+
+Heap:
+ garbage-first heap   total 0K, used 0K [0x0000000083600000, 0x0000000100000000)
+  region size 1024K, 0 young (0K), 0 survivors (0K)
+ Metaspace       used 0K, committed 0K, reserved 0K
+  class space    used 0K, committed 0K, reserved 0K
+
+Heap Regions: E=young(eden), S=young(survivor), O=old, HS=humongous(starts), HC=humongous(continues), CS=collection set, F=free, OA=open archive, CA=closed archive, TAMS=top-at-mark-start (previous, next)
+
+Card table byte_map: [0x00000240ff3e0000,0x00000240ff7d0000] _byte_map_base: 0x00000240fefc5000
+
+Marking Bits (Prev, Next): (CMBitMap*) 0x00000240fec60ec0, (CMBitMap*) 0x00000240fec60f00
+ Prev Bits: [0x0000024092710000, 0x0000024094638000)
+ Next Bits: [0x0000024094640000, 0x0000024096568000)
+
+GC Heap History (0 events):
+No events
+
+Dll operation events (1 events):
+Event: 0.013 Loaded shared library C:\Users\jacob\.jdks\jbr-17.0.8.1\bin\java.dll
+
+Deoptimization events (0 events):
+No events
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+VM Operations (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x00007ff63f320000 - 0x00007ff63f32a000 	C:\Users\jacob\.jdks\jbr-17.0.8.1\bin\java.exe
+0x00007ff959530000 - 0x00007ff959728000 	C:\Windows\SYSTEM32\ntdll.dll
+0x00007ff9575b0000 - 0x00007ff95766d000 	C:\Windows\System32\KERNEL32.DLL
+0x00007ff956c00000 - 0x00007ff956ef6000 	C:\Windows\System32\KERNELBASE.dll
+0x00007ff957000000 - 0x00007ff957100000 	C:\Windows\System32\ucrtbase.dll
+0x00007ff949fd0000 - 0x00007ff949fe7000 	C:\Users\jacob\.jdks\jbr-17.0.8.1\bin\jli.dll
+0x00007ff949f70000 - 0x00007ff949f8b000 	C:\Users\jacob\.jdks\jbr-17.0.8.1\bin\VCRUNTIME140.dll
+0x00007ff9578b0000 - 0x00007ff957a4e000 	C:\Windows\System32\USER32.dll
+0x00007ff9572d0000 - 0x00007ff9572f2000 	C:\Windows\System32\win32u.dll
+0x00007ff957b70000 - 0x00007ff957b9c000 	C:\Windows\System32\GDI32.dll
+0x00007ff9346d0000 - 0x00007ff93496a000 	C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.3636_none_60b6a03d71f818d5\COMCTL32.dll
+0x00007ff9573a0000 - 0x00007ff9574ba000 	C:\Windows\System32\gdi32full.dll
+0x00007ff957300000 - 0x00007ff95739d000 	C:\Windows\System32\msvcp_win.dll
+0x00007ff957a50000 - 0x00007ff957aee000 	C:\Windows\System32\msvcrt.dll
+0x00007ff957580000 - 0x00007ff9575b0000 	C:\Windows\System32\IMM32.DLL
+0x00007ff94eb50000 - 0x00007ff94eb5c000 	C:\Users\jacob\.jdks\jbr-17.0.8.1\bin\vcruntime140_1.dll
+0x00007ff9223e0000 - 0x00007ff92246d000 	C:\Users\jacob\.jdks\jbr-17.0.8.1\bin\msvcp140.dll
+0x00007ff8fc110000 - 0x00007ff8fcd93000 	C:\Users\jacob\.jdks\jbr-17.0.8.1\bin\server\jvm.dll
+0x00007ff957670000 - 0x00007ff957723000 	C:\Windows\System32\ADVAPI32.dll
+0x00007ff958ac0000 - 0x00007ff958b5f000 	C:\Windows\System32\sechost.dll
+0x00007ff957da0000 - 0x00007ff957ec6000 	C:\Windows\System32\RPCRT4.dll
+0x00007ff9574c0000 - 0x00007ff9574e7000 	C:\Windows\System32\bcrypt.dll
+0x00007ff94daa0000 - 0x00007ff94daa9000 	C:\Windows\SYSTEM32\WSOCK32.dll
+0x00007ff9561a0000 - 0x00007ff9561eb000 	C:\Windows\SYSTEM32\POWRPROF.dll
+0x00007ff957d30000 - 0x00007ff957d9b000 	C:\Windows\System32\WS2_32.dll
+0x00007ff93fd00000 - 0x00007ff93fd27000 	C:\Windows\SYSTEM32\WINMM.dll
+0x00007ff948ff0000 - 0x00007ff948ffa000 	C:\Windows\SYSTEM32\VERSION.dll
+0x00007ff956010000 - 0x00007ff956022000 	C:\Windows\SYSTEM32\UMPDC.dll
+0x00007ff955440000 - 0x00007ff955452000 	C:\Windows\SYSTEM32\kernel.appcore.dll
+0x00007ff94da90000 - 0x00007ff94da9a000 	C:\Users\jacob\.jdks\jbr-17.0.8.1\bin\jimage.dll
+0x00007ff955210000 - 0x00007ff9553f4000 	C:\Windows\SYSTEM32\DBGHELP.DLL
+0x00007ff94e110000 - 0x00007ff94e144000 	C:\Windows\SYSTEM32\dbgcore.DLL
+0x00007ff9574f0000 - 0x00007ff957572000 	C:\Windows\System32\bcryptPrimitives.dll
+0x00007ff922320000 - 0x00007ff92232e000 	C:\Users\jacob\.jdks\jbr-17.0.8.1\bin\instrument.dll
+0x00007ff949a30000 - 0x00007ff949a55000 	C:\Users\jacob\.jdks\jbr-17.0.8.1\bin\java.dll
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Users\jacob\.jdks\jbr-17.0.8.1\bin;C:\Windows\SYSTEM32;C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.3636_none_60b6a03d71f818d5;C:\Users\jacob\.jdks\jbr-17.0.8.1\bin\server
+
+VM Arguments:
+jvm_args: -javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2023.2.2\lib\idea_rt.jar=55422:C:\Program Files\JetBrains\IntelliJ IDEA 2023.2.2\bin -Dfile.encoding=UTF-8 --module-path=C:\Users\jacob\.m2\repository\com\fasterxml\woodstox\woodstox-core\6.2.4\woodstox-core-6.2.4.jar;C:\Users\jacob\.m2\repository\org\openjfx\javafx-base\17.0.6\javafx-base-17.0.6-win.jar;C:\Users\jacob\.m2\repository\org\openjfx\javafx-controls\17.0.6\javafx-controls-17.0.6-win.jar;C:\Users\jacob\.m2\repository\org\openjfx\javafx-fxml\17.0.6\javafx-fxml-17.0.6-win.jar;C:\Users\jacob\IdeaProjects\ProjectFinder\target\classes;C:\Users\jacob\.m2\repository\com\google\zxing\javase\3.4.1\javase-3.4.1.jar;C:\Users\jacob\.m2\repository\org\apache\poi\poi\4.1.2\poi-4.1.2.jar;C:\Users\jacob\.m2\repository\org\apache\poi\poi-ooxml\4.1.2\poi-ooxml-4.1.2.jar;C:\Users\jacob\.m2\repository\org\codehaus\woodstox\stax2-api\4.2.1\stax2-api-4.2.1.jar;C:\Users\jacob\.m2\repository\com\twilio\sdk\twilio\8.24.0\twilio-8.24.0.jar;C:\Users\jacob\.m2\repository\org\openjfx\javafx-graphics\17.0.6\javafx-graphics-17.0.6-win.jar;C:\Users\jacob\.m2\repository\com\google\zxing\core\3.4.1\core-3.4.1.jar -Djdk.module.main=sample.projectfinder 
+java_command: sample.projectfinder/sample.projectfinder.Main
+java_class_path (initial): C:\Users\jacob\.m2\repository\org\openjfx\javafx-controls\17.0.6\javafx-controls-17.0.6.jar;C:\Users\jacob\.m2\repository\org\openjfx\javafx-graphics\17.0.6\javafx-graphics-17.0.6.jar;C:\Users\jacob\.m2\repository\org\openjfx\javafx-base\17.0.6\javafx-base-17.0.6.jar;C:\Users\jacob\.m2\repository\org\openjfx\javafx-fxml\17.0.6\javafx-fxml-17.0.6.jar;C:\Users\jacob\.m2\repository\com\mysql\mysql-connector-j\8.0.33\mysql-connector-j-8.0.33.jar;C:\Users\jacob\.m2\repository\com\google\protobuf\protobuf-java\3.21.9\protobuf-java-3.21.9.jar;C:\Users\jacob\.m2\repository\commons-codec\commons-codec\1.15\commons-codec-1.15.jar;C:\Users\jacob\.m2\repository\commons-io\commons-io\2.7\commons-io-2.7.jar;C:\Users\jacob\.m2\repository\io\jsonwebtoken\jjwt-api\0.11.2\jjwt-api-0.11.2.jar;C:\Users\jacob\.m2\repository\io\jsonwebtoken\jjwt-jackson\0.11.2\jjwt-jackson-0.11.2.jar;C:\Users\jacob\.m2\repository\io\jsonwebtoken\jjwt-impl\0.11.2\jjwt-impl-0.11.2.jar;C:\Users\jacob\.m2\repository\org\apache\httpcomponents\httpclient\4.5.13\httpclient-4.5.13.jar;C:\Users\jacob\.m2\repository\commons-logging\commons-logging\1.2\commons-logging-1.2.jar;C:\Users\jacob\.m2\repository\org\apache\httpcomponents\httpcore\4.4.13\httpcore-4.4.13.jar;C:\Users\jacob\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.12.5\jackson-core-2.12.5.jar;C:\Users\jacob\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.12.5\jackson-annotations-2.12.5.jar;C:\Users\jacob\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.12.5\jackson-databind-2.12.5.jar;C:\Users\jacob\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.12.5\jackson-datatype-jsr310-2.12.5.jar;C:\Users\jacob\.m2\repository\com\fasterxml\jackson\dataformat\jackson-dataformat-xml\2.12.5\jackson-dataformat-xml-2.12.5.jar;C:\Users\jacob\.m2\repository\com\fasterxml\jackson\module\jackson-module-jaxb-annotations\2.12.5\jackson-module-jaxb-annotations-2.12.5.jar;C:\Users\jacob
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 4                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 2                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 8                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 132120576                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 2090860544                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5839372                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122909434                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122909434                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 2090860544                             {manageable} {ergonomic}
+     bool UseCompressedClassPointers               = true                           {product lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+PATH=C:\Users\jacob\.jdks\jbr-17.0.8.1\bin;C:\oraclexe\app\oracle\product\11.2.0\server\bin;C:\Program Files (x86)\VMware\VMware Player\bin\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\nodejs\;C:\instantclient12_2;C:\oraclexe\app\oracle\admin\XE;C:\oraclexe;C:\Program Files\Git\cmd;C:\xampp\php;C:\ProgramData\ComposerSetup\bin;C:\Users\jacob\scoop\shims;C:\Users\jacob\AppData\Local\Microsoft\WindowsApps;C:\Users\jacob\AppData\Roaming\npm;C:\Users\jacob\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\jacob\AppData\Roaming\Composer\vendor\bin;C:\Users\jacob\AppData\Local\GitHubDesktop\bin
+USERNAME=jacob
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 140 Stepping 1, GenuineIntel
+TMP=C:\Users\jacob\AppData\Local\Temp
+TEMP=C:\Users\jacob\AppData\Local\Temp
+
+
+JNI global refs:
+JNI global refs: 0, weak refs: 0
+
+JNI global refs memory usage: 0, weak refs: 0
+
+OOME stack traces (most recent first):
+Classloader memory used:
+
+
+---------------  S Y S T E M  ---------------
+
+OS:
+ Windows 10 , 64 bit Build 19041 (10.0.19041.3636)
+OS uptime: 16 days 1:58 hours
+
+CPU: total 8 (initial active 8) (4 cores per cpu, 2 threads per core) family 6 model 140 stepping 1 microcode 0x86, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, erms, clmul, bmi1, bmi2, adx, avx512f, avx512dq, avx512cd, avx512bw, avx512vl, sha, fma, vzeroupper, avx512_vpopcntdq, avx512_vpclmulqdq, avx512_vaes, avx512_vnni, clflush, clflushopt, clwb, avx512_vbmi2, avx512_vbmi
+Processor Information for processor 0
+  Max Mhz: 2803, Current Mhz: 2803, Mhz Limit: 2803
+Processor Information for processor 1
+  Max Mhz: 2803, Current Mhz: 1001, Mhz Limit: 2803
+Processor Information for processor 2
+  Max Mhz: 2803, Current Mhz: 2803, Mhz Limit: 2803
+Processor Information for processor 3
+  Max Mhz: 2803, Current Mhz: 1001, Mhz Limit: 2803
+Processor Information for processor 4
+  Max Mhz: 2803, Current Mhz: 1001, Mhz Limit: 2803
+Processor Information for processor 5
+  Max Mhz: 2803, Current Mhz: 1001, Mhz Limit: 2803
+Processor Information for processor 6
+  Max Mhz: 2803, Current Mhz: 1001, Mhz Limit: 2803
+Processor Information for processor 7
+  Max Mhz: 2803, Current Mhz: 2803, Mhz Limit: 2803
+
+Memory: 4k page, system-wide physical 7975M (238M free)
+TotalPageFile size 32551M (AvailPageFile size 66M)
+current process WorkingSet (physical memory assigned to process): 37M, peak: 37M
+current process commit charge ("private bytes"): 86M, peak: 186M
+
+vm_info: OpenJDK 64-Bit Server VM (17.0.8.1+7-b1059.3) for windows-amd64 JRE (17.0.8.1+7-b1059.3), built on 2023-09-11 by "builduser" with MS VC++ 16.10 / 16.11 (VS2019)
+
+END.

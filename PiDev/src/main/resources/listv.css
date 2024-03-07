@@ -1,0 +1,24 @@
+#listid {
+    -fx-background-color: #f8f8f8; /* Background color for the entire ListView */
+}
+
+.list-cell {
+    -fx-padding: 10px; /* Padding around each cell */
+    -fx-background-color: #ffffff; /* Background color for each cell */
+    -fx-border-color: #e0e0e0; /* Border color for each cell */
+    -fx-border-width: 0 0 1 0; /* Bottom border for each cell */
+}
+
+.list-cell:selected {
+    -fx-background-color: #e5751b; /* Background color when selected */
+    -fx-text-fill: #ffffff; /* Text color when selected */
+}
+
+.list-cell:hover {
+    -fx-background-color: #ecf0f1; /* Background color on hover */
+}
+
+.list-cell .label {
+    -fx-font-size: 14px; /* Font size */
+    -fx-text-fill: #333333; /* Text color */
+}

@@ -1,0 +1,24 @@
+.table-view {
+    -fx-background-color: transparent;
+}
+.table-view .column-header-background .filler {
+    -fx-background-color: transparent;
+}
+.table-view .corner {
+    -fx-background-color: transparent;
+}
+.table-view .column-header-background{
+    -fx-background-color: linear-gradient(to bottom, #ff9800, #ef6c00);
+    -fx-background-radius: 10px 15px 0px 0px;
+    -fx-background-insets: 0 0px 0 0;
+    -fx-padding: 0 0 5px 0;
+
+}
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+.table-view .table-cell{
+    -fx-border-color: transparent;
+    -fx-padding: 2 0 2 10px;
+}

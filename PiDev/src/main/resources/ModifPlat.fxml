@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #E0E0E0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModifPlat">
+   <children>
+      <Text fill="#c62827" layoutX="188.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modifier Plat" wrappingWidth="223.994140625">
+         <font>
+            <Font name="Segoe Print Bold" size="34.0" />
+         </font>
+      </Text>
+      <Text fill="#f67c01" layoutX="56.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom plat">
+         <font>
+            <Font name="Eras Bold ITC" size="18.0" />
+         </font>
+      </Text>
+      <Text fill="#f67c01" layoutX="79.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prix">
+         <font>
+            <Font name="Eras Bold ITC" size="18.0" />
+         </font>
+      </Text>
+      <Text fill="#f67c01" layoutX="47.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ingredients">
+         <font>
+            <Font name="Eras Bold ITC" size="18.0" />
+         </font>
+      </Text>
+      <Text fill="#f67c01" layoutX="61.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Calories" wrappingWidth="94.97210693359375">
+         <font>
+            <Font name="Eras Bold ITC" size="18.0" />
+         </font>
+      </Text>
+      <TextField fx:id="tfnom" layoutX="171.0" layoutY="128.0" style="-fx-background-color: #F44236;" />
+      <TextField fx:id="tfprix" layoutX="171.0" layoutY="166.0" prefHeight="26.0" prefWidth="84.0" style="-fx-background-color: #F44236;" />
+      <TextField fx:id="tfingr" layoutX="171.0" layoutY="204.0" prefHeight="26.0" prefWidth="210.0" style="-fx-background-color: #F44236;" />
+      <TextField fx:id="tfcal" layoutX="171.0" layoutY="245.0" prefHeight="26.0" prefWidth="84.0" style="-fx-background-color: #F44236;" />
+      <Text layoutX="260.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DT">
+         <font>
+            <Font name="Eras Bold ITC" size="18.0" />
+         </font>
+      </Text>
+      <Button fx:id="btn" layoutX="216.0" layoutY="320.0" mnemonicParsing="false" onAction="#modifierButtonClicked" prefHeight="30.0" prefWidth="77.0" style="-fx-background-color: #C62827;" text="Valider">
+         <font>
+            <Font name="Corbel Light" size="15.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="412.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/pasta.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
